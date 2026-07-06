@@ -1,0 +1,8 @@
+material,emission_factor_kg_co2_per_kg,unit,source,notes
+cement,0.85,kgCO2/kg,placeholder_literature_value,Average Portland cement
+blast_furnace_slag,0.04,kgCO2/kg,placeholder_literature_value,Byproduct allocation
+fly_ash,0.01,kgCO2/kg,placeholder_literature_value,Byproduct allocation
+water,0.00,kgCO2/kg,placeholder_literature_value,Negligible embedded carbon
+coarse_aggregate,0.005,kgCO2/kg,placeholder_literature_value,Processing and transport
+fine_aggregate,0.005,kgCO2/kg,placeholder_literature_value,Processing and transport
+superplasticizer,1.20,kgCO2/kg,placeholder_literature_value,Chemical synthesis

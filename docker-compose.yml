@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: astramix-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - ASTRAMIX_DEBUG=false
+      - ASTRAMIX_CORS_ORIGINS=http://localhost:3000,http://127.0.0.1:3000
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: astramix-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_BASE_URL=http://localhost:8000/api/v1
+    restart: unless-stopped
+    depends_on:
+      - backend

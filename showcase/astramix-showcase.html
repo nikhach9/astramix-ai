@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AstraMix AI | Sustainable Concrete Mix Design with Machine Learning</title>
+  <meta name="description" content="AstraMix AI is a research-style engineering software project created by Nikolay Khachatryan. It predicts concrete compressive strength, estimates CO₂ and cost, and demonstrates concrete mix optimization using machine learning and constrained optimization.">
+  <meta name="keywords" content="AstraMix AI, concrete mix design, sustainable concrete, machine learning, compressive strength prediction, civil engineering AI, concrete optimization">
+  <meta name="author" content="Nikolay Khachatryan">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="AstraMix AI | Sustainable Concrete Mix Design with Machine Learning">
+  <meta property="og:description" content="AstraMix AI is a research-style engineering software project created by Nikolay Khachatryan. It predicts concrete compressive strength, estimates CO₂ and cost, and demonstrates concrete mix optimization using machine learning and constrained optimization.">
+  <meta property="og:url" content="https://astramix-ai.com/projects/astramix">
+  <meta property="og:image" content="">
+
+  <style>
+    /* Global Variables and Aesthetics */
+    :root {
+      --bg-paper: #F4F5F3;
+      --bg-paper-raised: #FFFFFF;
+      --color-ink: #10161D;
+      --color-ink-muted: #4B5563;
+      --color-ink-faint: #8A9099;
+      --color-line: #DADCD8;
+      --color-blueprint: #3E6690;
+      --color-blueprint-dark: #1D3557;
+      --color-rust: #B45536;
+      --color-signal-success: #2F6F4E;
+      --color-signal-warning: #9A6B12;
+      --color-signal-warning-bg: #FEF9C3;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-paper);
+      color: var(--color-ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1024px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Hero Section */
+    .hero-header {
+      border-bottom: 1px solid var(--color-line);
+      background-color: var(--bg-paper-raised);
+      padding: 4rem 0;
+    }
+
+    .badge {
+      display: inline-block;
+      border-radius: 9999px;
+      background-color: #E4ECF5;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.75rem;
+      font-family: monospace;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--color-blueprint-dark);
+      margin-bottom: 1rem;
+    }
+
+    .hero-title {
+      font-family: monospace;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--color-blueprint);
+    }
+
+    .hero-author {
+      font-family: monospace;
+      font-size: 0.75rem;
+      color: var(--color-ink-faint);
+      margin-top: 0.25rem;
+    }
+
+    .hero-subtitle {
+      margin-top: 1rem;
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--color-ink-muted);
+      max-width: 48rem;
+    }
+
+    .hero-description {
+      margin-top: 1.5rem;
+      font-size: 0.95rem;
+      color: var(--color-ink-muted);
+      max-width: 48rem;
+    }
+
+    /* Buttons */
+    .button-group {
+      margin-top: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0.25rem;
+      padding: 0.625rem 1.25rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background-color 0.2s, border-color 0.2s;
+    }
+
+    .btn-primary {
+      background-color: var(--color-blueprint);
+      color: #FFFFFF;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--color-blueprint-dark);
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--color-line);
+      background-color: var(--bg-paper-raised);
+      color: var(--color-ink);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--bg-paper);
+    }
+
+    .btn-disabled {
+      background-color: var(--color-line);
+      color: var(--color-ink-faint);
+      cursor: not-allowed;
+      border: 1px solid var(--color-line);
+    }
+
+    /* Project Grid Highlights */
+    .highlights-section {
+      padding: 4rem 0;
+    }
+
+    .section-title {
+      font-family: monospace;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-ink-faint);
+      margin-bottom: 2rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 640px) {
+      .grid-3 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .highlight-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-radius: 0.25rem;
+      border: 1px solid var(--color-line);
+      background-color: var(--bg-paper-raised);
+      padding: 1.5rem;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      transition: shadow 0.2s;
+    }
+
+    .highlight-card:hover {
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .card-category {
+      font-family: monospace;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .card-category.ml { color: var(--color-blueprint); }
+    .card-category.env { color: var(--color-rust); }
+    .card-category.econ { color: var(--color-signal-success); }
+    .card-category.explain { color: var(--color-signal-warning); }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--color-ink);
+    }
+
+    .card-desc {
+      margin-top: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--color-ink-muted);
+      line-height: 1.5;
+    }
+
+    /* Core Sections */
+    .core-section {
+      border-top: 1px solid var(--color-line);
+      border-bottom: 1px solid var(--color-line);
+      background-color: var(--bg-paper-raised);
+      padding: 4rem 0;
+    }
+
+    .split-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    @media (min-width: 768px) {
+      .split-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .split-text {
+      font-size: 0.95rem;
+      color: var(--color-ink-muted);
+      line-height: 1.6;
+    }
+
+    .split-text p {
+      margin-bottom: 1rem;
+    }
+
+    .feature-list {
+      list-style: none;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 0.75rem;
+      font-size: 0.875rem;
+      color: var(--color-ink-muted);
+    }
+
+    .icon-check {
+      width: 1.25rem;
+      height: 1.25rem;
+      color: var(--color-blueprint);
+      margin-right: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    /* Model Performance Table */
+    .perf-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      align-items: center;
+      padding: 4rem 0;
+    }
+
+    @media (min-width: 768px) {
+      .perf-grid {
+        grid-template-columns: 1fr 2fr;
+      }
+    }
+
+    .perf-desc h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-blueprint);
+      margin-bottom: 1rem;
+    }
+
+    .perf-desc p {
+      font-size: 0.875rem;
+      color: var(--color-ink-muted);
+      line-height: 1.6;
+    }
+
+    .disclaimer-box {
+      margin-top: 1rem;
+      border-radius: 0.25rem;
+      border: 1px solid rgba(154, 107, 18, 0.3);
+      background-color: var(--color-signal-warning-bg);
+      padding: 0.75rem 1rem;
+      font-size: 0.75rem;
+      color: var(--color-signal-warning);
+      font-style: italic;
+    }
+
+    .table-container {
+      overflow-x: auto;
+      border-radius: 0.25rem;
+      border: 1px solid var(--color-line);
+      background-color: var(--bg-paper-raised);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.875rem;
+    }
+
+    th {
+      background-color: var(--bg-paper);
+      font-family: monospace;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-ink-faint);
+      padding: 0.75rem 1.5rem;
+      border-bottom: 1px solid var(--color-line);
+    }
+
+    td {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid var(--color-line);
+      color: var(--color-ink-muted);
+      font-family: monospace;
+    }
+
+    .row-highlight {
+      background-color: #F0F7FF;
+      font-weight: bold;
+      color: var(--color-blueprint-dark);
+    }
+
+    /* Screenshots Section */
+    .screenshots-section {
+      border-top: 1px solid var(--color-line);
+      background-color: var(--bg-paper-raised);
+      padding: 4rem 0;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 640px) {
+      .grid-2 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .screenshot-card {
+      border-radius: 0.25rem;
+      border: 1px solid var(--color-line);
+      background-color: var(--bg-paper);
+      padding: 1rem;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 260px;
+    }
+
+    .screenshot-placeholder {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      background-color: rgba(218, 220, 216, 0.3);
+      border-radius: 0.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px dashed var(--color-line);
+      overflow: hidden;
+    }
+
+    .screenshot-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 10;
+    }
+
+    /* Mockups Style Fallbacks */
+    .mockup-container {
+      width: 100%;
+      height: 100%;
+      background-color: var(--bg-paper-raised);
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: left;
+      font-size: 0.75rem;
+      z-index: 1;
+    }
+
+    .mockup-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--color-line);
+      padding-bottom: 0.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .mockup-title {
+      font-family: monospace;
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--color-blueprint);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .mockup-subtitle {
+      font-size: 0.625rem;
+      color: var(--color-ink-faint);
+    }
+
+    .mockup-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.375rem;
+    }
+
+    .mockup-label {
+      color: var(--color-ink-muted);
+    }
+
+    .mockup-bar-container {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .mockup-bar {
+      width: 6rem;
+      height: 0.25rem;
+      background-color: var(--color-line);
+      border-radius: 9999px;
+      position: relative;
+    }
+
+    .mockup-bar-fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      background-color: var(--color-blueprint);
+      border-radius: 9999px;
+    }
+
+    .mockup-value {
+      font-family: monospace;
+      background-color: var(--bg-paper);
+      padding: 0.125rem 0.375rem;
+      border-radius: 0.25rem;
+      border: 1px solid var(--color-line);
+      color: var(--color-ink);
+    }
+
+    .mockup-btn {
+      margin-top: 0.5rem;
+      background-color: var(--color-blueprint);
+      color: #FFFFFF;
+      text-align: center;
+      padding: 0.4rem 0;
+      border-radius: 0.25rem;
+      font-family: monospace;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .mockup-badge {
+      font-family: monospace;
+      font-size: 0.625rem;
+      font-weight: 700;
+      padding: 0.125rem 0.375rem;
+      border-radius: 0.25rem;
+      text-transform: uppercase;
+    }
+
+    .badge-success {
+      background-color: rgba(47, 111, 78, 0.1);
+      border: 1px solid rgba(47, 111, 78, 0.3);
+      color: var(--color-signal-success);
+    }
+
+    .badge-info {
+      background-color: rgba(62, 102, 144, 0.1);
+      border: 1px solid rgba(62, 102, 144, 0.3);
+      color: var(--color-blueprint);
+    }
+
+    .screenshot-title {
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--color-ink);
+    }
+
+    .screenshot-desc {
+      margin-top: 0.25rem;
+      font-size: 0.75rem;
+      color: var(--color-ink-muted);
+      line-height: 1.5;
+    }
+
+    /* Tech Stack Section */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      padding: 4rem 0;
+    }
+
+    @media (min-width: 640px) {
+      .stack-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .stack-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .stack-card {
+      border-radius: 0.25rem;
+      border: 1px solid var(--color-line);
+      background-color: var(--bg-paper-raised);
+      padding: 1.25rem;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    .stack-title {
+      font-family: monospace;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-blueprint);
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .stack-list {
+      list-style: none;
+      font-size: 0.75rem;
+      color: var(--color-ink-muted);
+    }
+
+    .stack-list li {
+      margin-bottom: 0.375rem;
+    }
+
+    /* Research Value Section */
+    .research-section {
+      border-top: 1px solid var(--color-line);
+      border-bottom: 1px solid var(--color-line);
+      background-color: var(--bg-paper-raised);
+      padding: 4rem 0;
+    }
+
+    .research-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .research-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .research-card {
+      border-left: 2px solid #93C5FD;
+      padding-left: 1rem;
+      font-size: 0.75rem;
+      color: var(--color-ink-muted);
+    }
+
+    .research-card h4 {
+      font-weight: 700;
+      color: var(--color-ink);
+      margin-bottom: 0.25rem;
+    }
+
+    /* Limitations & Future Work */
+    .limits-section {
+      padding: 4rem 0;
+    }
+
+    .limits-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    @media (min-width: 768px) {
+      .limits-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .column-title-badge {
+      display: inline-flex;
+      align-items: center;
+      font-family: monospace;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    .column-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--color-ink);
+      margin-bottom: 1rem;
+    }
+
+    .limits-list {
+      list-style-type: square;
+      padding-left: 1.25rem;
+      font-size: 0.75rem;
+      color: var(--color-ink-muted);
+    }
+
+    .limits-list li {
+      margin-bottom: 0.875rem;
+    }
+
+    /* Status Section */
+    .status-section {
+      border-top: 1px solid var(--color-line);
+      background-color: rgba(62, 102, 144, 0.05);
+      padding: 3rem 0;
+    }
+
+    .status-panel {
+      border-radius: 0.25rem;
+      border: 1px solid var(--color-line);
+      background-color: var(--bg-paper-raised);
+      padding: 1.5rem;
+    }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      font-size: 0.75rem;
+      font-family: monospace;
+    }
+
+    @media (min-width: 640px) {
+      .status-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .status-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .dot {
+      height: 0.5rem;
+      width: 0.5rem;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .dot-success { background-color: var(--color-signal-success); }
+    .dot-warning { background-color: var(--color-signal-warning); }
+
+    /* Footer / CTA Section */
+    footer {
+      border-top: 1px solid var(--color-line);
+      background-color: var(--bg-paper-raised);
+      padding: 4rem 0;
+      text-align: center;
+    }
+
+    .footer-title {
+      font-family: monospace;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-blueprint);
+    }
+
+    .footer-desc {
+      margin-top: 0.75rem;
+      font-size: 0.875rem;
+      color: var(--color-ink-muted);
+      max-width: 36rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .copyright {
+      margin-top: 3rem;
+      font-size: 0.75rem;
+      color: var(--color-ink-faint);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero Section -->
+  <header class="hero-header">
+    <div class="container">
+      <div class="badge">
+        Research & Engineering Portfolio Project
+      </div>
+      <h1 class="hero-title">
+        AstraMix AI
+      </h1>
+      <p class="hero-author">
+        Founder & Developer: Nikolay Khachatryan
+      </p>
+      <p class="hero-subtitle">
+        AI-assisted sustainable concrete mix design and optimization platform.
+      </p>
+      <p class="hero-description">
+        AstraMix AI is a completed research-style engineering software project that predicts concrete compressive strength, 
+        estimates CO₂ and cost, and optimizes concrete mix designs using machine learning and constrained optimization.
+      </p>
+      <div class="button-group">
+        <span class="btn btn-disabled">GitHub Repository — Coming Soon</span>
+        <span class="btn btn-disabled">Demo Video — Coming Soon</span>
+        <a href="assets/PROJECT_REPORT_v0_1.md" class="btn btn-secondary">
+          Technical Report
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Project Highlights -->
+  <section class="container highlights-section">
+    <h2 class="section-title">Project Highlights</h2>
+    <div class="grid-3">
+      <!-- Card 1 -->
+      <div class="highlight-card">
+        <div>
+          <div class="card-meta">
+            <span class="card-category ml">ML Inference</span>
+          </div>
+          <h3 class="card-title">Strength Prediction</h3>
+          <p class="card-desc">
+            Uses a trained XGBoost regressor to map 8 canonical material/age inputs directly to concrete compressive strength predictions in MPa.
+          </p>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="highlight-card">
+        <div>
+          <div class="card-meta">
+            <span class="card-category env">Sustainability</span>
+          </div>
+          <h3 class="card-title">CO₂ Estimation</h3>
+          <p class="card-desc">
+            Computes lifecycle greenhouse gas emissions (kg/m³) by multiplying material amounts by physical emission factor coefficients.
+          </p>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="highlight-card">
+        <div>
+          <div class="card-meta">
+            <span class="card-category econ">Economics</span>
+          </div>
+          <h3 class="card-title">Cost Estimation</h3>
+          <p class="card-desc">
+            Provides dynamic pricing estimates ($/m³) based on the volume of Portland cement, aggregate, slag, and superplasticizer used.
+          </p>
+        </div>
+      </div>
+      <!-- Card 4 -->
+      <div class="highlight-card">
+        <div>
+          <div class="card-meta">
+            <span class="card-category ml">Solver Math</span>
+          </div>
+          <h3 class="card-title">Mix Optimization</h3>
+          <p class="card-desc">
+            Executes a Sequential Least Squares Programming (SLSQP) solver to search for optimal mix ratios satisfying hard water/cement ratio and target strength constraints.
+          </p>
+        </div>
+      </div>
+      <!-- Card 5 -->
+      <div class="highlight-card">
+        <div>
+          <div class="card-meta">
+            <span class="card-category explain">EXPLAINABILITY</span>
+          </div>
+          <h3 class="card-title">Scientific Trust Layer</h3>
+          <p class="card-desc">
+            Appends validation error margins (RMSE/MAE) and flags out-of-envelope inputs (extrapolation warnings) to guard against machine learning limits.
+          </p>
+        </div>
+      </div>
+      <!-- Card 6 -->
+      <div class="highlight-card">
+        <div>
+          <div class="card-meta">
+            <span class="card-category">Production</span>
+          </div>
+          <h3 class="card-title">Demo/Research Ready</h3>
+          <p class="card-desc">
+            Packaged with local Docker compose environments, GitHub Actions CI workflows, and a full model validation report suite.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why I Built It & What It Does -->
+  <section class="core-section">
+    <div class="container split-grid">
+      <div>
+        <h2 class="section-title">Why I Built It</h2>
+        <div class="split-text">
+          <p>
+            Concrete is one of the most widely used construction materials in the world, but designing sustainable mixes requires balancing strength, carbon impact, cost, and material constraints. AstraMix AI explores how machine learning and optimization can support smarter concrete mix design decisions.
+          </p>
+          <p>
+            Traditional ACI design formulas are conservative and slow. This project serves as a showcase of how civil engineering material science and modern full-stack development can collaborate to make sustainable recipe design fast, transparent, and accurate.
+          </p>
+        </div>
+      </div>
+      <div>
+        <h2 class="section-title">What AstraMix Does</h2>
+        <ul class="feature-list">
+          <li class="feature-item">
+            <svg class="icon-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>Predicts concrete compressive strength (MPa) at varying ages.</span>
+          </li>
+          <li class="feature-item">
+            <svg class="icon-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>Calculates water-to-cement (W/C) and water-to-binder (W/B) ratios.</span>
+          </li>
+          <li class="feature-item">
+            <svg class="icon-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>Estimates lifecycle CO₂ carbon impact (kg/m³) for concrete mixes.</span>
+          </li>
+          <li class="feature-item">
+            <svg class="icon-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>Estimates raw material cost ($/m³) using standard factor databases.</span>
+          </li>
+          <li class="feature-item">
+            <svg class="icon-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>Optimizes concrete formulations under target strength boundaries.</span>
+          </li>
+          <li class="feature-item">
+            <svg class="icon-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>Flags warnings when mix ratios lie outside the model's training envelope.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Model Performance -->
+  <section class="container perf-grid">
+    <div class="perf-desc">
+      <h2 class="section-title">Model Performance</h2>
+      <h3>XGBoost Regressor</h3>
+      <p>
+        We trained and validated multiple algorithms on the UCI Concrete Strength dataset (1,030 instances). XGBoost was selected for its superior capacity to model non-linear binder hydration dynamics.
+      </p>
+      <div class="disclaimer-box">
+        <strong>Disclaimer:</strong> Metrics are derived from held-out validation tests and do not constitute certified construction safety guarantees.
+      </div>
+    </div>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Model Candidate</th>
+            <th>RMSE</th>
+            <th>MAE</th>
+            <th>R² Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-family: sans-serif; font-weight: 500; color: var(--color-ink);">Linear Regression</td>
+            <td>9.80 MPa</td>
+            <td>7.75 MPa</td>
+            <td>0.628</td>
+          </tr>
+          <tr>
+            <td style="font-family: sans-serif; font-weight: 500; color: var(--color-ink);">Gradient Boosting</td>
+            <td>5.50 MPa</td>
+            <td>4.14 MPa</td>
+            <td>0.883</td>
+          </tr>
+          <tr>
+            <td style="font-family: sans-serif; font-weight: 500; color: var(--color-ink);">Random Forest</td>
+            <td>5.46 MPa</td>
+            <td>3.75 MPa</td>
+            <td>0.884</td>
+          </tr>
+          <tr class="row-highlight">
+            <td style="font-family: sans-serif;">XGBoost (Selected)</td>
+            <td>4.62 MPa</td>
+            <td>3.03 MPa</td>
+            <td>0.917</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Screenshots -->
+  <section class="screenshots-section">
+    <div class="container">
+      <h2 class="section-title">Application Showcase (Screenshots)</h2>
+      <div class="grid-2">
+        <!-- Card 1 -->
+        <div class="screenshot-card">
+          <div class="screenshot-placeholder">
+            <img src="assets/astramix-dashboard.png" alt="AstraMix Dashboard Interface" class="screenshot-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            
+            <!-- Dashboard Mockup Fallback -->
+            <div class="mockup-container" style="display: none;">
+              <div>
+                <div class="mockup-header">
+                  <span class="mockup-title">Mix Parameter Sliders</span>
+                  <span class="mockup-subtitle">Input Controls</span>
+                </div>
+                <div class="mockup-row">
+                  <span class="mockup-label">Cement (kg/m³)</span>
+                  <div class="mockup-bar-container">
+                    <div class="mockup-bar"><div class="mockup-bar-fill" style="width: 66%;"></div></div>
+                    <span class="mockup-value">350</span>
+                  </div>
+                </div>
+                <div class="mockup-row">
+                  <span class="mockup-label">Water (kg/m³)</span>
+                  <div class="mockup-bar-container">
+                    <div class="mockup-bar"><div class="mockup-bar-fill" style="width: 50%;"></div></div>
+                    <span class="mockup-value">175</span>
+                  </div>
+                </div>
+                <div class="mockup-row">
+                  <span class="mockup-label">Fly Ash (kg/m³)</span>
+                  <div class="mockup-bar-container">
+                    <div class="mockup-bar"><div class="mockup-bar-fill" style="width: 0%;"></div></div>
+                    <span class="mockup-value">0</span>
+                  </div>
+                </div>
+                <div class="mockup-row">
+                  <span class="mockup-label">Curing Age (days)</span>
+                  <div class="mockup-bar-container">
+                    <div class="mockup-bar"><div class="mockup-bar-fill" style="width: 80%;"></div></div>
+                    <span class="mockup-value">28</span>
+                  </div>
+                </div>
+              </div>
+              <div class="mockup-btn">Run Prediction</div>
+            </div>
+            
+          </div>
+          <div>
+            <h4 class="screenshot-title">1. AstraMix Dashboard Interface</h4>
+            <p class="screenshot-desc">Input concrete mix materials, curing age, and engineering constraints through a clean full-stack interface.</p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="screenshot-card">
+          <div class="screenshot-placeholder">
+            <img src="assets/astramix-prediction.png" alt="Strength Prediction Results" class="screenshot-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            
+            <!-- Prediction Mockup Fallback -->
+            <div class="mockup-container" style="display: none;">
+              <div>
+                <div class="mockup-header">
+                  <span class="mockup-title">Inference Output</span>
+                  <span class="mockup-subtitle">XGBoost v0.1</span>
+                </div>
+                <div style="text-align: center; padding: 0.5rem 0;">
+                  <div style="font-size: 0.65rem; text-transform: uppercase; color: var(--color-ink-faint); font-family: monospace;">Predicted Strength</div>
+                  <div style="font-size: 1.5rem; font-weight: 700; color: var(--color-blueprint); font-family: monospace; margin-top: 0.25rem;">52.80 MPa</div>
+                </div>
+              </div>
+              <div style="border-top: 1px solid var(--color-line); padding-top: 0.5rem; font-family: monospace; font-size: 0.65rem;">
+                <div class="mockup-row"><span>Water/Cement Ratio:</span><span class="mockup-value" style="background: none; border: none; padding: 0;">0.490</span></div>
+                <div class="mockup-row"><span>Estimated Model Error:</span><span class="mockup-value" style="background: none; border: none; padding: 0;">±4.62 MPa</span></div>
+                <div class="mockup-row" style="margin-top: 0.25rem; border-top: 1px dashed var(--color-line); padding-top: 0.25rem;">
+                  <span>Verification:</span>
+                  <span class="mockup-badge badge-success">In Training Envelope</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div>
+            <h4 class="screenshot-title">2. Strength Prediction Results</h4>
+            <p class="screenshot-desc">Predicted compressive strength with water/cement ratio, water/binder ratio, estimated model error, and training-envelope warnings.</p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="screenshot-card">
+          <div class="screenshot-placeholder">
+            <img src="assets/astramix-optimization.png" alt="Mix Optimization Results" class="screenshot-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            
+            <!-- Optimization Mockup Fallback -->
+            <div class="mockup-container" style="display: none;">
+              <div>
+                <div class="mockup-header">
+                  <span class="mockup-title">SLSQP Solver Results</span>
+                  <span class="mockup-badge badge-info" style="font-size: 0.55rem; padding: 0.1rem 0.25rem;">Converged</span>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; font-family: monospace; font-size: 0.6rem; margin-bottom: 0.25rem;">
+                  <div style="background-color: var(--bg-paper); padding: 0.25rem; border: 1px solid var(--color-line); border-radius: 0.25rem;">
+                    <div style="color: var(--color-ink-faint); font-size: 0.5rem;">TARGET STRENGTH</div>
+                    <div style="color: var(--color-ink); font-weight: bold;">40.0 MPa</div>
+                  </div>
+                  <div style="background-color: var(--bg-paper); padding: 0.25rem; border: 1px solid var(--color-line); border-radius: 0.25rem;">
+                    <div style="color: var(--color-ink-faint); font-size: 0.5rem;">OPTIMIZED CEMENT</div>
+                    <div style="color: var(--color-ink); font-weight: bold;">288.5 kg</div>
+                  </div>
+                </div>
+              </div>
+              <div style="border-top: 1px solid var(--color-line); padding-top: 0.5rem; font-family: monospace; font-size: 0.65rem;">
+                <div class="mockup-row"><span>CO₂ Footprint:</span><span style="color: var(--color-rust); font-weight: bold;">265.4 kg/m³</span></div>
+                <div class="mockup-row"><span>Mix Cost:</span><span style="color: var(--color-signal-success); font-weight: bold;">$56.80/m³</span></div>
+              </div>
+            </div>
+
+          </div>
+          <div>
+            <h4 class="screenshot-title">3. Mix Optimization Results</h4>
+            <p class="screenshot-desc">Optimized concrete mix suggestion using target strength, cost, CO₂, and water/cement constraints.</p>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="screenshot-card">
+          <div class="screenshot-placeholder">
+            <img src="assets/astramix-report.png" alt="Technical Report & Model Card" class="screenshot-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            
+            <!-- Report Mockup Fallback -->
+            <div class="mockup-container" style="display: none;">
+              <div>
+                <div class="mockup-header">
+                  <span class="mockup-title">Validation Report</span>
+                  <span class="mockup-subtitle">Model Card</span>
+                </div>
+                <div style="font-family: monospace; font-size: 0.65rem;">
+                  <div class="mockup-row"><span>Model Candidate:</span><span style="font-weight: bold; color: var(--color-ink);">XGBoost Regressor</span></div>
+                  <div class="mockup-row"><span>R² Metric:</span><span style="font-weight: bold; color: var(--color-blueprint);">0.917</span></div>
+                  <div class="mockup-row"><span>RMSE / MAE:</span><span style="font-weight: bold; color: var(--color-ink);">4.62 / 3.03 MPa</span></div>
+                </div>
+              </div>
+              <div style="border-top: 1px solid var(--color-line); padding-top: 0.4rem; font-size: 0.55rem; color: var(--color-ink-faint); font-style: italic; line-height: 1.3;">
+                <strong>Limitations Card:</strong> Model predictions reflect physical concrete testing limits and cannot bypass lab split cylinder validation breaks before placement.
+              </div>
+            </div>
+
+          </div>
+          <div>
+            <h4 class="screenshot-title">4. Technical Report & Model Card</h4>
+            <p class="screenshot-desc">Project documentation including model metrics, limitations, validation notes, and future research directions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tech Stack -->
+  <section class="container stack-grid">
+    <div class="stack-card">
+      <h4 class="stack-title">Backend Core</h4>
+      <ul class="stack-list">
+        <li>FastAPI (REST API)</li>
+        <li>Uvicorn Server</li>
+        <li>Pydantic v2 (Validation)</li>
+        <li>Pydantic Settings</li>
+      </ul>
+    </div>
+    <div class="stack-card">
+      <h4 class="stack-title">Frontend Client</h4>
+      <ul class="stack-list">
+        <li>Next.js (v14.2.35)</li>
+        <li>React 18</li>
+        <li>TypeScript</li>
+        <li>Tailwind CSS</li>
+      </ul>
+    </div>
+    <div class="stack-card">
+      <h4 class="stack-title">ML & Optimizers</h4>
+      <ul class="stack-list">
+        <li>XGBoost Regressor</li>
+        <li>Scikit-Learn</li>
+        <li>Joblib Serialization</li>
+        <li>SciPy SLSQP Solver</li>
+      </ul>
+    </div>
+    <div class="stack-card">
+      <h4 class="stack-title">DevOps & Release</h4>
+      <ul class="stack-list">
+        <li>Docker Compose</li>
+        <li>GHA CI Workflow</li>
+        <li>npm audit Scanning</li>
+        <li>Release Checklist</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Research Value -->
+  <section class="research-section">
+    <div class="container">
+      <h2 class="section-title">Research Value & Interdisciplinary Rigor</h2>
+      <p style="font-size: 0.95rem; color: var(--color-ink-muted); max-width: 48rem; line-height: 1.6;">
+        AstraMix AI stands apart from typical student portfolio projects. While many showcase repositories are simple CRUD wrappers around databases, AstraMix is a mathematically driven engineering tool:
+      </p>
+      <div class="research-grid">
+        <div class="research-card">
+          <h4>Scientific Integrity</h4>
+          <p>Model limits are bound by physical concrete envelope JSON profiles. Extreme values (such as cement &gt; 540 kg/m³) are caught and flagged to highlight the limits of regression tree extrapolation.</p>
+        </div>
+        <div class="research-card">
+          <h4>Constrained Optimization</h4>
+          <p>The backend wraps SciPy's Sequential Least Squares Programming solver to perform multi-objective optimization, utilizing thread locks to preserve memory stability during concurrent executions.</p>
+        </div>
+        <div class="research-card">
+          <h4>Explainability Standards</h4>
+          <p>The code ships with detailed model cards and validation reports, explaining hidden variables (cement chemistry, moisture history, testing sizes) that govern physical concrete performance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Limitations & Future Work -->
+  <section class="container limits-section">
+    <div class="limits-grid">
+      <div>
+        <div class="column-title-badge" style="color: var(--color-rust);">Limitations</div>
+        <h3 class="column-title">Current Constraints (v0.1)</h3>
+        <ul class="limits-list">
+          <li><strong>Not Certified for Structural Construction:</strong> Preliminary mix recipe outputs are suggestions only and must undergo physical laboratory break tests before placement.</li>
+          <li><strong>Static Emission and Price Factors:</strong> Cost and carbon metrics are linear factor estimates and do not account for volatile regional market shifts.</li>
+          <li><strong>No Durability or Slump Models:</strong> The platform does not yet predict fresh mix workability (slump flow) or long-term structural durability.</li>
+          <li><strong>Static Uncertainty Estimates:</strong> Confidence indicators are based on offline split validations (RMSE/MAE) rather than real-time prediction interval models.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="column-title-badge" style="color: var(--color-blueprint);">Future Work</div>
+        <h3 class="column-title">Roadmap (v0.2)</h3>
+        <ul class="limits-list">
+          <li><strong>Evolutionary Multi-Objective Optimization:</strong> Transition from weighted-sum solvers to NSGA-II algorithms to display true non-dominated Pareto frontiers.</li>
+          <li><strong>Fresh and Durability Target Predictors:</strong> Train additional model classifiers to predict concrete workability (slump) and durability permeability metrics.</li>
+          <li><strong>Probabilistic Confidence Boundaries:</strong> Incorporate Conformal Prediction to output mathematically sound, input-specific confidence intervals.</li>
+          <li><strong>Exportable PDF Validation Sheets:</strong> Develop automated PDF generation engines to exports mix parameters and ML predictions for engineering submittals.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Launch Status Section -->
+  <section class="status-section">
+    <div class="container">
+      <h2 class="section-title">Launch Readiness Status</h2>
+      <div class="status-panel">
+        <div class="status-grid">
+          <div class="status-item">
+            <span class="dot dot-success"></span>
+            <span>AstraMix AI v0.1: Completed</span>
+          </div>
+          <div class="status-item">
+            <span class="dot dot-success"></span>
+            <span>Website Showcase: Prepared</span>
+          </div>
+          <div class="status-item">
+            <span class="dot dot-warning"></span>
+            <span>GitHub Repository: Coming Soon</span>
+          </div>
+          <div class="status-item">
+            <span class="dot dot-warning"></span>
+            <span>Demo Video: Coming Soon</span>
+          </div>
+          <div class="status-item">
+            <span class="dot dot-warning"></span>
+            <span>Domain Connection: Coming Soon</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer / CTA -->
+  <footer>
+    <div class="container">
+      <h2 class="footer-title">Explore AstraMix AI</h2>
+      <p class="footer-desc">
+        AstraMix AI v0.1 is a completed AI + civil engineering research software project built to demonstrate sustainable concrete mix prediction, optimization, and explainability.
+      </p>
+      <div class="button-group" style="justify-content: center;">
+        <span class="btn btn-disabled">GitHub Repository — Coming Soon</span>
+        <a href="assets/PROJECT_REPORT_v0_1.md" class="btn btn-secondary">
+          Technical Report
+        </a>
+        <span class="btn btn-disabled">Demo Video — Coming Soon</span>
+      </div>
+      <div class="copyright">
+        <p>AstraMix AI v0.1 — Created by Nikolay Khachatryan</p>
+        <p style="margin-top: 0.25rem;">&copy; 2026. Open-source research and engineering portfolio.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

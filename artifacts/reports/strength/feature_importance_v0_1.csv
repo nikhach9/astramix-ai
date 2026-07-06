@@ -1,0 +1,9 @@
+feature,importance,method
+age,0.385,XGBoost built-in weight
+cement,0.274,XGBoost built-in weight
+water,0.148,XGBoost built-in weight
+superplasticizer,0.076,XGBoost built-in weight
+blast_furnace_slag,0.052,XGBoost built-in weight
+fly_ash,0.039,XGBoost built-in weight
+fine_aggregate,0.016,XGBoost built-in weight
+coarse_aggregate,0.010,XGBoost built-in weight

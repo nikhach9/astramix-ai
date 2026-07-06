@@ -1,0 +1,22 @@
+# --- Web framework ---
+fastapi>=0.110
+uvicorn[standard]>=0.29
+pydantic>=2.6
+pydantic-settings>=2.2
+
+# --- Trained model artifact loading ---
+# (adjust to match however strength_model.pkl was actually serialized)
+joblib>=1.3
+scikit-learn>=1.4
+pandas>=2.0
+numpy>=1.26
+xgboost>=2.0.0,<3.0.0
+
+# --- AstraMix core package (feature engineering, sustainability, optimization) ---
+# Not on PyPI. Install from the internal source, e.g.:
+#   pip install -e ../astramix          # editable install of the sibling repo
+# or add its src/ directory to PYTHONPATH before starting the app.
+
+# --- Testing ---
+pytest>=8.0
+httpx>=0.27

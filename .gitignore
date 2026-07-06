@@ -1,0 +1,11 @@
+node_modules/
+.next/
+.vercel/
+__pycache__/
+.pytest_cache/
+*.pyc
+tsconfig.tsbuildinfo
+.env
+.env.local
+frontend/.env.local
+backend/.env

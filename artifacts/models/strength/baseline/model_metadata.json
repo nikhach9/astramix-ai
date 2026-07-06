@@ -1,0 +1,25 @@
+{
+    "dataset_path": "data/processed/strength_dataset_v0_1.csv",
+    "dataset_row_count": 1030,
+    "feature_columns": [
+        "cement",
+        "blast_furnace_slag",
+        "fly_ash",
+        "water",
+        "superplasticizer",
+        "coarse_aggregate",
+        "fine_aggregate",
+        "age"
+    ],
+    "target_column": "compressive_strength_mpa",
+    "trained_model_names": [
+        "LinearRegression",
+        "RandomForest",
+        "GradientBoosting",
+        "XGBoost"
+    ],
+    "best_model_name": "XGBoost",
+    "metrics_path": "artifacts/metrics/strength/baseline/comparison.csv",
+    "training_datetime": "2026-07-05T20:56:12.521447Z",
+    "project_version": "v0.1"
+}

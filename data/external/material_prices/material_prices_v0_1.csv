@@ -1,0 +1,8 @@
+material,price_per_kg,currency,source,notes
+cement,0.12,USD,placeholder_market_value,Bulk average price
+blast_furnace_slag,0.05,USD,placeholder_market_value,Bulk average price
+fly_ash,0.04,USD,placeholder_market_value,Bulk average price
+water,0.002,USD,placeholder_market_value,Municipal water rates
+coarse_aggregate,0.02,USD,placeholder_market_value,Bulk average price
+fine_aggregate,0.02,USD,placeholder_market_value,Bulk average price
+superplasticizer,2.50,USD,placeholder_market_value,Bulk chemical price

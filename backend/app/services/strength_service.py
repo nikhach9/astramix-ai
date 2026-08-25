@@ -18,12 +18,13 @@ def predict_strength(mix: MixComposition) -> StrengthPredictionResponse:
 
     return StrengthPredictionResponse(
         success=True,
-        predicted_strength_mpa=round(result["predicted_strength_mpa"], 2),
+        predicted_strength_mpa=round(max(0.0, result["predicted_strength_mpa"]), 2),
         age=mix.age,
         water_cement_ratio=mix.water_cement_ratio,
         water_binder_ratio=mix.water_binder_ratio,
         model_version=result["model_version"],
         warnings=result.get("warnings", []),
+        is_out_of_distribution=result.get("is_out_of_distribution", False),
         estimated_error_rmse_mpa=result.get("estimated_error_rmse_mpa"),
         estimated_error_mae_mpa=result.get("estimated_error_mae_mpa"),
         confidence_note=result.get("confidence_note"),

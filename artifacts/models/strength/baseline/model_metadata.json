@@ -20,6 +20,6 @@
     ],
     "best_model_name": "XGBoost",
     "metrics_path": "artifacts/metrics/strength/baseline/comparison.csv",
-    "training_datetime": "2026-07-05T20:56:12.521447Z",
+    "training_datetime": "2026-08-25T14:14:07.432482Z",
     "project_version": "v0.1"
 }

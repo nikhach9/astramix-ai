@@ -62,3 +62,42 @@ def test_predict_strength_rejects_legacy_curing_age_days_field_name():
     mix_with_legacy_field.pop("age", None)
     response = client.post("/api/v1/predict-strength", json={"mix": mix_with_legacy_field})
     assert response.status_code == 422
+
+
+def test_predict_strength_accepts_float_and_zero_values():
+    mix_with_floats = {
+        "cement": 350.0,
+        "water": 177.45,
+        "fine_aggregate": 750.5,
+        "coarse_aggregate": 98.98,
+        "fly_ash": 0.0,
+        "blast_furnace_slag": 0.0,
+        "superplasticizer": 0.0,
+        "age": 28.5,
+    }
+    response = client.post("/api/v1/predict-strength", json={"mix": mix_with_floats})
+    assert response.status_code == 200
+    body = response.json()
+    assert body["success"] is True
+    assert body["predicted_strength_mpa"] >= 0.0
+    assert body["age"] == 28.5
+
+
+def test_predict_strength_clamping_and_ood_flag():
+    ood_mix = {
+        "cement": 750.0,
+        "water": 200.0,
+        "fine_aggregate": 750.0,
+        "coarse_aggregate": 1000.0,
+        "fly_ash": 0.0,
+        "blast_furnace_slag": 0.0,
+        "superplasticizer": 0.0,
+        "age": 28.0,
+    }
+    response = client.post("/api/v1/predict-strength", json={"mix": ood_mix})
+    assert response.status_code == 200
+    body = response.json()
+    assert body["success"] is True
+    assert body["predicted_strength_mpa"] >= 0.0
+    assert body["is_out_of_distribution"] is True
+    assert len(body["warnings"]) > 0

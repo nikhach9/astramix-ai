@@ -63,11 +63,13 @@ def check_training_envelope(mix: Dict[str, float], envelope: Dict[str, Dict[str,
     return warnings
 
 def build_prediction_warnings(mix: Dict[str, float]) -> Dict[str, Any]:
-    """Builds warning list and estimated validation error properties."""
+    """Builds warning list, OOD status flag, and estimated validation error properties."""
     envelope = load_training_envelope()
     warnings = check_training_envelope(mix, envelope)
+    is_ood = len(warnings) > 0
     return {
         "warnings": warnings,
+        "is_out_of_distribution": is_ood,
         "estimated_error_rmse_mpa": RMSE_METRIC,
         "estimated_error_mae_mpa": MAE_METRIC,
         "confidence_note": CONFIDENCE_DISCLAIMER

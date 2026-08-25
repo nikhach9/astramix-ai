@@ -2,12 +2,11 @@
 
 import { useCallback, useState } from "react";
 import { ApiRequestState } from "@/types/api";
+import { ApiError } from "@/lib/api/client";
 
 /**
  * Wraps a single API function (e.g. predictStrength, optimizeMix) with
- * loading/data/error state. Each page owns its own instance of this hook —
- * there is no global store. Cross-page data (for the Report Preview page)
- * goes through ReportContext instead, not through this hook.
+ * loading/data/error/fieldErrors state.
  */
 export function usePrediction<TInput, TOutput>(
   requestFn: (input: TInput) => Promise<TOutput>
@@ -16,27 +15,62 @@ export function usePrediction<TInput, TOutput>(
     loading: false,
     data: null,
     error: null,
+    fieldErrors: {},
   });
 
   const run = useCallback(
     async (input: TInput): Promise<TOutput | null> => {
-      setState({ loading: true, data: null, error: null });
+      setState({ loading: true, data: null, error: null, fieldErrors: {} });
       try {
         const result = await requestFn(input);
-        setState({ loading: false, data: result, error: null });
+        setState({ loading: false, data: result, error: null, fieldErrors: {} });
         return result;
       } catch (err) {
-        const message = err instanceof Error ? err.message : "Unknown error";
-        setState({ loading: false, data: null, error: message });
+        if (err instanceof ApiError) {
+          setState({
+            loading: false,
+            data: null,
+            error: err.message,
+            fieldErrors: err.fieldErrors || {},
+          });
+        } else {
+          const message = err instanceof Error ? err.message : "Unknown error";
+          setState({ loading: false, data: null, error: message, fieldErrors: {} });
+        }
         return null;
       }
     },
     [requestFn]
   );
 
-  const reset = useCallback(() => {
-    setState({ loading: false, data: null, error: null });
+  const setErrors = useCallback(
+    (fieldErrors: Record<string, string>, mainError?: string) => {
+      setState((prev) => ({
+        ...prev,
+        error: mainError || "Please correct the invalid fields below.",
+        fieldErrors,
+      }));
+    },
+    []
+  );
+
+  const clearFieldError = useCallback((field: string) => {
+    setState((prev) => {
+      if (!prev.fieldErrors?.[field]) return prev;
+      const nextFieldErrors = { ...prev.fieldErrors };
+      delete nextFieldErrors[field];
+      const hasRemaining = Object.keys(nextFieldErrors).length > 0;
+      return {
+        ...prev,
+        error: hasRemaining ? prev.error : null,
+        fieldErrors: nextFieldErrors,
+      };
+    });
   }, []);
 
-  return { ...state, run, reset };
+  const reset = useCallback(() => {
+    setState({ loading: false, data: null, error: null, fieldErrors: {} });
+  }, []);
+
+  return { ...state, run, setErrors, clearFieldError, reset };
 }

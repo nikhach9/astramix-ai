@@ -15,17 +15,17 @@ class MixComposition(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    cement: float = Field(..., gt=0, le=800, description="Cement content (kg/m3)")
-    water: float = Field(..., gt=0, le=300, description="Water content (kg/m3)")
-    fine_aggregate: float = Field(..., gt=0, le=1200, description="Fine aggregate / sand (kg/m3)")
-    coarse_aggregate: float = Field(..., gt=0, le=1400, description="Coarse aggregate (kg/m3)")
+    cement: float = Field(..., ge=0, le=800, description="Cement content (kg/m3)")
+    water: float = Field(..., ge=0, le=300, description="Water content (kg/m3)")
+    fine_aggregate: float = Field(..., ge=0, le=1200, description="Fine aggregate / sand (kg/m3)")
+    coarse_aggregate: float = Field(..., ge=0, le=1400, description="Coarse aggregate (kg/m3)")
     fly_ash: float = Field(0.0, ge=0, le=400, description="Fly ash / SCM content (kg/m3)")
     blast_furnace_slag: float = Field(
         0.0, ge=0, le=400, description="Ground granulated blast furnace slag (GGBS) content (kg/m3)"
     )
     superplasticizer: float = Field(0.0, ge=0, le=30, description="Superplasticizer (kg/m3)")
-    age: int = Field(
-        28, ge=1, le=365, description="Curing age at evaluation (days). Matches the AstraMix dataset/core feature schema."
+    age: float = Field(
+        28.0, ge=1, le=365, description="Curing age at evaluation (days). Matches the AstraMix dataset/core feature schema."
     )
 
     @property

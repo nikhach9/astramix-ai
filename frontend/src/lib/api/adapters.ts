@@ -94,6 +94,7 @@ export function apiToFrontendStrengthPrediction(
     predictedStrengthMPa: res.predicted_strength_mpa,
     modelUsed: res.model_version,
     warnings: res.warnings,
+    isOutOfDistribution: res.is_out_of_distribution,
     estimatedErrorRMSEMPa: res.estimated_error_rmse_mpa,
     estimatedErrorMAEMPa: res.estimated_error_mae_mpa,
     confidenceNote: res.confidence_note,

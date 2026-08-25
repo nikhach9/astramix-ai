@@ -14,7 +14,7 @@ from app.schemas.common import MixComposition
 
 class OptimizationConstraints(BaseModel):
     target_strength_mpa: float = Field(..., gt=0, le=150)
-    age: int = Field(28, ge=1, le=365, description="Curing age to optimize for (days)")
+    age: float = Field(28.0, ge=1, le=365, description="Curing age to optimize for (days)")
     max_w_c_ratio: float = Field(
         0.60, gt=0, le=2.0, description="Max water/cement ratio the optimizer must respect"
     )
@@ -51,7 +51,7 @@ class OptimizedMixResult(BaseModel):
     fly_ash: float = 0.0
     blast_furnace_slag: float = 0.0
     superplasticizer: float = 0.0
-    age: int = 28
+    age: float = 28.0
 
 
 class OptimizeMixResponse(BaseModel):

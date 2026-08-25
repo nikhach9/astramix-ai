@@ -11,8 +11,12 @@ import { usePrediction } from "@/lib/hooks/usePrediction";
 import { predictStrength } from "@/lib/api/predictStrength";
 import { estimateCarbon } from "@/lib/api/estimateCarbon";
 import { estimateCost } from "@/lib/api/estimateCost";
-import { DEFAULT_MIX } from "@/lib/constants/mixDefaults";
-import { MIX_FIELD_LABELS, MIX_FIELD_ORDER, MATERIAL_FIELD_ORDER, ConcreteMixInput } from "@/types/mix";
+import { DEFAULT_MIX, validateConcreteMix } from "@/lib/constants/mixDefaults";
+import {
+  MIX_FIELD_LABELS,
+  MATERIAL_FIELD_ORDER,
+  ConcreteMixInput,
+} from "@/types/mix";
 import { useReport } from "@/lib/context/ReportContext";
 import { formatNumber, formatCurrency } from "@/lib/utils/formatUnits";
 
@@ -29,6 +33,17 @@ export default function PredictStrengthPage() {
   const anyError = strength.error ?? co2.error ?? cost.error;
 
   const handleSubmit = async () => {
+    // 1. Client-side sanity check validation
+    const clientErrors = validateConcreteMix(mix);
+    if (Object.keys(clientErrors).length > 0) {
+      strength.setErrors(
+        clientErrors,
+        "Client Validation Error: Invalid mix input values."
+      );
+      return;
+    }
+
+    // 2. Execute API calls
     const [strengthResult, co2Result, costResult] = await Promise.all([
       strength.run(mix),
       co2.run(mix),
@@ -56,6 +71,8 @@ export default function PredictStrengthPage() {
             value={mix}
             onChange={setMix}
             onSubmit={handleSubmit}
+            errors={strength.fieldErrors}
+            onClearFieldError={strength.clearFieldError}
             loading={loading}
             submitLabel="Run prediction"
           />
@@ -90,36 +107,60 @@ export default function PredictStrengthPage() {
                 />
                 <ResultCard
                   label="Cost"
-                  value={formatCurrency(cost.data!.totalCostPerM3, cost.data!.currency)}
+                  value={formatCurrency(
+                    cost.data!.totalCostPerM3,
+                    cost.data!.currency
+                  )}
                   unit="/ m³"
                 />
               </ResultSummaryGrid>
 
-              {strength.data?.warnings && strength.data.warnings.length > 0 && (
-                <div className="flex flex-col gap-1.5 rounded-sm border border-signal-warning/30 bg-signal-warning/5 px-4 py-3 text-xs text-signal-warning">
-                  <p className="font-semibold">Prediction Warnings:</p>
-                  <ul className="list-disc pl-4 space-y-1">
-                    {strength.data.warnings.map((w, idx) => (
-                      <li key={idx}>{w}</li>
-                    ))}
-                  </ul>
+              {strength.data?.isOutOfDistribution && (
+                <div className="rounded-sm border border-amber-500/40 bg-amber-50/80 px-4 py-3 text-xs text-amber-900">
+                  <p className="font-semibold flex items-center gap-1.5 text-amber-900">
+                    <span className="inline-block h-2 w-2 rounded-full bg-amber-500" />
+                    Out-of-Distribution Confidence Warning
+                  </p>
+                  <p className="mt-1 text-amber-800">
+                    This feature vector falls outside the standard training
+                    dataset envelope. Predictions may have reduced accuracy.
+                  </p>
                 </div>
               )}
 
+              {strength.data?.warnings &&
+                strength.data.warnings.length > 0 && (
+                  <div className="flex flex-col gap-1.5 rounded-sm border border-signal-warning/30 bg-signal-warning/5 px-4 py-3 text-xs text-signal-warning">
+                    <p className="font-semibold">Prediction Warnings:</p>
+                    <ul className="list-disc pl-4 space-y-1">
+                      {strength.data.warnings.map((w, idx) => (
+                        <li key={idx}>{w}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
               {strength.data?.estimatedErrorRMSEMPa && (
                 <div className="rounded-sm border border-line bg-paper px-4 py-3 text-xs text-ink-muted">
-                  <p className="font-semibold text-ink">Validation Error Estimate:</p>
+                  <p className="font-semibold text-ink">
+                    Validation Error Estimate:
+                  </p>
                   <p className="mt-1">
-                    RMSE = {strength.data.estimatedErrorRMSEMPa} MPa, MAE = {strength.data.estimatedErrorMAEMPa} MPa.
+                    RMSE = {strength.data.estimatedErrorRMSEMPa} MPa, MAE ={" "}
+                    {strength.data.estimatedErrorMAEMPa} MPa.
                   </p>
                   {strength.data.confidenceNote && (
-                    <p className="mt-1 text-xxs italic text-ink-faint">{strength.data.confidenceNote}</p>
+                    <p className="mt-1 text-xxs italic text-ink-faint">
+                      {strength.data.confidenceNote}
+                    </p>
                   )}
                 </div>
               )}
 
               <BarComparisonChart
-                categories={MATERIAL_FIELD_ORDER.map((f) => MIX_FIELD_LABELS[f])}
+                categories={MATERIAL_FIELD_ORDER.map(
+                  (f) => MIX_FIELD_LABELS[f]
+                )}
                 values={MATERIAL_FIELD_ORDER.map((f) => mix[f])}
                 title="Mix composition"
                 yLabel="kg/m³"

@@ -62,15 +62,17 @@ async def validation_exception_handler(
     request: Request, exc: RequestValidationError
 ) -> JSONResponse:
     """Convert FastAPI/Pydantic 422 validation errors into the same
-    envelope used by every other error in this API, instead of
-    FastAPI's default `{"detail": [...]}` shape."""
+    envelope used by every other error in this API, while also
+    maintaining standard `detail` field compatibility for clients."""
+    err_list = jsonable_encoder(exc.errors())
     return JSONResponse(
         status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
         content={
             "success": False,
             "error": "ValidationError",
             "message": "Request validation failed.",
-            "details": jsonable_encoder(exc.errors()),
+            "details": err_list,
+            "detail": err_list,
         },
     )
 

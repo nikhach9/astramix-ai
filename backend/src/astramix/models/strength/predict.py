@@ -68,12 +68,16 @@ def predict_strength(mix_input: Dict[str, float], model_path: str | Path = None)
     except Exception as e:
         raise RuntimeError(f"Model artifact missing or failed to load: {e}") from e
 
-    # Create canonical array using strict feature column order
-    arr = [[mix_input[col] for col in STRENGTH_FEATURE_COLUMNS]]
-    
-    # Run prediction
+    # Create canonical DataFrame using strict feature column order
+    features_df = pd.DataFrame(
+        [[mix_input[col] for col in STRENGTH_FEATURE_COLUMNS]],
+        columns=STRENGTH_FEATURE_COLUMNS,
+    )
+
+    # Run prediction & apply physical domain post-processing (bound >= 0)
     try:
-        pred_value = float(model.predict(arr)[0])
+        raw_pred = float(model.predict(features_df)[0])
+        pred_value = max(0.0, raw_pred)
     except Exception as e:
         raise RuntimeError(f"Model prediction failed: {e}") from e
 

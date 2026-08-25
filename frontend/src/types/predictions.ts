@@ -9,6 +9,7 @@ export interface StrengthPrediction {
   predictedStrengthMPa: number;
   modelUsed: string;
   warnings?: string[];
+  isOutOfDistribution?: boolean;
   estimatedErrorRMSEMPa?: number;
   estimatedErrorMAEMPa?: number;
   confidenceNote?: string;
@@ -22,6 +23,7 @@ export interface StrengthPredictionApi {
   water_binder_ratio: number;
   model_version: string;
   warnings?: string[];
+  is_out_of_distribution?: boolean;
   estimated_error_rmse_mpa?: number;
   estimated_error_mae_mpa?: number;
   confidence_note?: string;

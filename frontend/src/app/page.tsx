@@ -25,6 +25,12 @@ export default function HomePage() {
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <Link
+              href="/beton-kayak"
+              className="inline-flex items-center justify-center rounded-sm bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 transition-colors"
+            >
+              Launch BetonKayak Armenia
+            </Link>
+            <Link
               href="/projects/astramix"
               className="inline-flex items-center justify-center rounded-sm bg-blueprint-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blueprint-700 transition-colors"
             >
@@ -39,7 +45,16 @@ export default function HomePage() {
         <h2 className="font-mono text-xs uppercase tracking-wide2 text-ink-faint mb-8">
           Core Platform Tools
         </h2>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <Link href="/beton-kayak">
+            <Card className="h-full border border-indigo-200 bg-indigo-50/30 p-6 shadow-panel transition-colors hover:border-indigo-400">
+              <h3 className="text-base font-semibold text-indigo-700">BetonKayak Armenia</h3>
+              <p className="mt-2 text-xs leading-relaxed text-indigo-900/80">
+                Real-time concrete cost, quality & carbon aggregator for Ararat M400, Iranian M500, and Armenian suppliers.
+              </p>
+            </Card>
+          </Link>
+
           <Link href="/predict">
             <Card className="h-full border border-line bg-paper-raised p-6 shadow-panel transition-colors hover:border-blueprint-400">
               <h3 className="text-base font-semibold text-ink">Strength Prediction</h3>
@@ -62,7 +77,7 @@ export default function HomePage() {
             <Card className="h-full border border-blueprint-200 bg-blueprint-50/20 p-6 shadow-panel transition-colors hover:border-blueprint-400">
               <h3 className="text-base font-semibold text-blueprint-700">AstraMix Showcase</h3>
               <p className="mt-2 text-xs leading-relaxed text-blueprint-600">
-                Explore the research positioning, model cards, offline metrics, validation reports, and roadmap.
+                Explore research positioning, model cards, metrics, and roadmap.
               </p>
             </Card>
           </Link>

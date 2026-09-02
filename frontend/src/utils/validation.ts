@@ -1,21 +1,156 @@
-import { ConcreteMixInput, MixValidation, ValidationRule, ValidationStatus } from "@/types/concrete";
+import { CEMENT_PROPERTIES, MATERIALS_DATA } from "../data/marketData";
+import {
+  CementType,
+  ConcreteMixInput,
+  MixValidation,
+  PriceUnit,
+  SmartInputValidation,
+  ValidationRule,
+  ValidationStatus,
+} from "../types/concrete";
+import { normalizeCementPriceAMDPerKg } from "./units";
+
+/**
+ * Validates a single material price input in real time.
+ * Enforces: Low price != good if it is suspiciously under market range.
+ */
+export function validateMaterialPrice(
+  price: number,
+  category: 'CEMENT' | 'SAND' | 'AGGREGATE' | 'WATER' | 'REBAR',
+  unit: PriceUnit,
+  cementType: CementType = 'ararat_m400'
+): SmartInputValidation {
+  if (price === undefined || price === null || isNaN(price)) {
+    return {
+      status: 'red',
+      message: 'Empty or non-numeric price input.',
+      suggestion: 'Enter a valid numeric price in AMD.',
+    };
+  }
+
+  if (price <= 0) {
+    return {
+      status: 'red',
+      message: 'Price must be greater than zero.',
+      suggestion: 'Enter a positive price value.',
+    };
+  }
+
+  if (category === 'CEMENT') {
+    const props = CEMENT_PROPERTIES[cementType];
+    const isBagged = unit === 'AMD/50kg' || unit === 'AMD/25kg' || unit === 'AMD/bag' as PriceUnit;
+    const bounds = isBagged ? props.bagBounds : props.bulkBounds;
+
+    if (price < bounds.hardMin) {
+      return {
+        status: 'red',
+        message: '🔴 Suspiciously low price',
+        suggestion: `Please verify the price and unit. Reference typical range is ${bounds.goodMin.toLocaleString('en-US')}–${bounds.goodMax.toLocaleString('en-US')} AMD.`,
+        referenceRangeText: `Typical: ${bounds.goodMin.toLocaleString('en-US')}–${bounds.goodMax.toLocaleString('en-US')} AMD`,
+      };
+    }
+    if (price < bounds.goodMin) {
+      return {
+        status: 'amber',
+        message: '🟡 Below typical market range',
+        suggestion: 'Verify if this is wholesale, promotional, or missing delivery charges.',
+        referenceRangeText: `Typical: ${bounds.goodMin.toLocaleString('en-US')}–${bounds.goodMax.toLocaleString('en-US')} AMD`,
+      };
+    }
+    if (price <= bounds.goodMax) {
+      return {
+        status: 'green',
+        message: '🟢 Typical Armenian market value',
+        referenceRangeText: `Reference: ~${props.avgBagPriceAMD.toLocaleString('en-US')} AMD / 50kg`,
+      };
+    }
+    if (price <= bounds.hardMax) {
+      return {
+        status: 'amber',
+        message: '🟡 Above typical market range',
+        suggestion: 'Verify whether premium brand or rapid-delivery surcharge applies.',
+        referenceRangeText: `Typical: ${bounds.goodMin.toLocaleString('en-US')}–${bounds.goodMax.toLocaleString('en-US')} AMD`,
+      };
+    }
+    return {
+      status: 'red',
+      message: '🔴 Unusually high price',
+      suggestion: `Significantly above standard Armenian retail reference. Typical range: ${bounds.goodMin.toLocaleString('en-US')}–${bounds.goodMax.toLocaleString('en-US')} AMD.`,
+      referenceRangeText: `Typical: ${bounds.goodMin.toLocaleString('en-US')}–${bounds.goodMax.toLocaleString('en-US')} AMD`,
+    };
+  }
+
+  // General materials (sand, gravel, water, rebar)
+  const matMeta = MATERIALS_DATA[category.toLowerCase()];
+  if (!matMeta) {
+    return { status: 'green', message: '🟢 Custom material price' };
+  }
+
+  const bounds = matMeta.bounds;
+  if (price < bounds.hardMin) {
+    return {
+      status: 'red',
+      message: '🔴 Suspiciously low price',
+      suggestion: `Please verify the price and unit. Reference typical range: ${bounds.goodMin.toLocaleString('en-US')}–${bounds.goodMax.toLocaleString('en-US')} AMD.`,
+      referenceRangeText: `Typical: ${bounds.goodMin.toLocaleString('en-US')}–${bounds.goodMax.toLocaleString('en-US')} AMD`,
+    };
+  }
+  if (price < bounds.goodMin) {
+    return {
+      status: 'amber',
+      message: '🟡 Below typical market range',
+      suggestion: 'Check if packaging unit or delivery fee was omitted.',
+      referenceRangeText: `Typical: ${bounds.goodMin.toLocaleString('en-US')}–${bounds.goodMax.toLocaleString('en-US')} AMD`,
+    };
+  }
+  if (price <= bounds.goodMax) {
+    return {
+      status: 'green',
+      message: '🟢 Typical Armenian market value',
+      referenceRangeText: `Typical range: ${bounds.goodMin.toLocaleString('en-US')}–${bounds.goodMax.toLocaleString('en-US')} AMD`,
+    };
+  }
+  if (price <= bounds.hardMax) {
+    return {
+      status: 'amber',
+      message: '🟡 Above typical market range',
+      referenceRangeText: `Typical range: ${bounds.goodMin.toLocaleString('en-US')}–${bounds.goodMax.toLocaleString('en-US')} AMD`,
+    };
+  }
+  return {
+    status: 'red',
+    message: '🔴 Unusually high price',
+    suggestion: `Extremely high compared to reference dataset (${bounds.goodMin.toLocaleString('en-US')}–${bounds.goodMax.toLocaleString('en-US')} AMD).`,
+    referenceRangeText: `Typical: ${bounds.goodMin.toLocaleString('en-US')}–${bounds.goodMax.toLocaleString('en-US')} AMD`,
+  };
+}
 
 /**
  * Validates Water-Cement Ratio (w/c) based on ACI 211 / GOST 27006.
  */
 export function validateWaterCementRatio(wc: number): ValidationRule {
+  if (isNaN(wc) || wc <= 0) {
+    return {
+      status: 'red',
+      message: 'Invalid Water-Cement Ratio',
+      tooltip: 'Water or cement content is zero or non-numeric.',
+      code: 'ENGINEERING_ERROR',
+    };
+  }
   if (wc < 0.30) {
     return {
       status: 'red',
       message: 'Unworkable Mix (w/c < 0.30)',
       tooltip: 'Water content is dangerously low. Cement cannot hydrate properly without aggressive superplasticizers.',
+      code: 'ENGINEERING_ERROR',
     };
   }
   if (wc < 0.40) {
     return {
       status: 'amber',
-      message: 'Stiff Mix (0.35 ≤ w/c < 0.40)',
+      message: 'Stiff Mix (0.30 ≤ w/c < 0.40)',
       tooltip: 'Low water content yields high strength but requires plasticizers or mechanical vibrators to place.',
+      code: 'ENGINEERING_WARN',
     };
   }
   if (wc <= 0.55) {
@@ -23,6 +158,7 @@ export function validateWaterCementRatio(wc: number): ValidationRule {
       status: 'green',
       message: 'Optimal Ratio (0.40 ≤ w/c ≤ 0.55)',
       tooltip: 'Ideal balance between high 28-day compressive strength, low permeability, and good workability.',
+      code: 'TYPICAL',
     };
   }
   if (wc <= 0.65) {
@@ -30,12 +166,14 @@ export function validateWaterCementRatio(wc: number): ValidationRule {
       status: 'amber',
       message: 'High Permeability (0.56 < w/c ≤ 0.65)',
       tooltip: 'Excess water creates capillary pores, reducing compressive strength by ~25% and increasing freeze-thaw risks.',
+      code: 'ENGINEERING_WARN',
     };
   }
   return {
     status: 'red',
     message: 'Structural Degradation (w/c > 0.68)',
     tooltip: 'Critically high water ratio causes severe bleeding, segregation, and structural failure risks under load.',
+    code: 'ENGINEERING_ERROR',
   };
 }
 
@@ -43,18 +181,28 @@ export function validateWaterCementRatio(wc: number): ValidationRule {
  * Validates Cement Content per m3 based on structural engineering standards.
  */
 export function validateCementContent(cementKg: number): ValidationRule {
+  if (isNaN(cementKg) || cementKg <= 0) {
+    return {
+      status: 'red',
+      message: 'Invalid Cement Quantity',
+      tooltip: 'Cement content must be greater than zero.',
+      code: 'ENGINEERING_ERROR',
+    };
+  }
   if (cementKg < 220) {
     return {
       status: 'red',
       message: 'Under-Dosed Cement (< 220 kg/m³)',
       tooltip: 'Insufficient binder. Concrete will be porous, crumble under moderate loads, and fail structural safety inspection.',
+      code: 'ENGINEERING_ERROR',
     };
   }
   if (cementKg < 300) {
     return {
       status: 'amber',
-      message: 'Lean Concrete (250–299 kg/m³)',
+      message: 'Lean Concrete (220–299 kg/m³)',
       tooltip: 'Suitable only for non-structural fill, sub-base blinding, or interior unreinforced floor leveling.',
+      code: 'ENGINEERING_WARN',
     };
   }
   if (cementKg <= 450) {
@@ -62,6 +210,7 @@ export function validateCementContent(cementKg: number): ValidationRule {
       status: 'green',
       message: 'Standard Load-Bearing (300–450 kg/m³)',
       tooltip: 'Optimal dosage for reinforced foundations, columns, retaining walls, and monolithic slabs.',
+      code: 'TYPICAL',
     };
   }
   if (cementKg <= 550) {
@@ -69,12 +218,14 @@ export function validateCementContent(cementKg: number): ValidationRule {
       status: 'amber',
       message: 'High Cement / Shrinkage Risk (451–550 kg/m³)',
       tooltip: 'High early strength, but elevated thermal hydration heat creates micro-cracking and drying shrinkage risk.',
+      code: 'ENGINEERING_WARN',
     };
   }
   return {
     status: 'red',
     message: 'Extreme Overheating & Cracking (> 600 kg/m³)',
     tooltip: 'Excessive cement causes thermal shock, severe cracking, and unnecessary financial and carbon waste.',
+    code: 'ENGINEERING_ERROR',
   };
 }
 
@@ -83,11 +234,12 @@ export function validateCementContent(cementKg: number): ValidationRule {
  */
 export function validateSandRatio(sandKg: number, gravelKg: number): ValidationRule {
   const totalAgg = sandKg + gravelKg;
-  if (totalAgg <= 0) {
+  if (isNaN(totalAgg) || totalAgg <= 0) {
     return {
       status: 'red',
       message: 'No Aggregates Specified',
       tooltip: 'Concrete requires coarse and fine aggregate matrix for load transfer.',
+      code: 'ENGINEERING_ERROR',
     };
   }
 
@@ -98,20 +250,23 @@ export function validateSandRatio(sandKg: number, gravelKg: number): ValidationR
       status: 'red',
       message: 'Severe Honeycombing (< 25% Sand)',
       tooltip: 'Lack of fine aggregate leaves void spaces between gravel, resulting in structural honeycombing.',
+      code: 'ENGINEERING_ERROR',
     };
   }
   if (ratio < 35) {
     return {
       status: 'amber',
-      message: 'Harsh Aggregate Mix (30–34% Sand)',
+      message: 'Harsh Aggregate Mix (25–34% Sand)',
       tooltip: 'Coarse mix with low workability. Hard to pump or finish smoothly without aggregate segregation.',
+      code: 'ENGINEERING_WARN',
     };
   }
   if (ratio <= 45) {
     return {
       status: 'green',
       message: 'Ideal Grain Matrix (35–45% Sand)',
-      tooltip: 'Perfect gradation packing fine sand into coarse aggregate voids for maximum dense strength.',
+      tooltip: 'Perfect grain matrix packing fine sand into coarse aggregate voids for maximum dense strength.',
+      code: 'TYPICAL',
     };
   }
   if (ratio <= 55) {
@@ -119,17 +274,82 @@ export function validateSandRatio(sandKg: number, gravelKg: number): ValidationR
       status: 'amber',
       message: 'Oversanded Mix (46–55% Sand)',
       tooltip: 'High fine aggregate increases water demand and paste requirement, slightly lowering strength.',
+      code: 'ENGINEERING_WARN',
     };
   }
   return {
     status: 'red',
     message: 'Excessive Sand Matrix (> 60% Sand)',
     tooltip: 'Behaves like mortar rather than structural concrete. High paste shrinkage and reduced aggregate interlocking.',
+    code: 'ENGINEERING_ERROR',
   };
 }
 
 /**
- * Combines all rules to evaluate a complete concrete mix.
+ * Validates project concrete volume.
+ */
+export function validateConcreteVolume(volumeM3: number): SmartInputValidation {
+  if (isNaN(volumeM3) || volumeM3 <= 0) {
+    return {
+      status: 'red',
+      message: '🔴 Invalid project volume (0 m³)',
+      suggestion: 'Concrete volume must be greater than 0 m³.',
+    };
+  }
+  if (volumeM3 < 0.5) {
+    return {
+      status: 'green',
+      message: '🟢 Small DIY / Repair Volume',
+      suggestion: 'Small volume batch (~0.1–0.5 m³). Consider bagged materials for ease of manual mixing.',
+    };
+  }
+  if (volumeM3 <= 1000) {
+    return {
+      status: 'green',
+      message: '🟢 Standard Project Volume',
+      referenceRangeText: 'Commercial or residential scale estimate',
+    };
+  }
+  return {
+    status: 'amber',
+    message: '🟡 Unusually Large Project Estimate (> 1,000 m³)',
+    suggestion: 'Large volume project. Ensure bulk silo logistics and batch plant capacity are verified.',
+  };
+}
+
+/**
+ * Validates wastage percentage.
+ */
+export function validateWastage(wastagePercent: number): SmartInputValidation {
+  if (isNaN(wastagePercent) || wastagePercent < 0) {
+    return {
+      status: 'red',
+      message: '🔴 Invalid negative wastage',
+      suggestion: 'Wastage percentage cannot be negative.',
+    };
+  }
+  if (wastagePercent <= 5) {
+    return {
+      status: 'green',
+      message: '🟢 Standard Site Wastage (0–5%)',
+    };
+  }
+  if (wastagePercent <= 10) {
+    return {
+      status: 'amber',
+      message: '🟡 Moderate Wastage Allowance (5–10%)',
+      suggestion: 'Reasonable for complex formwork or remote pump pouring.',
+    };
+  }
+  return {
+    status: 'amber',
+    message: '🟡 High Wastage Allowance (> 10%)',
+    suggestion: 'High loss estimate. Inspect formwork integrity and site delivery conditions.',
+  };
+}
+
+/**
+ * Evaluates full concrete mix input and combines validation rules.
  */
 export function validateConcreteMixInput(input: ConcreteMixInput): MixValidation {
   const wcRatio = input.cementKg > 0 ? input.waterLiters / input.cementKg : 0;
@@ -139,12 +359,33 @@ export function validateConcreteMixInput(input: ConcreteMixInput): MixValidation
   const wcRule = validateWaterCementRatio(wcRatio);
   const cementRule = validateCementContent(input.cementKg);
   const sandRule = validateSandRatio(input.sandKg, input.gravelKg);
+  const volumeVal = validateConcreteVolume(input.volumeM3);
+  const wastageVal = validateWastage(input.wastagePercent);
 
-  // Overall status is the worst of the three rules
+  const warnings: string[] = [];
+
+  if (wcRule.status !== 'green') warnings.push(wcRule.message);
+  if (cementRule.status !== 'green') warnings.push(cementRule.message);
+  if (sandRule.status !== 'green') warnings.push(sandRule.message);
+  if (volumeVal.status !== 'green') warnings.push(volumeVal.message);
+  if (wastageVal.status !== 'green') warnings.push(wastageVal.message);
+
   let overallStatus: ValidationStatus = 'green';
-  if (wcRule.status === 'red' || cementRule.status === 'red' || sandRule.status === 'red') {
+  if (
+    wcRule.status === 'red' ||
+    cementRule.status === 'red' ||
+    sandRule.status === 'red' ||
+    volumeVal.status === 'red' ||
+    wastageVal.status === 'red'
+  ) {
     overallStatus = 'red';
-  } else if (wcRule.status === 'amber' || cementRule.status === 'amber' || sandRule.status === 'amber') {
+  } else if (
+    wcRule.status === 'amber' ||
+    cementRule.status === 'amber' ||
+    sandRule.status === 'amber' ||
+    volumeVal.status === 'amber' ||
+    wastageVal.status === 'amber'
+  ) {
     overallStatus = 'amber';
   }
 
@@ -157,12 +398,15 @@ export function validateConcreteMixInput(input: ConcreteMixInput): MixValidation
     cementContentValidation: cementRule,
     sandRatio: parseFloat(sandRatio.toFixed(1)),
     sandRatioValidation: sandRule,
+    volumeValidation: volumeVal,
+    wastageValidation: wastageVal,
     isExecutable,
+    warnings,
   };
 }
 
 /**
- * Tailwind styling helper for visual rings, borders, and status pills.
+ * Tailwind CSS styling helper for input borders, badges, and traffic lights.
  */
 export function getStatusStyle(status: ValidationStatus) {
   switch (status) {

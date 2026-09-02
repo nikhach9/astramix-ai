@@ -1,283 +1,337 @@
-import { CEMENT_PROPERTIES, MARKET_BASELINE, MATERIALS_DATA, SUPPLIER_OFFERS } from "@/data/marketData";
-import { ConcreteMixInput, ConcreteResult, MarketSavingsDelta, OrderBreakdown, SortMode, StrengthForecast, ValidationStatus } from "@/types/concrete";
+import { MARKET_BASELINE, SUPPLIER_OFFERS } from "../data/marketData";
+import {
+  CandidateMix,
+  ConcreteMixInput,
+  ConcreteResult,
+  MarketSavingsDelta,
+  OptimizationPriority,
+  SortMode,
+  ValidationStatus,
+} from "../types/concrete";
+import {
+  calculateCarbonBreakdown,
+  calculateCostBreakdown,
+  calculateOrderBreakdown,
+  calculateStrengthForecast,
+} from "./calculator";
+import { validateConcreteMixInput } from "./validation";
 
 /**
- * Predicts 28-day concrete compressive strength based on Abrams' Law.
+ * Normalizes optimization weights so they sum to 100%.
  */
-export function calculateStrengthForecast(cementKg: number, waterLiters: number, cementType: keyof typeof CEMENT_PROPERTIES): StrengthForecast {
-  if (cementKg <= 0 || waterLiters <= 0) {
-    return {
-      strengthMPa: 0,
-      strengthPSI: 0,
-      gostClass: 'N/A',
-      description: 'Invalid mix proportions',
-    };
+export function normalizeWeights(w: { cost: number; carbon: number; consumption: number; performance: number }) {
+  const sum = (w.cost || 0) + (w.carbon || 0) + (w.consumption || 0) + (w.performance || 0);
+  if (sum <= 0) return { cost: 40, carbon: 30, consumption: 20, performance: 10 };
+  return {
+    cost: Math.round((w.cost / sum) * 100),
+    carbon: Math.round((w.carbon / sum) * 100),
+    consumption: Math.round((w.consumption / sum) * 100),
+    performance: Math.round((w.performance / sum) * 100),
+  };
+}
+
+/**
+ * Evaluates traffic lights for individual metrics.
+ */
+export function getMetricTrafficLights(costPerM3AMD: number, co2PerM3Kg: number, cementKgPerM3: number, isFeasible: boolean) {
+  const costLight: ValidationStatus = costPerM3AMD <= 32000 ? "green" : costPerM3AMD <= 42000 ? "amber" : "red";
+  const carbonLight: ValidationStatus = co2PerM3Kg <= 260 ? "green" : co2PerM3Kg <= 360 ? "amber" : "red";
+  const consumptionLight: ValidationStatus = cementKgPerM3 <= 340 ? "green" : cementKgPerM3 <= 420 ? "amber" : "red";
+  const feasibilityLight: ValidationStatus = isFeasible ? "green" : "red";
+
+  return { costLight, carbonLight, consumptionLight, feasibilityLight };
+}
+
+/**
+ * Generates dynamic, data-driven explanations ("WHY THIS OPTION?").
+ */
+export function generateMixReasons(
+  candidate: {
+    cost: { costPerM3AMD: number };
+    carbon: { co2PerM3: number };
+    strength: { strengthMPa: number; gostClass: string };
+    input: ConcreteMixInput;
+    isFeasible: boolean;
+  },
+  baselineCostPerM3: number,
+  baselineCarbonPerM3: number
+): string[] {
+  const reasons: string[] = [];
+
+  if (!candidate.isFeasible) {
+    reasons.push("⚠️ Fails structural engineering constraints or user limit caps.");
+    return reasons;
   }
 
-  const wcRatio = waterLiters / cementKg;
-  const isM500 = cementType === 'iranian_m500';
-
-  // Abrams' Law parameters calibrated for Armenian cement grades
-  const A = isM500 ? 96.0 : 82.0;
-  const B = 7.2;
-
-  // Raw strength prediction
-  let baseMPa = A / Math.pow(B, wcRatio);
-
-  // Density & cement dosage correction factor
-  const dosageFactor = Math.min(1.2, Math.max(0.6, cementKg / 350.0));
-  let finalMPa = baseMPa * dosageFactor;
-
-  // Clamp within reasonable physical limits (5 to 65 MPa)
-  finalMPa = Math.max(5.0, Math.min(65.0, finalMPa));
-  const psi = Math.round(finalMPa * 145.038);
-
-  // Map to Russian GOST Classes (GOST 26633)
-  let gostClass = 'B15 / M200';
-  let description = 'Light structural / interior screed';
-
-  if (finalMPa < 15) {
-    gostClass = 'B10 / M150';
-    description = 'Sub-base blinding & non-structural fill';
-  } else if (finalMPa < 20) {
-    gostClass = 'B12.5 / M150';
-    description = 'Unreinforced garden walls & path paving';
-  } else if (finalMPa < 25) {
-    gostClass = 'B15 / M200';
-    description = 'Light slab, fence footing, interior screed';
-  } else if (finalMPa < 30) {
-    gostClass = 'B20 / M250';
-    description = 'Standard low-rise residential foundation';
-  } else if (finalMPa < 35) {
-    gostClass = 'B22.5 / M300';
-    description = 'Heavy slab, retaining wall, driveway';
-  } else if (finalMPa < 40) {
-    gostClass = 'B25 / M350';
-    description = 'High-load commercial foundation & column';
-  } else if (finalMPa < 45) {
-    gostClass = 'B30 / M400';
-    description = 'Bridge pier, high-rise slab & heavy industrial';
-  } else if (finalMPa < 50) {
-    gostClass = 'B35 / M450';
-    description = 'Prestressed structural beam & hydraulic dam';
+  const costDiffPercent = Math.round(((baselineCostPerM3 - candidate.cost.costPerM3AMD) / baselineCostPerM3) * 100);
+  if (costDiffPercent > 0) {
+    reasons.push(`💰 ${costDiffPercent}% cheaper per m³ than market baseline.`);
+  } else if (costDiffPercent < 0) {
+    reasons.push(`💵 Premium grade pricing (${Math.abs(costDiffPercent)}% above baseline).`);
   } else {
-    gostClass = 'B40 / M500+';
-    description = 'Ultra-high strength heavy infrastructure';
+    reasons.push("💰 Matches reference market price baseline.");
   }
 
-  return {
-    strengthMPa: parseFloat(finalMPa.toFixed(1)),
-    strengthPSI: psi,
-    gostClass,
-    description,
-  };
+  const carbonDiffPercent = Math.round(((baselineCarbonPerM3 - candidate.carbon.co2PerM3) / baselineCarbonPerM3) * 100);
+  if (carbonDiffPercent > 0) {
+    reasons.push(`🌱 ${carbonDiffPercent}% lower embodied CO₂ emissions.`);
+  } else if (carbonDiffPercent < 0) {
+    reasons.push(`💨 Higher carbon intensity due to rapid-hardening cement.`);
+  }
+
+  if (candidate.input.cementKg <= 350) {
+    reasons.push(`📦 Efficient cement usage (${candidate.input.cementKg} kg/m³).`);
+  }
+
+  reasons.push(`🏗 Achieves ${candidate.strength.strengthMPa} MPa 28-day strength (${candidate.strength.gostClass}).`);
+  reasons.push("🟢 Passes all structural engineering safety constraints.");
+
+  return reasons;
 }
 
 /**
- * Calculates Order Breakdown (bag counts & truckloads).
+ * Generates feasible candidate mixes across supplier and mix options.
  */
-export function calculateOrderBreakdown(input: ConcreteMixInput): OrderBreakdown {
-  const vol = Math.max(0.1, input.volumeM3);
-  const totalCementKg = input.cementKg * vol;
-  const totalSandKg = input.sandKg * vol;
-  const totalGravelKg = input.gravelKg * vol;
+export function generateCandidateMixes(userInput: ConcreteMixInput): CandidateMix[] {
+  const candidates: CandidateMix[] = [];
+  const baselineCostPerM3 = MARKET_BASELINE.costPerM3AMD;
+  const baselineCarbonPerM3 = MARKET_BASELINE.co2PerM3Kg;
 
-  const cementBags50kg = Math.ceil(totalCementKg / 50.0);
-  const sandBags25kg = Math.ceil(totalSandKg / 25.0);
-  const gravelBags25kg = Math.ceil(totalGravelKg / 25.0);
+  // Define 5 distinct material mix recipes
+  const recipes = [
+    {
+      id: "user_mix",
+      title: "Current User Selection",
+      cementType: userInput.cementType,
+      packaging: userInput.packaging,
+      cementKg: userInput.cementKg,
+      waterLiters: userInput.waterLiters,
+      sandKg: userInput.sandKg,
+      gravelKg: userInput.gravelKg,
+      deliveryFeeAMD: 4500,
+    },
+    {
+      id: "ararat_bulk_opt",
+      title: "Ararat M400 Bulk (Optimized)",
+      cementType: "ararat_m400" as const,
+      packaging: "bulk" as const,
+      cementKg: Math.max(300, Math.min(420, userInput.cementKg * 0.94)),
+      waterLiters: Math.max(160, Math.min(195, userInput.waterLiters * 0.96)),
+      sandKg: 750,
+      gravelKg: 1050,
+      deliveryFeeAMD: 3500,
+    },
+    {
+      id: "ararat_bagged",
+      title: "Ararat M400 Bagged (Standard)",
+      cementType: "ararat_m400" as const,
+      packaging: "bagged" as const,
+      cementKg: Math.max(320, userInput.cementKg),
+      waterLiters: userInput.waterLiters,
+      sandKg: 740,
+      gravelKg: 1060,
+      deliveryFeeAMD: 4000,
+    },
+    {
+      id: "iranian_m500_bulk",
+      title: "Iranian M500 High-Strength",
+      cementType: "iranian_m500" as const,
+      packaging: "bulk" as const,
+      cementKg: Math.max(290, Math.min(380, userInput.cementKg * 0.88)), // lower cement due to higher strength
+      waterLiters: Math.max(155, Math.min(185, userInput.waterLiters * 0.94)),
+      sandKg: 760,
+      gravelKg: 1040,
+      deliveryFeeAMD: 5000,
+    },
+    {
+      id: "eco_green_mix",
+      title: "Eco-Green Low Carbon",
+      cementType: "ararat_m400" as const,
+      packaging: "bulk" as const,
+      cementKg: Math.max(280, Math.min(330, userInput.cementKg * 0.85)),
+      waterLiters: Math.max(150, Math.min(175, userInput.waterLiters * 0.92)),
+      sandKg: 780,
+      gravelKg: 1040,
+      deliveryFeeAMD: 3500,
+    },
+  ];
 
-  // Standard ready-mix truck capacity is ~7 to 8 m3
-  const truckloads = Math.ceil(vol / 7.0);
+  // Evaluate each recipe
+  recipes.forEach((rec, idx) => {
+    const inputForRec: ConcreteMixInput = {
+      ...userInput,
+      cementType: rec.cementType,
+      packaging: rec.packaging,
+      cementKg: Math.round(rec.cementKg),
+      waterLiters: Math.round(rec.waterLiters),
+      sandKg: Math.round(rec.sandKg),
+      gravelKg: Math.round(rec.gravelKg),
+    };
 
-  return {
-    cementBags50kg,
-    sandBags25kg,
-    gravelBags25kg,
-    truckloads,
-    volumeM3: vol,
-  };
+    const order = calculateOrderBreakdown(inputForRec);
+    const cost = calculateCostBreakdown(inputForRec, order, rec.deliveryFeeAMD);
+    const carbon = calculateCarbonBreakdown(inputForRec, order);
+    const strength = calculateStrengthForecast(inputForRec.cementKg, inputForRec.waterLiters, inputForRec.cementType);
+    const validation = validateConcreteMixInput(inputForRec);
+
+    // Hard Engineering Constraints
+    let isFeasible = validation.isExecutable;
+
+    // Must meet target strength requirement (allow 2.5 MPa tolerance)
+    if (userInput.targetStrengthMPa && strength.strengthMPa < userInput.targetStrengthMPa - 2.5) {
+      isFeasible = false;
+    }
+
+    // Must satisfy user limit caps if set
+    if (userInput.maxCostPerM3AMD && cost.costPerM3AMD > userInput.maxCostPerM3AMD) {
+      isFeasible = false;
+    }
+    if (userInput.maxTotalBudgetAMD && cost.totalAMD > userInput.maxTotalBudgetAMD) {
+      isFeasible = false;
+    }
+    if (userInput.maxCO2PerM3Kg && carbon.co2PerM3 > userInput.maxCO2PerM3Kg) {
+      isFeasible = false;
+    }
+    if (userInput.maxTotalCO2Kg && carbon.totalCO2 > userInput.maxTotalCO2Kg) {
+      isFeasible = false;
+    }
+
+    const { costLight, carbonLight, consumptionLight, feasibilityLight } = getMetricTrafficLights(
+      cost.costPerM3AMD,
+      carbon.co2PerM3,
+      inputForRec.cementKg,
+      isFeasible
+    );
+
+    const supplierName = SUPPLIER_OFFERS[idx % SUPPLIER_OFFERS.length].name;
+
+    const candidateObj: CandidateMix = {
+      id: rec.id,
+      title: rec.title,
+      supplierName,
+      cementType: rec.cementType,
+      packaging: rec.packaging,
+      input: inputForRec,
+      cost,
+      carbon,
+      strength,
+      order,
+      validation,
+      isFeasible,
+      costTrafficLight: costLight,
+      carbonTrafficLight: carbonLight,
+      consumptionTrafficLight: consumptionLight,
+      feasibilityTrafficLight: feasibilityLight,
+      score: 0,
+      badges: {
+        isBestOverall: false,
+        isCheapest: false,
+        isLowestCarbon: false,
+        isLowestConsumption: false,
+      },
+      reasons: [],
+    };
+
+    candidateObj.reasons = generateMixReasons(candidateObj, baselineCostPerM3, baselineCarbonPerM3);
+    candidates.push(candidateObj);
+  });
+
+  // Determine min and max for multi-objective scoring
+  const feasibleOnly = candidates.filter((c) => c.isFeasible);
+  const pool = feasibleOnly.length > 0 ? feasibleOnly : candidates;
+
+  const minCost = Math.min(...pool.map((c) => c.cost.costPerM3AMD));
+  const maxCost = Math.max(...pool.map((c) => c.cost.costPerM3AMD), minCost + 1);
+
+  const minCarbon = Math.min(...pool.map((c) => c.carbon.co2PerM3));
+  const maxCarbon = Math.max(...pool.map((c) => c.carbon.co2PerM3), minCarbon + 1);
+
+  const minCement = Math.min(...pool.map((c) => c.input.cementKg));
+  const maxCement = Math.max(...pool.map((c) => c.input.cementKg), minCement + 1);
+
+  const maxStrengthVal = Math.max(...pool.map((c) => c.strength.strengthMPa), 1.0);
+
+  // Get weights based on priority
+  let weights = userInput.weights;
+  if (userInput.priority === "cheapest") weights = { cost: 70, carbon: 10, consumption: 10, performance: 10 };
+  else if (userInput.priority === "lowest_co2") weights = { cost: 10, carbon: 70, consumption: 10, performance: 10 };
+  else if (userInput.priority === "lowest_consumption") weights = { cost: 20, carbon: 10, consumption: 60, performance: 10 };
+  else if (userInput.priority === "balanced") weights = { cost: 40, carbon: 30, consumption: 20, performance: 10 };
+
+  const normW = normalizeWeights(weights);
+
+  // Score candidates
+  candidates.forEach((cand) => {
+    // Infeasible candidates get score penalty and cannot win
+    if (!cand.isFeasible) {
+      cand.score = 15;
+      return;
+    }
+
+    const costScore = 1 - (cand.cost.costPerM3AMD - minCost) / (maxCost - minCost);
+    const carbonScore = 1 - (cand.carbon.co2PerM3 - minCarbon) / (maxCarbon - minCarbon);
+    const consumptionScore = 1 - (cand.input.cementKg - minCement) / (maxCement - minCement);
+    const performanceScore = cand.strength.strengthMPa / maxStrengthVal;
+
+    const rawScore =
+      (normW.cost / 100) * costScore +
+      (normW.carbon / 100) * carbonScore +
+      (normW.consumption / 100) * consumptionScore +
+      (normW.performance / 100) * performanceScore;
+
+    cand.score = Math.round(Math.max(15, Math.min(99, rawScore * 100)));
+  });
+
+  // Assign Badges
+  const cheapestCost = Math.min(...pool.map((c) => c.cost.totalAMD));
+  const lowestCarbonVal = Math.min(...pool.map((c) => c.carbon.totalCO2));
+  const lowestCementVal = Math.min(...pool.map((c) => c.input.cementKg));
+  const highestScoreVal = Math.max(...pool.map((c) => c.score));
+
+  candidates.forEach((cand) => {
+    if (cand.isFeasible) {
+      cand.badges.isCheapest = cand.cost.totalAMD === cheapestCost;
+      cand.badges.isLowestCarbon = cand.carbon.totalCO2 === lowestCarbonVal;
+      cand.badges.isLowestConsumption = cand.input.cementKg === lowestCementVal;
+      cand.badges.isBestOverall = cand.score === highestScoreVal;
+    }
+  });
+
+  return candidates.sort((a, b) => b.score - a.score);
 }
 
 /**
- * Evaluates cost traffic light based on per-m3 price in AMD.
- */
-export function getCostTrafficLight(costPerM3AMD: number): ValidationStatus {
-  if (costPerM3AMD <= 28000) return 'green';
-  if (costPerM3AMD <= 36000) return 'amber';
-  return 'red';
-}
-
-/**
- * Evaluates carbon traffic light based on CO2 intensity per m3.
- */
-export function getCarbonTrafficLight(co2PerM3Kg: number): ValidationStatus {
-  if (co2PerM3Kg <= 260) return 'green';
-  if (co2PerM3Kg <= 380) return 'amber';
-  return 'red';
-}
-
-/**
- * Evaluates all supplier offers for a given concrete mix input.
+ * Evaluates supplier offers for Kayak supplier list view.
  */
 export function evaluateAllOffers(input: ConcreteMixInput): ConcreteResult[] {
-  const vol = Math.max(0.1, input.volumeM3);
-  const isBagged = input.packaging === 'bagged';
+  const candidates = generateCandidateMixes(input);
 
-  // 1. Compute Carbon per m3 & total
-  const cementMeta = CEMENT_PROPERTIES[input.cementType];
-  const cementCO2 = input.cementKg * cementMeta.carbonKgPerKg * vol;
-  const sandCO2 = input.sandKg * MATERIALS_DATA.sand.carbonKgPerUnit * vol;
-  const gravelCO2 = input.gravelKg * MATERIALS_DATA.gravel.carbonKgPerUnit * vol;
-  const waterCO2 = input.waterLiters * MATERIALS_DATA.water.carbonKgPerUnit * vol;
-  const rebarCO2 = input.rebarKgPerM3 * MATERIALS_DATA.rebar.carbonKgPerUnit * vol;
-
-  const totalCO2 = cementCO2 + sandCO2 + gravelCO2 + waterCO2 + rebarCO2;
-  const co2PerM3 = totalCO2 / vol;
-
-  // 2. Strength Forecast
-  const strengthInfo = calculateStrengthForecast(input.cementKg, input.waterLiters, input.cementType);
-
-  // 3. Order Breakdown
-  const orderBreakdown = calculateOrderBreakdown(input);
-
-  // Evaluate each supplier offer
-  const rawResults = SUPPLIER_OFFERS.map((supplier) => {
-    // Cement pricing
-    let cementCostAMD = 0;
-    const isSupplierSameCement = supplier.cementType === input.cementType;
-    const effectiveBagPrice = isSupplierSameCement
-      ? supplier.pricePerBagAMD
-      : supplier.pricePerBagAMD * (cementMeta.avgBagPriceAMD / CEMENT_PROPERTIES[supplier.cementType].avgBagPriceAMD);
-    const effectiveBulkPrice = isSupplierSameCement
-      ? supplier.pricePerTonBulkAMD
-      : supplier.pricePerTonBulkAMD * (cementMeta.avgBulkTonAMD / CEMENT_PROPERTIES[supplier.cementType].avgBulkTonAMD);
-
-    if (isBagged) {
-      cementCostAMD = orderBreakdown.cementBags50kg * effectiveBagPrice;
-    } else {
-      cementCostAMD = ((input.cementKg * vol) / 1000.0) * effectiveBulkPrice;
-    }
-
-    // Sand pricing
-    let sandCostAMD = 0;
-    if (isBagged) {
-      sandCostAMD = orderBreakdown.sandBags25kg * MATERIALS_DATA.sand.baggedPriceAMD!;
-    } else {
-      sandCostAMD = input.sandKg * vol * MATERIALS_DATA.sand.bulkPriceAMD;
-    }
-
-    // Gravel pricing
-    let gravelCostAMD = 0;
-    if (isBagged) {
-      gravelCostAMD = orderBreakdown.gravelBags25kg * MATERIALS_DATA.gravel.baggedPriceAMD!;
-    } else {
-      gravelCostAMD = input.gravelKg * vol * MATERIALS_DATA.gravel.bulkPriceAMD;
-    }
-
-    // Water & Rebar
-    const waterCostAMD = input.waterLiters * vol * MATERIALS_DATA.water.bulkPriceAMD;
-    const rebarCostAMD = input.rebarKgPerM3 * vol * MATERIALS_DATA.rebar.bulkPriceAMD;
-    const deliveryAMD = supplier.deliveryFeeAMD;
-
-    const totalAMD = cementCostAMD + sandCostAMD + gravelCostAMD + waterCostAMD + rebarCostAMD + deliveryAMD;
-    const costPerM3AMD = totalAMD / vol;
-
-    const costTrafficLight = getCostTrafficLight(costPerM3AMD);
-    const carbonTrafficLight = getCarbonTrafficLight(co2PerM3);
-
+  return candidates.map((cand, idx) => {
+    const supplier = SUPPLIER_OFFERS[idx % SUPPLIER_OFFERS.length];
     return {
+      ...cand,
       supplier,
-      cost: {
-        cementAMD: Math.round(cementCostAMD),
-        sandAMD: Math.round(sandCostAMD),
-        gravelAMD: Math.round(gravelCostAMD),
-        waterAMD: Math.round(waterCostAMD),
-        rebarAMD: Math.round(rebarCostAMD),
-        deliveryAMD: Math.round(deliveryAMD),
-        totalAMD: Math.round(totalAMD),
-        costPerM3AMD: Math.round(costPerM3AMD),
-      },
-      carbon: {
-        cementCO2: parseFloat(cementCO2.toFixed(1)),
-        sandCO2: parseFloat(sandCO2.toFixed(1)),
-        gravelCO2: parseFloat(gravelCO2.toFixed(1)),
-        waterCO2: parseFloat(waterCO2.toFixed(1)),
-        rebarCO2: parseFloat(rebarCO2.toFixed(1)),
-        totalCO2: parseFloat(totalCO2.toFixed(1)),
-        co2PerM3: parseFloat(co2PerM3.toFixed(1)),
-      },
-      strength: strengthInfo,
-      order: orderBreakdown,
-      costTrafficLight,
-      carbonTrafficLight,
-      kayakScore: 0,
-      badges: {
-        isLowestPrice: false,
-        isEcoFriendly: false,
-        isTopStrength: false,
-        isBestOverall: false,
-      },
+      kayakScore: cand.score,
     };
   });
-
-  // Calculate min/max for normalization in Kayak score
-  const maxStrength = Math.max(...rawResults.map((r) => r.strength.strengthMPa), 1.0);
-  const maxCost = Math.max(...rawResults.map((r) => r.cost.costPerM3AMD), 1.0);
-  const maxCarbon = Math.max(...rawResults.map((r) => r.carbon.co2PerM3), 1.0);
-
-  const minCost = Math.min(...rawResults.map((r) => r.cost.costPerM3AMD));
-  const minCarbon = Math.min(...rawResults.map((r) => r.carbon.co2PerM3));
-  const maxStrengthVal = Math.max(...rawResults.map((r) => r.strength.strengthMPa));
-
-  // Compute Kayak Scores & Badges
-  const results: ConcreteResult[] = rawResults.map((item) => {
-    const strengthPart = (item.strength.strengthMPa / maxStrength) * 0.40;
-    const costPart = (1 - item.cost.costPerM3AMD / maxCost) * 0.40;
-    const carbonPart = (1 - item.carbon.co2PerM3 / maxCarbon) * 0.20;
-
-    const rawScore = (strengthPart + costPart + carbonPart) * 100;
-    const kayakScore = Math.round(Math.max(10, Math.min(99, rawScore)));
-
-    const isLowestPrice = item.cost.costPerM3AMD === minCost;
-    const isEcoFriendly = item.carbon.co2PerM3 === minCarbon;
-    const isTopStrength = item.strength.strengthMPa === maxStrengthVal;
-
-    return {
-      ...item,
-      kayakScore,
-      badges: {
-        isLowestPrice,
-        isEcoFriendly,
-        isTopStrength,
-        isBestOverall: false,
-      },
-    };
-  });
-
-  // Mark best overall score
-  const highestScore = Math.max(...results.map((r) => r.kayakScore));
-  results.forEach((r) => {
-    if (r.kayakScore === highestScore) {
-      r.badges.isBestOverall = true;
-    }
-  });
-
-  return results;
 }
 
 /**
- * Sorts evaluation results by selected quick-sort mode.
+ * Sorts evaluation results by sort mode.
  */
-export function sortConcreteResults(results: ConcreteResult[], mode: SortMode): ConcreteResult[] {
+export function sortConcreteResults<T extends { score: number; cost: { totalAMD: number }; carbon: { totalCO2: number }; strength: { strengthMPa: number } }>(
+  results: T[],
+  mode: SortMode
+): T[] {
   const sorted = [...results];
   switch (mode) {
-    case 'best_overall':
-      return sorted.sort((a, b) => b.kayakScore - a.kayakScore);
-    case 'cheapest':
+    case "best_overall":
+      return sorted.sort((a, b) => b.score - a.score);
+    case "cheapest":
       return sorted.sort((a, b) => a.cost.totalAMD - b.cost.totalAMD);
-    case 'eco_greenest':
+    case "eco_greenest":
       return sorted.sort((a, b) => a.carbon.totalCO2 - b.carbon.totalCO2);
-    case 'max_durability':
+    case "max_durability":
       return sorted.sort((a, b) => b.strength.strengthMPa - a.strength.strengthMPa);
     default:
       return sorted;
@@ -285,9 +339,9 @@ export function sortConcreteResults(results: ConcreteResult[], mode: SortMode): 
 }
 
 /**
- * Computes savings delta compared to Armenian market average.
+ * Computes savings delta compared to Armenian market baseline.
  */
-export function calculateMarketSavings(bestResult: ConcreteResult, volumeM3: number): MarketSavingsDelta {
+export function calculateMarketSavings(bestResult: CandidateMix, volumeM3: number): MarketSavingsDelta {
   const vol = Math.max(0.1, volumeM3);
   const baselineTotalCost = MARKET_BASELINE.costPerM3AMD * vol;
   const baselineTotalCarbon = MARKET_BASELINE.co2PerM3Kg * vol;

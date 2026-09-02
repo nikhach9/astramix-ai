@@ -31,7 +31,7 @@ export const ResultCard: React.FC<ResultCardProps> = ({ result, isFeatured = fal
   const costStyle = getStatusStyle(result.costTrafficLight);
   const carbonStyle = getStatusStyle(result.carbonTrafficLight);
 
-  const formatAMD = (val: number) => new Intl.NumberFormat("hy-AM").format(val);
+  const formatAMD = (val: number) => Math.round(val).toLocaleString("en-US");
 
   return (
     <div
@@ -91,19 +91,19 @@ export const ResultCard: React.FC<ResultCardProps> = ({ result, isFeatured = fal
 
         {/* Dynamic Feature Badges */}
         <div className="flex items-center gap-1.5 flex-wrap">
-          {result.badges.isLowestPrice && (
+          {result.badges.isCheapest && (
             <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
               🟢 Lowest Price
             </span>
           )}
-          {result.badges.isEcoFriendly && (
+          {result.badges.isLowestCarbon && (
             <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-teal-50 dark:bg-teal-950/50 text-teal-700 dark:text-teal-300 border border-teal-200 dark:border-teal-800">
               <Leaf className="h-3 w-3" /> Eco-Friendly
             </span>
           )}
-          {result.badges.isTopStrength && (
+          {result.badges.isLowestConsumption && (
             <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
-              <Zap className="h-3 w-3" /> Top Structural Grade
+              <Zap className="h-3 w-3" /> Low Cement Usage
             </span>
           )}
         </div>
@@ -182,7 +182,7 @@ export const ResultCard: React.FC<ResultCardProps> = ({ result, isFeatured = fal
               Detailed Itemized Summary ({result.order.volumeM3} m³ total)
             </div>
             <div className="flex justify-between text-slate-600 dark:text-slate-400">
-              <span>Cement ({result.order.cementBags50kg} bags / bulk)</span>
+              <span>Cement ({result.order.purchasableCementBags50kg} bags / bulk)</span>
               <span className="font-mono font-medium">{formatAMD(result.cost.cementAMD)} ֏ ({result.carbon.cementCO2} kg CO₂)</span>
             </div>
             <div className="flex justify-between text-slate-600 dark:text-slate-400">
@@ -241,7 +241,7 @@ export const ResultCard: React.FC<ResultCardProps> = ({ result, isFeatured = fal
               <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
                 <span className="text-slate-500 dark:text-slate-400 font-medium block">Cement (50 kg bags)</span>
                 <span className="text-lg font-bold font-mono text-slate-900 dark:text-slate-100">
-                  {result.order.cementBags50kg} bags
+                  {result.order.purchasableCementBags50kg} bags
                 </span>
               </div>
 
@@ -255,14 +255,14 @@ export const ResultCard: React.FC<ResultCardProps> = ({ result, isFeatured = fal
               <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
                 <span className="text-slate-500 dark:text-slate-400 font-medium block">Sand (25 kg bags)</span>
                 <span className="text-lg font-bold font-mono text-slate-900 dark:text-slate-100">
-                  {result.order.sandBags25kg} bags
+                  {result.order.purchasableSandBags25kg} bags
                 </span>
               </div>
 
               <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
                 <span className="text-slate-500 dark:text-slate-400 font-medium block">Gravel (25 kg bags)</span>
                 <span className="text-lg font-bold font-mono text-slate-900 dark:text-slate-100">
-                  {result.order.gravelBags25kg} bags
+                  {result.order.purchasableGravelBags25kg} bags
                 </span>
               </div>
             </div>

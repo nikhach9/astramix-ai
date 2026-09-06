@@ -131,6 +131,7 @@ export const MixCalculator: React.FC<MixCalculatorProps> = ({
               Concrete Volume (m³)
             </label>
             <input
+              suppressHydrationWarning
               type="number"
               min="0.1"
               max="100000"
@@ -172,6 +173,7 @@ export const MixCalculator: React.FC<MixCalculatorProps> = ({
               Site Wastage Allowance (%)
             </label>
             <input
+              suppressHydrationWarning
               type="number"
               min="0"
               max="25"
@@ -275,6 +277,7 @@ export const MixCalculator: React.FC<MixCalculatorProps> = ({
               </span>
             </div>
             <input
+              suppressHydrationWarning
               type="number"
               min="150"
               max="700"
@@ -296,6 +299,7 @@ export const MixCalculator: React.FC<MixCalculatorProps> = ({
               </span>
             </div>
             <input
+              suppressHydrationWarning
               type="number"
               min="100"
               max="300"
@@ -317,6 +321,7 @@ export const MixCalculator: React.FC<MixCalculatorProps> = ({
               </span>
             </div>
             <input
+              suppressHydrationWarning
               type="number"
               min="300"
               max="1200"
@@ -333,6 +338,7 @@ export const MixCalculator: React.FC<MixCalculatorProps> = ({
               Crushed Stone / Gravel (kg/m³)
             </label>
             <input
+              suppressHydrationWarning
               type="number"
               min="500"
               max="1500"
@@ -349,6 +355,7 @@ export const MixCalculator: React.FC<MixCalculatorProps> = ({
               Rebar Density (kg/m³)
             </label>
             <input
+              suppressHydrationWarning
               type="number"
               min="0"
               max="200"
@@ -385,6 +392,7 @@ export const MixCalculator: React.FC<MixCalculatorProps> = ({
               </select>
             </div>
             <input
+              suppressHydrationWarning
               type="number"
               value={p.cementPriceAMD}
               onChange={(e) => updatePrices({ cementPriceAMD: parseFloat(e.target.value) || 0 })}
@@ -422,6 +430,7 @@ export const MixCalculator: React.FC<MixCalculatorProps> = ({
               </select>
             </div>
             <input
+              suppressHydrationWarning
               type="number"
               value={p.sandPriceAMD}
               onChange={(e) => updatePrices({ sandPriceAMD: parseFloat(e.target.value) || 0 })}
@@ -449,6 +458,7 @@ export const MixCalculator: React.FC<MixCalculatorProps> = ({
               </select>
             </div>
             <input
+              suppressHydrationWarning
               type="number"
               value={p.gravelPriceAMD}
               onChange={(e) => updatePrices({ gravelPriceAMD: parseFloat(e.target.value) || 0 })}
@@ -475,6 +485,7 @@ export const MixCalculator: React.FC<MixCalculatorProps> = ({
               </select>
             </div>
             <input
+              suppressHydrationWarning
               type="number"
               value={p.rebarPriceAMD}
               onChange={(e) => updatePrices({ rebarPriceAMD: parseFloat(e.target.value) || 0 })}
@@ -541,6 +552,7 @@ export const MixCalculator: React.FC<MixCalculatorProps> = ({
                 <span className="font-mono">{input.weights.cost}%</span>
               </div>
               <input
+              suppressHydrationWarning
                 type="range"
                 min="0"
                 max="100"
@@ -557,6 +569,7 @@ export const MixCalculator: React.FC<MixCalculatorProps> = ({
                 <span className="font-mono">{input.weights.carbon}%</span>
               </div>
               <input
+              suppressHydrationWarning
                 type="range"
                 min="0"
                 max="100"
@@ -573,6 +586,7 @@ export const MixCalculator: React.FC<MixCalculatorProps> = ({
                 <span className="font-mono">{input.weights.consumption}%</span>
               </div>
               <input
+              suppressHydrationWarning
                 type="range"
                 min="0"
                 max="100"
@@ -606,6 +620,7 @@ export const MixCalculator: React.FC<MixCalculatorProps> = ({
                 Max Cost Limit (AMD / m³)
               </label>
               <input
+              suppressHydrationWarning
                 type="number"
                 placeholder="e.g. 45000"
                 value={input.maxCostPerM3AMD || ""}
@@ -619,6 +634,7 @@ export const MixCalculator: React.FC<MixCalculatorProps> = ({
                 Max Embodied CO₂ Limit (kg CO₂ / m³)
               </label>
               <input
+              suppressHydrationWarning
                 type="number"
                 placeholder="e.g. 300"
                 value={input.maxCO2PerM3Kg || ""}

@@ -182,7 +182,7 @@ export interface CandidateMix {
 
 export interface ConcreteResult extends CandidateMix {
   supplier: SupplierOffer;
-  kayakScore: number;
+  astramixScore: number;
 }
 
 export interface MarketSavingsDelta {

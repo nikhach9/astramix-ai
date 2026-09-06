@@ -1,7 +1,7 @@
 "use client";
 
-import { BetonKayakApp } from "@/components/BetonKayakApp";
+import { AstraMixOptimizer } from "@/components/AstraMixOptimizer";
 
 export default function OptimizeMixPage() {
-  return <BetonKayakApp />;
+  return <AstraMixOptimizer />;
 }

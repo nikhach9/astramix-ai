@@ -45,12 +45,12 @@ export const ResultCard: React.FC<ResultCardProps> = ({ result, isFeatured = fal
       {result.badges.isBestOverall && (
         <div className="bg-gradient-to-r from-indigo-600 to-violet-600 px-4 py-1 text-center text-[11px] font-bold text-white uppercase tracking-wider flex items-center justify-center gap-1.5">
           <Award className="h-3.5 w-3.5" />
-          <span>Kayak #1 Best Overall Value Pick</span>
+          <span>Top Recommended Mix Solution</span>
         </div>
       )}
 
       <div className="p-5 flex flex-col gap-4">
-        {/* Header: Supplier Info & Kayak Score */}
+        {/* Header: Supplier Info & AstraMix Score */}
         <div className="flex items-start justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 flex-wrap">
@@ -77,15 +77,15 @@ export const ResultCard: React.FC<ResultCardProps> = ({ result, isFeatured = fal
             </div>
           </div>
 
-          {/* Kayak Score Badge */}
+          {/* AstraMix Score Badge */}
           <div className="flex flex-col items-end shrink-0">
             <div className="flex items-baseline gap-1 bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 px-3 py-1 rounded-lg">
               <span className="text-lg font-extrabold text-indigo-600 dark:text-indigo-400 font-mono">
-                {result.kayakScore}
+                {result.astramixScore}
               </span>
               <span className="text-[10px] font-bold text-indigo-400 dark:text-indigo-500">/100</span>
             </div>
-            <span className="text-[10px] font-medium text-slate-400 mt-0.5">Kayak Score</span>
+            <span className="text-[10px] font-medium text-slate-400 mt-0.5">AstraMix Score</span>
           </div>
         </div>
 

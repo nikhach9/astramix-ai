@@ -25,23 +25,19 @@ import { CarbonTransparencyModal } from "@/components/CarbonTransparencyModal";
 import { ENGINEERING_MIX_DESIGN_DISCLAIMER } from "@/utils/calculator";
 import {
   Award,
-  DollarSign,
   Filter,
   Leaf,
-  Layers,
-  Sparkles,
   TrendingDown,
   Zap,
   Building2,
-  CheckCircle2,
   AlertTriangle,
   Info,
-  ShieldCheck,
   Check,
   Table,
+  Sparkles,
 } from "lucide-react";
 
-export const BetonKayakApp: React.FC = () => {
+export const AstraMixOptimizer: React.FC = () => {
   // Default mode & preset
   const [mode, setMode] = useState<AppMode>("optimizer");
   const [activePreset, setActivePreset] = useState<ProjectPreset | null>("foundation");
@@ -88,23 +84,23 @@ export const BetonKayakApp: React.FC = () => {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans pb-28">
       {/* Top Header & Brand Bar */}
-      <header className="sticky top-0 z-40 border-b border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md">
+      <header className="sticky top-14 z-40 border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md shadow-xs">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-violet-500 flex items-center justify-center text-white font-black text-xl shadow-md">
-              B
+            <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-blue-700 via-indigo-600 to-slate-800 flex items-center justify-center text-white font-black text-xl shadow-md">
+              A
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-xl font-black tracking-tight bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400 bg-clip-text text-transparent">
-                  BetonKayak Engine
+                <h1 className="text-xl font-black tracking-tight bg-gradient-to-r from-blue-700 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">
+                  AstraMix AI Optimization Engine
                 </h1>
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
-                  Armenia Market & Carbon Optimizer
+                <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
+                  Armenia Market &amp; Carbon Engine
                 </span>
               </div>
               <p className="text-xs text-slate-500 dark:text-slate-400">
-                Engineering Decision-Support Engine: Concrete Cost, Material Consumption & Embodied CO₂
+                Engineering Decision-Support Platform: Compressive Strength, Cost &amp; Embodied CO₂ Optimization
               </p>
             </div>
           </div>
@@ -122,7 +118,7 @@ export const BetonKayakApp: React.FC = () => {
                   onClick={() => handlePresetSelect(key)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all shrink-0 border ${
                     isSelected
-                      ? "bg-indigo-600 text-white border-indigo-600 shadow-xs font-semibold"
+                      ? "bg-blue-600 text-white border-blue-600 shadow-xs font-semibold"
                       : "bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-slate-300"
                   }`}
                 >
@@ -150,8 +146,8 @@ export const BetonKayakApp: React.FC = () => {
 
         {/* DOMINANT RECOMMENDED MIX CARD */}
         {bestCandidate && (
-          <div className="relative rounded-2xl border-2 border-indigo-500 bg-white dark:bg-slate-900 p-6 shadow-xl overflow-hidden">
-            <div className="absolute top-0 right-0 bg-gradient-to-l from-indigo-600 to-violet-600 text-white px-4 py-1.5 rounded-bl-xl text-xs font-black uppercase tracking-wider flex items-center gap-1.5 shadow-sm">
+          <div className="relative rounded-2xl border-2 border-blue-600 bg-white dark:bg-slate-900 p-6 shadow-xl overflow-hidden">
+            <div className="absolute top-0 right-0 bg-gradient-to-l from-blue-700 to-indigo-600 text-white px-4 py-1.5 rounded-bl-xl text-xs font-black uppercase tracking-wider flex items-center gap-1.5 shadow-sm">
               <Award className="h-4 w-4" />
               <span>⭐ RECOMMENDED OPTION</span>
             </div>
@@ -164,7 +160,7 @@ export const BetonKayakApp: React.FC = () => {
                     <h2 className="text-xl font-extrabold text-slate-900 dark:text-slate-100">
                       {bestCandidate.title}
                     </h2>
-                    <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
+                    <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
                       {bestCandidate.supplierName}
                     </span>
                   </div>
@@ -211,7 +207,7 @@ export const BetonKayakApp: React.FC = () => {
                   {/* Feasibility */}
                   <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
                     <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400 block">Feasibility</span>
-                    <span className="text-lg font-black text-indigo-600 dark:text-indigo-400 font-mono">
+                    <span className="text-lg font-black text-blue-600 dark:text-blue-400 font-mono">
                       {bestCandidate.strength.strengthMPa} MPa
                     </span>
                     <span className="mt-1 text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 inline-block">
@@ -221,14 +217,14 @@ export const BetonKayakApp: React.FC = () => {
                 </div>
 
                 {/* WHY THIS OPTION? Dynamic Data-Driven Explanations */}
-                <div className="p-3.5 rounded-xl bg-indigo-50/60 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900/60">
-                  <h4 className="text-xs font-bold text-indigo-900 dark:text-indigo-200 uppercase tracking-wider mb-2">
+                <div className="p-3.5 rounded-xl bg-blue-50/60 dark:bg-blue-950/40 border border-blue-100 dark:border-blue-900/60">
+                  <h4 className="text-xs font-bold text-blue-900 dark:text-blue-200 uppercase tracking-wider mb-2">
                     WHY THIS OPTION?
                   </h4>
-                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-indigo-900 dark:text-indigo-200">
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-blue-900 dark:text-blue-200">
                     {bestCandidate.reasons.map((r, i) => (
                       <li key={i} className="flex items-center gap-1.5 font-medium">
-                        <Check className="h-3.5 w-3.5 text-indigo-600 dark:text-indigo-400 shrink-0" />
+                        <Check className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
                         <span>{r}</span>
                       </li>
                     ))}
@@ -237,27 +233,27 @@ export const BetonKayakApp: React.FC = () => {
               </div>
 
               {/* Right Overall Score Gauge */}
-              <div className="lg:col-span-4 flex flex-col items-center justify-center p-6 rounded-xl bg-gradient-to-br from-indigo-50 to-violet-50 dark:from-indigo-950/50 dark:to-violet-950/50 border border-indigo-100 dark:border-indigo-900 text-center">
-                <span className="text-xs font-extrabold uppercase tracking-widest text-indigo-600 dark:text-indigo-400">
-                  OVERALL OPTIMIZATION SCORE
+              <div className="lg:col-span-4 flex flex-col items-center justify-center p-6 rounded-xl bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/50 dark:to-indigo-950/50 border border-blue-100 dark:border-blue-900 text-center">
+                <span className="text-xs font-extrabold uppercase tracking-widest text-blue-600 dark:text-blue-400">
+                  ASTRAMIX OPTIMIZATION SCORE
                 </span>
                 <div className="my-2 flex items-baseline gap-1">
-                  <span className="text-5xl font-black text-indigo-600 dark:text-indigo-400 font-mono">
+                  <span className="text-5xl font-black text-blue-600 dark:text-blue-400 font-mono">
                     {bestCandidate.score}
                   </span>
-                  <span className="text-lg font-bold text-indigo-400 dark:text-indigo-500 font-mono">/ 100</span>
+                  <span className="text-lg font-bold text-blue-400 dark:text-blue-500 font-mono">/ 100</span>
                 </div>
-                <p className="text-xs text-indigo-950 dark:text-indigo-200 max-w-xs">
+                <p className="text-xs text-blue-950 dark:text-blue-200 max-w-xs">
                   Scored across Armenian regional material tariffs, GOST strength standards, and embodied carbon baselines.
                 </p>
 
                 <button
                   type="button"
                   onClick={() => setShowTransparencyModal(true)}
-                  className="mt-4 flex items-center gap-1 text-[11px] font-bold text-indigo-700 dark:text-indigo-300 hover:underline"
+                  className="mt-4 flex items-center gap-1 text-[11px] font-bold text-blue-700 dark:text-blue-300 hover:underline"
                 >
                   <Info className="h-3.5 w-3.5" />
-                  <span>How is carbon & cost calculated?</span>
+                  <span>How is carbon &amp; cost calculated?</span>
                 </button>
               </div>
             </div>
@@ -290,7 +286,7 @@ export const BetonKayakApp: React.FC = () => {
             {/* Quick Sort Bar */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-white dark:bg-slate-900 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
               <div className="flex items-center gap-2">
-                <Filter className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
+                <Filter className="h-4 w-4 text-blue-600 dark:text-blue-400" />
                 <span className="text-xs font-bold text-slate-900 dark:text-slate-100">Sort Candidate Options:</span>
               </div>
 
@@ -300,7 +296,7 @@ export const BetonKayakApp: React.FC = () => {
                   onClick={() => setSortMode("best_overall")}
                   className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center justify-center gap-1 ${
                     sortMode === "best_overall"
-                      ? "bg-indigo-600 text-white shadow-xs"
+                      ? "bg-blue-600 text-white shadow-xs"
                       : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200"
                   }`}
                 >
@@ -313,7 +309,7 @@ export const BetonKayakApp: React.FC = () => {
                   onClick={() => setSortMode("cheapest")}
                   className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center justify-center gap-1 ${
                     sortMode === "cheapest"
-                      ? "bg-indigo-600 text-white shadow-xs"
+                      ? "bg-blue-600 text-white shadow-xs"
                       : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200"
                   }`}
                 >
@@ -326,7 +322,7 @@ export const BetonKayakApp: React.FC = () => {
                   onClick={() => setSortMode("eco_greenest")}
                   className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center justify-center gap-1 ${
                     sortMode === "eco_greenest"
-                      ? "bg-indigo-600 text-white shadow-xs"
+                      ? "bg-blue-600 text-white shadow-xs"
                       : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200"
                   }`}
                 >
@@ -339,7 +335,7 @@ export const BetonKayakApp: React.FC = () => {
                   onClick={() => setSortMode("max_durability")}
                   className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center justify-center gap-1 ${
                     sortMode === "max_durability"
-                      ? "bg-indigo-600 text-white shadow-xs"
+                      ? "bg-blue-600 text-white shadow-xs"
                       : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200"
                   }`}
                 >
@@ -349,12 +345,12 @@ export const BetonKayakApp: React.FC = () => {
               </div>
             </div>
 
-            {/* KAYAK FLIGHT-STYLE COMPARISON TABLE */}
+            {/* CANDIDATE MIX EVALUATION TABLE */}
             <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 shadow-xs overflow-x-auto">
               <div className="flex items-center justify-between mb-3">
                 <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-                  <Table className="h-4 w-4 text-indigo-600" />
-                  <span>Kayak Deal Comparison Table ({evaluatedCandidates.length} Options)</span>
+                  <Table className="h-4 w-4 text-blue-600" />
+                  <span>Candidate Mix Evaluation Matrix ({evaluatedCandidates.length} Options)</span>
                 </h3>
               </div>
 
@@ -379,7 +375,7 @@ export const BetonKayakApp: React.FC = () => {
                         onClick={() => setSelectedCandidateId(c.id)}
                         className={`cursor-pointer transition-colors ${
                           isSelected
-                            ? "bg-indigo-50/80 dark:bg-indigo-950/50 font-bold"
+                            ? "bg-blue-50/80 dark:bg-blue-950/50 font-bold"
                             : "hover:bg-slate-50 dark:hover:bg-slate-800/40"
                         }`}
                       >
@@ -391,8 +387,8 @@ export const BetonKayakApp: React.FC = () => {
                         <td className="py-3 px-2 text-slate-900 dark:text-slate-100">{formatAMD(c.cost.costPerM3AMD)} ֏</td>
                         <td className="py-3 px-2 text-slate-900 dark:text-slate-100">{formatAMD(c.cost.totalAMD)} ֏</td>
                         <td className="py-3 px-2 text-slate-600 dark:text-slate-300">{c.carbon.co2PerM3} kg</td>
-                        <td className="py-3 px-2 text-indigo-600 dark:text-indigo-400">{c.strength.strengthMPa} MPa</td>
-                        <td className="py-3 px-2 text-center font-bold text-indigo-600 dark:text-indigo-400">
+                        <td className="py-3 px-2 text-blue-600 dark:text-blue-400">{c.strength.strengthMPa} MPa</td>
+                        <td className="py-3 px-2 text-center font-bold text-blue-600 dark:text-blue-400">
                           {c.score}
                         </td>
                       </tr>
@@ -418,8 +414,8 @@ export const BetonKayakApp: React.FC = () => {
             {/* Supplier Offers Cards List */}
             <div className="flex flex-col gap-4">
               <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-                <Building2 className="h-4 w-4 text-indigo-600" />
-                <span>Armenian Hardware Suppliers & Distribution Depots</span>
+                <Building2 className="h-4 w-4 text-blue-600" />
+                <span>Armenian Hardware Suppliers &amp; Distribution Depots</span>
               </h3>
               {supplierOffers.map((result, idx) => (
                 <ResultCard
@@ -470,7 +466,7 @@ export const BetonKayakApp: React.FC = () => {
             </div>
             <div className="text-right hidden md:block">
               <span className="text-slate-400 block text-[10px]">28-Day Strength</span>
-              <span className="font-extrabold text-indigo-600 dark:text-indigo-400 text-sm">
+              <span className="font-extrabold text-blue-600 dark:text-blue-400 text-sm">
                 {bestCandidate ? bestCandidate.strength.strengthMPa : 0} MPa
               </span>
             </div>

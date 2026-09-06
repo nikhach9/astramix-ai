@@ -301,7 +301,7 @@ export function generateCandidateMixes(userInput: ConcreteMixInput): CandidateMi
 }
 
 /**
- * Evaluates supplier offers for Kayak supplier list view.
+ * Evaluates supplier offers for AstraMix supplier list view.
  */
 export function evaluateAllOffers(input: ConcreteMixInput): ConcreteResult[] {
   const candidates = generateCandidateMixes(input);
@@ -311,7 +311,7 @@ export function evaluateAllOffers(input: ConcreteMixInput): ConcreteResult[] {
     return {
       ...cand,
       supplier,
-      kayakScore: cand.score,
+      astramixScore: cand.score,
     };
   });
 }

@@ -39,3 +39,7 @@ python backend/scripts/export_git_history.py /tmp/astramix-history.csv
 ```
 
 The export command records full commit SHA, author date, committer date, author and subject. It reads existing metadata and cannot manufacture missing historical work. Current assisted repairs and the imported snapshot have present-day dates; they do not reconstruct when the original local edits were written.
+
+## Publishing through the connected app
+
+The terminal has no GitHub credentials. Publication through the authorized app creates current-dated GitHub commits with a Codex co-author attribution. Each published source tree is compared with its local preparation snapshot. The original remote commits remain ancestors; the local preparation branch is retained. Publication timestamps and local preparation timestamps describe different real actions and are not backdated.

@@ -18,11 +18,14 @@ export default function ReportPreviewPage() {
   return (
     <div className="mx-auto max-w-4xl px-6 py-10">
       <PageHeader
-        eyebrow="Session"
+        eyebrow="Saved in this browser"
         title="Report Preview"
-        subtitle="A snapshot of the most recent prediction and optimization results from this browser session."
+        subtitle="A snapshot of the most recent prediction and optimization results saved in this browser."
       />
 
+      {report.storageNotice && <p role="status" className="mb-4 text-sm text-amber-800">{report.storageNotice}</p>}
+      {report.provenanceStatus !== "recorded" && hasAnything && <p className="mb-4 text-sm text-amber-800">This saved result has incomplete historical provenance. Model and factor versions were not reconstructed.</p>}
+      {Boolean(report.incompleteSections?.length) && <p role="status" className="mb-4 text-sm text-amber-800">Incomplete estimate: {report.incompleteSections?.join(", ")}. Known subtotals are excluded from complete totals and rankings.</p>}
       {!hasAnything && (
         <Card className="flex flex-col items-start gap-4">
           <p className="text-sm text-ink-muted">
@@ -83,9 +86,17 @@ export default function ReportPreviewPage() {
             </section>
           )}
 
-          <div>
+          <details className="rounded border border-line p-4 text-sm">
+            <summary>Calculation inputs and provenance</summary>
+            <pre className="mt-3 overflow-auto whitespace-pre-wrap text-xs">{JSON.stringify({ createdAt: report.createdAt, provenance: report.provenance, request: report.request, search: report.search, knownSubtotals: report.knownSubtotals }, null, 2)}</pre>
+          </details>
+          <div className="flex gap-3">
+            <Button variant="secondary" onClick={() => {
+              const url = URL.createObjectURL(new Blob([JSON.stringify(report, null, 2)], { type: "application/json" }));
+              const anchor = document.createElement("a"); anchor.href = url; anchor.download = "astramix-report.json"; anchor.click(); URL.revokeObjectURL(url);
+            }}>Download report data</Button>
             <Button variant="ghost" onClick={clearReport}>
-              Clear session report
+              Clear saved report
             </Button>
           </div>
         </div>

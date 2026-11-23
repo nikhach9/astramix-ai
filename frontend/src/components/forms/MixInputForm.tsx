@@ -64,7 +64,7 @@ export function MixInputForm({
         <span className="font-bold text-blue-900 dark:text-blue-300">
           Model Training-Data Range (v1.0.0):
         </span>{" "}
-        Allowed limits represent the active XGBoost model&apos;s empirical training range (1,030 UCI mixes). They are{" "}
+        Allowed limits represent the recorded reference input range (1,030 UCI mixes). They are{" "}
         <strong className="font-semibold underline">not engineering safety limits</strong> or structural code compliance guarantees. Out-of-range inputs are rejected rather than silently clamped.
       </div>
 

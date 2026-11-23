@@ -1,5 +1,6 @@
 "use client";
 
+import modelValidation from "@/data/modelValidation.json";
 import React from "react";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, FlaskConical, ShieldCheck, Sliders, Store } from "lucide-react";
@@ -56,7 +57,7 @@ export default function MixLabHubPage() {
             <ul className="space-y-2 pt-2 text-xs text-[#172D44]">
               <li className="flex items-center gap-2">
                 <CheckCircle2 className="h-4 w-4 text-[#146C43] shrink-0" />
-                <span>Trained XGBoost model with validation RMSE (±4.62 MPa) &amp; MAE (±3.03 MPa)</span>
+                <span>{modelValidation.best_model_name}: validation RMSE {modelValidation.validation_metrics.rmse.toFixed(2)} MPa and MAE {modelValidation.validation_metrics.mae.toFixed(2)} MPa</span>
               </li>
               <li className="flex items-center gap-2">
                 <CheckCircle2 className="h-4 w-4 text-[#146C43] shrink-0" />

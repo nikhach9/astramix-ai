@@ -1,3 +1,4 @@
+import modelValidation from "@/data/modelValidation.json";
 import React from "react";
 import Link from "next/link";
 import { AstraMixLogo } from "@/components/layout/AstraMixLogo";
@@ -72,7 +73,7 @@ export function Footer() {
 
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400 font-mono">
           <p>&copy; {new Date().getFullYear()} AstraMix AI — Civil Engineering &amp; Material Procurement Platform.</p>
-          <p>Schema v1.0.0 · Model v0.1 (XGBoost, UCI 1,030-mix envelope)</p>
+          <p>Schema v1.0.0 · Model {modelValidation.model_version} ({modelValidation.best_model_name}, recipe-grouped validation)</p>
         </div>
       </div>
     </footer>

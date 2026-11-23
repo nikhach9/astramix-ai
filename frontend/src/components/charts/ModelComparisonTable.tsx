@@ -1,10 +1,10 @@
 import { ModelComparisonEntry } from "@/types/predictions";
 
-interface RadarModelChartProps {
+interface ModelComparisonTableProps {
   models: ModelComparisonEntry[];
 }
 
-export function RadarModelChart({ models }: RadarModelChartProps) {
+export function ModelComparisonTable({ models }: ModelComparisonTableProps) {
   if (!models || models.length === 0) {
     return (
       <div className="flex h-64 items-center justify-center text-sm text-ink-faint">

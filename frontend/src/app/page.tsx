@@ -1,7 +1,9 @@
 "use client";
 
+import modelValidation from "@/data/modelValidation.json";
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   FlaskConical,
@@ -77,9 +79,12 @@ export default function HomePage() {
 
             <div className="lg:col-span-5">
               <div className="relative rounded-2xl overflow-hidden shadow-xl border border-[#D8DFDF] bg-slate-900 group">
-                <img
+                <Image
                   src="/images/astramix-hero.jpg"
                   alt="AstraMix AI Concrete Mix Laboratory & Material Optimization"
+                  width={1024}
+                  height={576}
+                  priority
                   className="w-full h-auto object-cover transform transition-transform duration-500 group-hover:scale-[1.02]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent pointer-events-none" />
@@ -258,8 +263,7 @@ export default function HomePage() {
                 Supported Input Envelope vs. Engineering Qualification
               </h2>
               <p className="text-xs sm:text-sm text-[#536574] leading-relaxed">
-                The Mix Lab strength regressor (`XGBoost`, test RMSE `4.62 MPa`,
-                MAE `3.03 MPa`, $R^2 = 0.917$) is bounded by the empirical
+                The strength model ({modelValidation.best_model_name}) has recipe-grouped holdout RMSE {modelValidation.validation_metrics.rmse.toFixed(2)} MPa and MAE {modelValidation.validation_metrics.mae.toFixed(2)} MPa. Inputs follow the empirical
                 1,030-sample UCI Concrete Compressive Strength dataset.
               </p>
               <div className="rounded-xl border border-[#A26012]/35 bg-[#FBF3E4] p-3.5 text-xs text-[#172D44] flex items-start gap-2.5">

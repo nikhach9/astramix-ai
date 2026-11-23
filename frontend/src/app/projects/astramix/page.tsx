@@ -1,3 +1,4 @@
+import modelValidation from "@/data/modelValidation.json";
 import React from "react";
 import type { Metadata } from "next";
 import { ShowcaseImage } from "@/components/showcase/ShowcaseImage";
@@ -46,7 +47,7 @@ export default function AstraMixShowcasePage() {
             AI-assisted sustainable concrete mix design and optimization platform.
           </p>
           <p className="mt-4 text-sm sm:text-base leading-relaxed text-ink-muted max-w-3xl">
-            AstraMix AI is a completed research-style engineering software project that predicts concrete compressive strength, 
+            AstraMix AI is a completed research-style engineering software project that predicts concrete compressive strength,
             estimates CO₂ and cost, and optimizes concrete mix designs using machine learning and constrained optimization.
           </p>
           <div className="mt-8 flex flex-wrap gap-4 justify-center sm:justify-start">
@@ -103,7 +104,7 @@ export default function AstraMixShowcasePage() {
               </div>
               <h3 className="text-base font-semibold text-ink">Strength Prediction</h3>
               <p className="mt-2 text-xs text-ink-muted leading-relaxed">
-                Uses a trained XGBoost regressor to map 8 canonical material/age inputs directly to concrete compressive strength predictions in MPa.
+                Uses a versioned {modelValidation.best_model_name} regressor with eight ingredient and curing-age inputs to estimate compressive strength in MPa.
               </p>
             </div>
           </div>
@@ -151,7 +152,7 @@ export default function AstraMixShowcasePage() {
               </div>
               <h3 className="text-base font-semibold text-ink">Mix Optimization</h3>
               <p className="mt-2 text-xs text-ink-muted leading-relaxed">
-                Executes a Sequential Least Squares Programming (SLSQP) solver to search for optimal mix ratios satisfying hard water/cement ratio and target strength constraints.
+                Evaluates reproducible, bounded candidate recipes and ranks feasible mixes by normalized ingredient cost and emissions, subject to strength and water-ratio constraints.
               </p>
             </div>
           </div>
@@ -269,10 +270,10 @@ export default function AstraMixShowcasePage() {
               Model Performance
             </h2>
             <h3 className="text-2xl font-bold text-blueprint-600 mb-4">
-              XGBoost Regressor
+              {modelValidation.best_model_name} regressor
             </h3>
             <p className="text-sm text-ink-muted leading-relaxed">
-              We trained and validated multiple algorithms on the UCI Concrete Strength dataset (1,030 instances). XGBoost was selected for its superior capacity to model non-linear binder hydration dynamics.
+              Four regressors were compared using recipe-grouped development cross-validation. The selected model was then evaluated on a separate recipe-grouped holdout. Predictions describe statistical associations in the recorded data.
             </p>
             <div className="mt-4 rounded-sm border border-signal-warning/30 bg-signal-warning/5 px-4 py-3 text-xxs text-signal-warning leading-relaxed italic">
               <strong>Disclaimer:</strong> Metrics are derived from held-out validation tests and do not constitute certified construction safety guarantees.
@@ -285,36 +286,20 @@ export default function AstraMixShowcasePage() {
                 <thead className="bg-paper font-mono text-xxs uppercase tracking-wider text-ink-faint">
                   <tr>
                     <th scope="col" className="px-6 py-3">Model Candidate</th>
-                    <th scope="col" className="px-6 py-3">RMSE</th>
-                    <th scope="col" className="px-6 py-3">MAE</th>
-                    <th scope="col" className="px-6 py-3">R² Score</th>
+                    <th scope="col" className="px-6 py-3">Development CV RMSE</th>
+                    <th scope="col" className="px-6 py-3">Development CV MAE</th>
+                    <th scope="col" className="px-6 py-3">Development CV R²</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-line text-ink-muted font-mono">
-                  <tr>
-                    <td className="px-6 py-4 font-sans font-medium text-ink">Linear Regression</td>
-                    <td className="px-6 py-4">9.80 MPa</td>
-                    <td className="px-6 py-4">7.75 MPa</td>
-                    <td className="px-6 py-4">0.628</td>
-                  </tr>
-                  <tr>
-                    <td className="px-6 py-4 font-sans font-medium text-ink">Gradient Boosting</td>
-                    <td className="px-6 py-4">5.50 MPa</td>
-                    <td className="px-6 py-4">4.14 MPa</td>
-                    <td className="px-6 py-4">0.883</td>
-                  </tr>
-                  <tr>
-                    <td className="px-6 py-4 font-sans font-medium text-ink">Random Forest</td>
-                    <td className="px-6 py-4">5.46 MPa</td>
-                    <td className="px-6 py-4">3.75 MPa</td>
-                    <td className="px-6 py-4">0.884</td>
-                  </tr>
-                  <tr className="bg-blueprint-50/50 font-bold text-blueprint-700">
-                    <td className="px-6 py-4 font-sans text-ink">XGBoost (Selected)</td>
-                    <td className="px-6 py-4">4.62 MPa</td>
-                    <td className="px-6 py-4">3.03 MPa</td>
-                    <td className="px-6 py-4">0.917</td>
-                  </tr>
+                  {modelValidation.development_comparison.map(row => (
+                    <tr key={row.model} className={row.model === modelValidation.best_model_name ? "font-bold text-blueprint-700" : ""}>
+                      <td className="px-6 py-4">{row.model}{row.model === modelValidation.best_model_name ? " (selected)" : ""}</td>
+                      <td className="px-6 py-4">{row.cv_rmse.toFixed(2)} MPa</td>
+                      <td className="px-6 py-4">{row.cv_mae.toFixed(2)} MPa</td>
+                      <td className="px-6 py-4">{row.cv_r2.toFixed(3)}</td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
@@ -421,10 +406,10 @@ export default function AstraMixShowcasePage() {
           <div className="rounded-sm border border-line bg-paper p-5 shadow-panel">
             <h4 className="font-mono text-xxs uppercase tracking-wider text-blueprint-600 font-bold mb-3">ML & Optimizers</h4>
             <ul className="space-y-1.5 text-xs text-ink-muted">
-              <li>XGBoost Regressor</li>
+              <li>{modelValidation.best_model_name} regressor</li>
               <li>Scikit-Learn</li>
               <li>Joblib Serialization</li>
-              <li>SciPy SLSQP Solver</li>
+              <li>Seeded bounded candidate search</li>
             </ul>
           </div>
 

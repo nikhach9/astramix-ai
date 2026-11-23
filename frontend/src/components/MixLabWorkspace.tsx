@@ -255,23 +255,27 @@ export function MixLabWorkspace({ initialMode = "predict" }: MixLabWorkspaceProp
           saveLastReport({
             createdAt: new Date().toISOString(),
             mix,
+            provenance: data.provenance,
+            request: payload,
             strength: {
               predictedStrengthMPa: Number(strCard.headline_value ?? 0),
               ageDays: Number(strCard.curing_age_days ?? mix.ageDays),
               waterCementRatio: Number(data.provenance?.water_cement_ratio ?? 0),
               waterBinderRatio: Number(data.provenance?.water_binder_ratio ?? 0),
-              modelVersion: data.provenance?.model_version ?? "v0.1",
+              modelVersion: data.provenance?.model_version,
               warnings: strCard.details?.warnings ?? [],
               estimatedErrorRMSEMPa: strCard.details?.estimated_error_rmse_mpa,
               estimatedErrorMAEMPa: strCard.details?.estimated_error_mae_mpa,
             },
             co2: {
-              totalCo2KgPerM3: Number(co2Card.known_subtotal_co2_kg_per_m3 ?? co2Card.headline_value ?? 0),
+              isComplete: co2Card.is_complete !== false && co2Card.headline_value !== null,
+              totalCo2KgPerM3: Number(co2Card.known_subtotal_co2_kg_per_m3 ?? co2Card.headline_value),
               breakdownKgPerM3: co2Card.details?.breakdown_kg_per_m3 ?? {},
             },
             cost: {
               currency: costCard.currency ?? "USD",
-              totalCostPerM3: Number(costCard.known_subtotal_per_m3 ?? costCard.headline_value ?? 0),
+              isComplete: costCard.is_complete !== false && costCard.headline_value !== null,
+              totalCostPerM3: Number(costCard.known_subtotal_per_m3 ?? costCard.headline_value),
               breakdownPerM3: costCard.details?.breakdown_per_m3 ?? {},
             },
           });
@@ -358,6 +362,23 @@ export function MixLabWorkspace({ initialMode = "predict" }: MixLabWorkspaceProp
         tolerance_pct: tolerancePct,
       });
 
+      const resultCards = data.cards;
+      if (resultCards) {
+        const strength = resultCards.predicted_strength ?? resultCards.strength;
+        const cost = resultCards.estimated_ingredient_cost ?? resultCards.cost;
+        const emissions = resultCards.estimated_embodied_emissions ?? resultCards.emissions;
+        saveLastReport({
+          createdAt: new Date().toISOString(), mix: fromCanonicalMixPayload(data.mix),
+          provenance: data.provenance, search: data.search,
+          request: { constraints: { target_strength_mpa: tMpa, age: ageNum, max_w_c_ratio: wcNum, max_w_b_ratio: wbNum, alpha: alphaNum, beta: betaNum }, comparison_mode: comparisonMode, tolerance_pct: tolerancePct },
+          strength: { predictedStrengthMPa: strength.headline_value, modelVersion: data.provenance?.model_version,
+            estimatedErrorRMSEMPa: strength.details?.estimated_error_rmse_mpa, estimatedErrorMAEMPa: strength.details?.estimated_error_mae_mpa },
+          cost: { currency: cost.currency ?? "USD", totalCostPerM3: cost.known_subtotal_per_m3 ?? cost.headline_value,
+            isComplete: cost.is_complete !== false && cost.headline_value !== null, breakdownPerM3: cost.details?.breakdown_per_m3 },
+          co2: { totalCo2KgPerM3: emissions.known_subtotal_co2_kg_per_m3 ?? emissions.headline_value,
+            isComplete: emissions.is_complete !== false && emissions.headline_value !== null, breakdownKgPerM3: emissions.details?.breakdown_kg_per_m3 },
+        });
+      }
       setOptStatusInfo({
         success: data.success,
         isOptimum: data.is_optimum,
@@ -366,6 +387,7 @@ export function MixLabWorkspace({ initialMode = "predict" }: MixLabWorkspaceProp
         statusLabel: data.status_label,
         warnings: data.warnings ?? [],
         objectiveValue: data.objective_value,
+        search: data.search,
       });
 
       if (data.mix) {
@@ -676,7 +698,7 @@ export function MixLabWorkspace({ initialMode = "predict" }: MixLabWorkspaceProp
                 <p className="text-xs text-[#536574] leading-relaxed">
                   Searches strictly within the validated UCI training-data bounds. Enforces{" "}
                   <code>w/c = water / cement</code> and{" "}
-                  <code>w/b = water / (cement + slag + fly ash)</code> separately, and verifies the returned mix against all constraints before marking it optimal.
+                  <code>w/b = water / (cement + slag + fly ash)</code> separately, and verifies the returned mix against all constraints before recommending it. The search does not establish a global optimum.
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
@@ -883,14 +905,14 @@ export function MixLabWorkspace({ initialMode = "predict" }: MixLabWorkspaceProp
           {isOptimizePage && optStatusInfo && (
             <div
               className={`rounded-xl border p-4 text-xs ${
-                optStatusInfo.isOptimum
+                optStatusInfo.success
                   ? "border-[#146C43]/40 bg-[#E6F4EC] text-[#146C43]"
                   : "border-[#B42318]/40 bg-[#FCE9E7] text-[#B42318]"
               }`}
             >
               <div className="flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2 font-bold text-sm">
-                  {optStatusInfo.isOptimum ? (
+                  {optStatusInfo.success ? (
                     <CheckCircle2 className="h-4 w-4 text-[#146C43]" />
                   ) : (
                     <AlertTriangle className="h-4 w-4 text-[#B42318]" />
@@ -908,11 +930,11 @@ export function MixLabWorkspace({ initialMode = "predict" }: MixLabWorkspaceProp
               </div>
               {optStatusInfo.failureReason && (
                 <p className="mt-1.5 font-semibold">
-                  Infeasibility reason: {optStatusInfo.failureReason}
+                  Search outcome: {optStatusInfo.failureReason}
                 </p>
               )}
               <p className="mt-1 text-[#536574]">
-                Solver status: <code>{optStatusInfo.solverStatus}</code> · Weighted objective:{" "}
+                Solver status: <code>{optStatusInfo.solverStatus}</code> · Normalized weighted score:{" "}
                 <code>{optStatusInfo.objectiveValue}</code>
               </p>
             </div>
@@ -1006,7 +1028,7 @@ export function MixLabWorkspace({ initialMode = "predict" }: MixLabWorkspaceProp
                           w/b (water / total binder): <strong>{c.details.water_binder_ratio}</strong>
                         </div>
                         <div>
-                          Validation Error: RMSE = ±{c.details.estimated_error_rmse_mpa} MPa · MAE = ±{c.details.estimated_error_mae_mpa} MPa
+                          Validation Error: RMSE = {Number(c.details.estimated_error_rmse_mpa).toFixed(2)} MPa · MAE = {Number(c.details.estimated_error_mae_mpa).toFixed(2)} MPa
                         </div>
                         <div className="font-sans text-[11px] text-[#536574]">
                           {c.details.confidence_note}

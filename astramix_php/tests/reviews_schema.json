@@ -1,0 +1,130 @@
+[
+    {
+        "cid": 0,
+        "name": "review_id",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+    },
+    {
+        "cid": 1,
+        "name": "supplier_id",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+    },
+    {
+        "cid": 2,
+        "name": "branch_id",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+    },
+    {
+        "cid": 3,
+        "name": "reviewer_user_id",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+    },
+    {
+        "cid": 4,
+        "name": "reviewer_display_name",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+    },
+    {
+        "cid": 5,
+        "name": "order_reference",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+    },
+    {
+        "cid": 6,
+        "name": "verified_purchase",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": "0",
+        "pk": 0
+    },
+    {
+        "cid": 7,
+        "name": "service_rating",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+    },
+    {
+        "cid": 8,
+        "name": "material_rating",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+    },
+    {
+        "cid": 9,
+        "name": "overall_rating",
+        "type": "REAL",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+    },
+    {
+        "cid": 10,
+        "name": "title",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+    },
+    {
+        "cid": 11,
+        "name": "review_text",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+    },
+    {
+        "cid": 12,
+        "name": "moderation_state",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "'pending'",
+        "pk": 0
+    },
+    {
+        "cid": 13,
+        "name": "moderation_reason",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+    },
+    {
+        "cid": 14,
+        "name": "created_at",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+    },
+    {
+        "cid": 15,
+        "name": "updated_at",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+    }
+]

@@ -1,35 +1,54 @@
+"""Reproducible bounded candidate search; feasibility is not global optimality."""
+import json
 import math
-import numpy as np
-from scipy.optimize import minimize
 from dataclasses import dataclass, field
-from typing import Callable, List, Optional, Dict
-import warnings
+from decimal import Decimal
+from pathlib import Path
+from typing import Callable, Dict, List, Optional, Tuple
 
-from astramix.sustainability.impact import estimate_co2, estimate_cost
+import numpy as np
 
-DESIGN_VARIABLES = (
-    "cement",
-    "water",
-    "fly_ash",
-    "blast_furnace_slag",
-    "coarse_aggregate",
-    "fine_aggregate",
-    "superplasticizer",
+from astramix.domain.input_schema import (
+    ACTIVE_FEATURE_BOUNDS, compute_water_binder_ratio, compute_water_cement_ratio,
+    parse_strict_finite_float, parse_strict_integer_age,
 )
+from astramix.sustainability.impact import DEFAULT_CO2_FACTORS, DEFAULT_COST_FACTORS
+
+CONTRACT = json.loads((Path(__file__).resolve().parents[4] / 'artifacts/search/contract_v1.json').read_text())
+DESIGN_VARIABLES = tuple(CONTRACT['design_variables'])
+DEFAULT_VARIABLE_BOUNDS = {k: (float(ACTIVE_FEATURE_BOUNDS[k]['min']), float(ACTIVE_FEATURE_BOUNDS[k]['max'])) for k in DESIGN_VARIABLES}
+TOLERANCE = 1e-8
+
 
 @dataclass
 class OptimizationConstraints:
     target_strength: float
     age_days: int = 28
-    max_w_c_ratio: float = 0.60
+    max_w_c_ratio: Optional[float] = 0.60
+    max_w_b_ratio: Optional[float] = None
+    material_bounds: Optional[Dict[str, Tuple[float, float]]] = None
 
     def validate(self):
-        if self.target_strength <= 0:
-            raise ValueError("target_strength must be positive")
-        if self.age_days <= 0:
-            raise ValueError("age_days must be positive")
-        if self.max_w_c_ratio <= 0:
-            raise ValueError("max_w_c_ratio must be positive")
+        self.target_strength = parse_strict_finite_float(self.target_strength, 'target_strength', 'Target strength')
+        if not 0 < self.target_strength <= 150:
+            raise ValueError('Target strength must be in (0, 150] MPa.')
+        self.age_days = parse_strict_integer_age(self.age_days, 'age_days', 'Curing age')
+        if not 1 <= self.age_days <= 365:
+            raise ValueError('Curing age must be in [1, 365] days.')
+        for key, low, high in [('max_w_c_ratio', TOLERANCE, 2.0), ('max_w_b_ratio', .20, 1.0)]:
+            value = getattr(self, key)
+            if value is not None:
+                value = parse_strict_finite_float(value, key, key)
+                if not low <= value <= high:
+                    raise ValueError(f'{key} must be in [{low}, {high}].')
+                setattr(self, key, value)
+        for key, limits in (self.material_bounds or {}).items():
+            if key not in DEFAULT_VARIABLE_BOUNDS or len(limits) != 2:
+                raise ValueError(f'Invalid material bounds for {key}.')
+            low, high = [parse_strict_finite_float(x, key, key) for x in limits]
+            domain_low, domain_high = DEFAULT_VARIABLE_BOUNDS[key]
+            if low > high or low < domain_low or high > domain_high:
+                raise ValueError(f'Material bounds for {key} must be ordered and inside [{domain_low}, {domain_high}].')
 
 
 @dataclass
@@ -41,236 +60,136 @@ class OptimizationResult:
     objective_value: float
     success: bool
     warnings: List[str] = field(default_factory=list)
+    water_cement_ratio: float = 0.
+    water_binder_ratio: float = 0.
+    is_optimum: bool = False
+    solver_status: str = 'no_feasible_candidate_found'
+    failure_reason: Optional[str] = None
+    search: dict = field(default_factory=dict)
 
-def vector_to_mix(x: np.ndarray) -> Dict[str, float]:
-    if len(x) != len(DESIGN_VARIABLES):
-        raise ValueError("Vector length mismatch")
-    return {var: float(val) for var, val in zip(DESIGN_VARIABLES, x)}
 
-def run_optimization(
-    constraints: OptimizationConstraints,
-    strength_fn: Callable[[Dict[str, float], int], float],
-    alpha: float = 1.0,
-    beta: float = 1.0,
-    initial_guess: Optional[np.ndarray] = None,
-    penalty: float = 1000.0,
-    max_iter: int = 30,
-    **kwargs,
-) -> OptimizationResult:
-    
+def vector_to_mix(values):
+    if len(values) != len(DESIGN_VARIABLES):
+        raise ValueError('Expected seven ingredient quantities.')
+    return {key: float(value) for key, value in zip(DESIGN_VARIABLES, values)}
+
+
+def resolve_active_bounds(constraints):
+    return tuple(tuple(map(float, (constraints.material_bounds or {}).get(k, DEFAULT_VARIABLE_BOUNDS[k]))) for k in DESIGN_VARIABLES)
+
+
+def generate_candidates(bounds, budget, seed, initial_guess=None):
+    """LCG arithmetic is shared with PHP; round generated recipes before inference."""
+    candidates, seen = [], set()
+
+    def add(values, generated=True):
+        if generated:
+            # Clip internal anchors, never user input. Retain an exact boundary
+            # if a narrow bound contains no point on the cent grid.
+            values = [min(hi, max(lo, math.floor(float(v) * 100 + .5) / 100)) for v, (lo, hi) in zip(values, bounds)]
+        row = tuple(float(x) for x in values)
+        if row not in seen and len(candidates) < budget:
+            seen.add(row)
+            candidates.append(row)
+
+    if initial_guess is not None:
+        add(initial_guess, generated=False)
+    for anchor in CONTRACT['anchors']:
+        add(anchor)
+    state = seed
+    for _ in range(budget * 3):
+        if len(candidates) >= budget or all(lo == hi for lo, hi in bounds):
+            break
+        values = []
+        for lo, hi in bounds:
+            state = (1664525 * state + 1013904223) % 4294967296
+            values.append(lo + (hi - lo) * state / 4294967296)
+        add(values)
+    return candidates
+
+
+def _factor_table(custom, defaults):
+    if custom is None:
+        return defaults
+    for key, value in custom.items():
+        if key not in DESIGN_VARIABLES:
+            raise ValueError(f'Unknown factor material: {key}.')
+        if value is not None:
+            number = parse_strict_finite_float(value, key, key)
+            if number < 0:
+                raise ValueError(f'Negative factor for {key}.')
+    return custom
+
+
+def _total(mix, factors):
+    if any(qty > 0 and factors.get(key) is None for key, qty in mix.items()):
+        return None
+    value = float(sum((Decimal(str(qty)) * Decimal(str(factors.get(key) or 0)) for key, qty in mix.items()), Decimal(0)))
+    if not math.isfinite(value):
+        raise ValueError('Factor calculation exceeds finite numeric range.')
+    return value
+
+
+def run_optimization(constraints, strength_fn: Callable, alpha=1., beta=1., initial_guess=None,
+                     candidate_budget=512, seed=42, cost_reference=100., co2_reference=400.,
+                     unit_costs=None, emission_factors=None):
     constraints.validate()
-    
-    if alpha == 0 and beta == 0:
-        raise ValueError("alpha and beta cannot both be zero")
-    if penalty < 0:
-        raise ValueError("penalty must be non-negative")
-    if max_iter <= 0:
-        raise ValueError("max_iter must be strictly positive")
-
-    bounds = (
-        (100.0, 800.0),  # cement
-        (100.0, 300.0),  # water
-        (0.0, 400.0),    # fly_ash
-        (0.0, 400.0),    # blast_furnace_slag
-        (100.0, 1400.0), # coarse_aggregate
-        (100.0, 1200.0), # fine_aggregate
-        (0.0, 30.0),     # superplasticizer
-    )
-
+    for key, value, low, high in [('candidate_budget', candidate_budget, 1, 10000), ('seed', seed, 0, 4294967295)]:
+        if isinstance(value, bool) or not isinstance(value, (int, np.integer)) or not low <= value <= high:
+            raise ValueError(f'{key} must be an integer in [{low}, {high}].')
+    alpha, beta, cost_reference, co2_reference = [parse_strict_finite_float(v, k, k) for k, v in
+        [('alpha', alpha), ('beta', beta), ('cost_reference', cost_reference), ('co2_reference', co2_reference)]]
+    if min(alpha, beta) < 0 or max(alpha, beta) == 0 or min(cost_reference, co2_reference) <= 0:
+        raise ValueError('Weights must be non-negative with a positive sum; references must be positive.')
+    scale = max(alpha, beta)
+    a, b = alpha / scale, beta / scale
+    a, b = a / (a + b), b / (a + b)
+    bounds = resolve_active_bounds(constraints)
     if initial_guess is not None:
-        if len(initial_guess) != len(DESIGN_VARIABLES):
-            raise ValueError("initial_guess must be correct length")
-        if not np.all(np.isfinite(initial_guess)):
-            raise ValueError("initial_guess must be finite")
-            
-        total_mass = sum(initial_guess)
-        if total_mass < 1000 or total_mass > 4000:
-            raise ValueError("total mass validation failed")
-            
-        for val, (low, high) in zip(initial_guess, bounds):
-            if val < low or val > high:
-                raise ValueError("material bounds validation failed")
-    opt_warnings = [
-        "SLSQP non-smooth tree ensemble warning",
-        "weighted-sum caveat warning",
-        "objective scaling warning"
-    ]
-    
-    # Cache strength evaluations to prevent redundant ML model inference
-    _strength_cache = {}
-    _eval_count = 0
-    _MAX_EVALS = 35  # Strict unified budget for all phases
-    
-    class BudgetExceeded(Exception):
-        pass
-
-    best_x = None
-    best_obj = float('inf')
-
-    def get_strength(x):
-        nonlocal _eval_count
-        key = tuple(np.round(x, 1))
-        if key not in _strength_cache:
-            if _eval_count >= _MAX_EVALS:
-                raise BudgetExceeded()
-            _eval_count += 1
-            _strength_cache[key] = strength_fn(vector_to_mix(x), constraints.age_days)
-        return _strength_cache[key]
-
-    def objective(x):
-        nonlocal best_x, best_obj
-        mix_dict = vector_to_mix(x)
-        co2_val = estimate_co2(mix_dict).total
-        cost_val = estimate_cost(mix_dict).total
-        
-        obj = alpha * co2_val + beta * cost_val
-        
-        pred = get_strength(x)
-        if pred < constraints.target_strength:
-            obj += penalty * (constraints.target_strength - pred)
-            
-        binder = mix_dict["cement"] + mix_dict["fly_ash"] + mix_dict["blast_furnace_slag"]
-        if binder > 0:
-            w_c = mix_dict["water"] / binder
-            if w_c > constraints.max_w_c_ratio:
-                obj += penalty * 100 * (w_c - constraints.max_w_c_ratio)
-                
-        if obj < best_obj:
-            best_obj = obj
-            best_x = x.copy()
-            
-        return obj
-
-    def constraint_strength(x):
-        return get_strength(x) - constraints.target_strength
-
-    def constraint_w_c_ratio(x):
-        cement, water, fly_ash, slag = x[0], x[1], x[2], x[3]
-        binder = cement + fly_ash + slag
-        return (constraints.max_w_c_ratio * binder) - water
-
-    cons = [
-        {'type': 'ineq', 'fun': constraint_strength},
-        {'type': 'ineq', 'fun': constraint_w_c_ratio}
-    ]
-
-    candidates = [
-        np.array([350.0, 180.0, 0.0, 0.0, 1000.0, 750.0, 2.0]),
-        np.array([450.0, 160.0, 50.0, 50.0, 1000.0, 750.0, 4.0]),
-        np.array([550.0, 150.0, 100.0, 100.0, 1000.0, 750.0, 5.0]),
-        np.array([650.0, 140.0, 150.0, 150.0, 1000.0, 750.0, 6.0]),
-        np.array([800.0, 130.0, 0.0, 0.0, 1050.0, 750.0, 10.0]),
-    ]
-    if initial_guess is not None:
-        candidates.insert(0, initial_guess)
-
-    max_observed_strength = 0.0
-    
-    # We use a global lock to prevent Fortran SLSQP common-block corruption across concurrent API calls
-    import threading
-    _slsqp_lock = getattr(run_optimization, "_slsqp_lock", None)
-    if _slsqp_lock is None:
-        _slsqp_lock = threading.Lock()
-        run_optimization._slsqp_lock = _slsqp_lock
-
-    import sys
-    # Detect if running under tests (pytest or unittest)
-    is_test = (
-        "pytest" in sys.modules or
-        "unittest" in sys.modules or
-        any("pytest" in arg for arg in sys.argv)
-    )
-    # Skip SLSQP refinement for API server calls to guarantee 100% stability and prevent Fortran hangs
-    skip_slsqp_refinement = not is_test
-
-    with _slsqp_lock:
-        try:
-            # 1. Candidate screening
-            for cand in candidates:
-                val = objective(cand)
-                strength = get_strength(cand)
-                if strength > max_observed_strength:
-                    max_observed_strength = strength
-
-            # 2. Short-circuit check
-            if max_observed_strength < constraints.target_strength - 15.0:
-                opt_warnings.append("Target strength appears unreachable; short-circuiting optimizer.")
-            elif not skip_slsqp_refinement:
-                # 3. SLSQP refinement (only executed in testing mode to exercise the optimizer code)
-                with warnings.catch_warnings():
-                    warnings.simplefilter("ignore")
-                    res = minimize(
-                        objective,
-                        best_x, # start from best found
-                        method='SLSQP',
-                        bounds=bounds,
-                        constraints=cons,
-                        options={'maxiter': 1, 'eps': 10.0}
-                    )
-                    # Evaluate the final returned point to ensure best_x catches it
-                    if res.x is not None:
-                        objective(res.x)
-                        
-            # 4. Final strict evaluation
-            final_strength = get_strength(best_x)
-            
-        except BudgetExceeded:
-            opt_warnings.append("Optimization evaluation budget reached; returning best real candidate found.")
-            # Fallback to the cached strength for best_x
-            key = tuple(np.round(best_x, 1))
-            final_strength = _strength_cache.get(key, 0.0)
-        except Exception as e:
-            # In case of other crashes, return best candidate safely
-            opt_warnings.append(f"Optimizer internal error: {e}")
-            if best_x is None:
-                best_x = candidates[0]
-            key = tuple(np.round(best_x, 1))
-            final_strength = _strength_cache.get(key, 0.0)
-
-    # 5. Build Final Result
-    final_mix_dict = vector_to_mix(best_x)
-    final_co2 = estimate_co2(final_mix_dict).total
-    final_cost = estimate_cost(final_mix_dict).total
-    final_obj = alpha * final_co2 + beta * final_cost
-    
-    success = True
-    if final_strength < constraints.target_strength - 0.1:
-        success = False
-        opt_warnings.append("Could not reach target strength.")
-        
-    binder = final_mix_dict["cement"] + final_mix_dict["fly_ash"] + final_mix_dict["blast_furnace_slag"]
-    if binder > 0:
-        w_c = final_mix_dict["water"] / binder
-        if w_c > constraints.max_w_c_ratio + 0.01:
-            success = False
-            opt_warnings.append("Could not reach target strength within max_w_c_ratio.")
-            
-    opt_warnings = list(dict.fromkeys(opt_warnings))
-
-    # Add trust warnings and envelope checks at the end of optimization
-    try:
-        from astramix.ml.trust import load_training_envelope, check_training_envelope
-        check_mix = dict(final_mix_dict)
-        check_mix["age"] = constraints.age_days
-        envelope = load_training_envelope()
-        envelope_warnings = check_training_envelope(check_mix, envelope)
-        opt_warnings.extend(envelope_warnings)
-    except Exception:
-        pass
-
-    if not success:
-        opt_warnings.append("Optimizer returned a best-effort result.")
-    opt_warnings.append("weighted-sum caveat: scaling values alpha and beta trade off CO2 vs cost and do not represent absolute individual minimas.")
-    opt_warnings.append("SLSQP non-smooth tree ensemble warning: XGBoost tree models are piecewise constant; gradient-based refinement might be restricted.")
-
-    opt_warnings = list(dict.fromkeys(opt_warnings))
-
-    return OptimizationResult(
-        mix=final_mix_dict,
-        predicted_strength=final_strength,
-        co2=final_co2,
-        cost=final_cost,
-        objective_value=float(final_obj),
-        success=success,
-        warnings=opt_warnings
-    )
+        if len(initial_guess) != 7:
+            raise ValueError('Expected seven quantities in initial_guess.')
+        initial_guess = [parse_strict_finite_float(v, k, k) for k, v in zip(DESIGN_VARIABLES, initial_guess)]
+        if any(v < lo or v > hi for v, (lo, hi) in zip(initial_guess, bounds)):
+            raise ValueError('Initial guess is outside the requested material bounds.')
+    costs = _factor_table(unit_costs, DEFAULT_COST_FACTORS)
+    emissions = _factor_table(emission_factors, DEFAULT_CO2_FACTORS)
+    candidates = generate_candidates(bounds, int(candidate_budget), int(seed), initial_guess)
+    ranked = []
+    omitted = 0
+    for vector in candidates:
+        mix = vector_to_mix(vector)
+        cost, co2 = _total(mix, costs), _total(mix, emissions)
+        if cost is None or co2 is None:
+            omitted += 1
+            continue
+        predicted = float(strength_fn(mix, constraints.age_days))
+        if not math.isfinite(predicted):
+            raise ValueError('Strength model returned a non-finite prediction.')
+        wc = compute_water_cement_ratio(mix['water'], mix['cement'])
+        wb = compute_water_binder_ratio(mix['water'], mix['cement'], mix['blast_furnace_slag'], mix['fly_ash'])
+        violations = [max(0., constraints.target_strength - predicted), max(0., .20 - wb), max(0., wb - 1.)]
+        if constraints.max_w_c_ratio is not None:
+            violations.append(max(0., wc - constraints.max_w_c_ratio))
+        if constraints.max_w_b_ratio is not None:
+            violations.append(max(0., wb - constraints.max_w_b_ratio))
+        feasible = all(value <= TOLERANCE for value in violations)
+        score = a * co2 / co2_reference + b * cost / cost_reference
+        if not math.isfinite(score):
+            raise ValueError('Normalized objective exceeds finite numeric range.')
+        ranked.append(((not feasible, 0. if feasible else sum(violations), score, vector), mix, predicted, co2, cost, wc, wb))
+    if not ranked:
+        raise ValueError('No rankable candidates: missing factors for active ingredients.')
+    key, mix, predicted, co2, cost, wc, wb = min(ranked, key=lambda row: row[0])
+    feasible = not key[0]
+    warnings = ['Best candidate among the evaluated recipes; global optimality and physical suitability are not established.',
+                'Normalized weighted-sum ranking uses the recorded cost and emissions references.']
+    if omitted:
+        warnings.append(f'{omitted} candidates excluded because active ingredient factors were missing.')
+    search = {'method': CONTRACT['version'], 'seed': int(seed), 'candidate_budget': int(candidate_budget),
+              'generated': len(candidates), 'evaluated': len(ranked), 'feasible': sum(not r[0][0] for r in ranked),
+              'optimality_scope': 'best_evaluated_candidate', 'cost_reference': cost_reference,
+              'co2_reference': co2_reference, 'alpha': alpha, 'beta': beta, 'constraint_tolerance': TOLERANCE}
+    return OptimizationResult(mix=mix, predicted_strength=predicted, co2=co2, cost=cost,
+        objective_value=key[2], success=feasible, warnings=warnings, water_cement_ratio=wc,
+        water_binder_ratio=wb, solver_status='feasible_candidate_found' if feasible else 'no_feasible_candidate_found',
+        failure_reason=None if feasible else 'No feasible candidate was found within the declared search budget.', search=search)

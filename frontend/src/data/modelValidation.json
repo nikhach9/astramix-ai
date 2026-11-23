@@ -1,0 +1,66 @@
+{
+  "model_version": "grouped-v1",
+  "best_model_name": "XGBoost",
+  "validation_metrics": {
+    "rmse": 5.491270979744762,
+    "mae": 3.97638266655115,
+    "r2": 0.8809463194074478
+  },
+  "baseline_test_metrics": {
+    "rmse": 9.773452529508283,
+    "mae": 7.964684516842706,
+    "r2": 0.6228682545860127
+  },
+  "validation_protocol": "recipe-grouped holdout after grouped cross-validation; exact complete-row deduplication",
+  "development_comparison": [
+    {
+      "model": "LinearRegression",
+      "cv_rmse": 10.49748354107078,
+      "cv_mae": 8.320069379216546,
+      "cv_r2": 0.5868026753116065,
+      "test_rmse": 9.773452529508283,
+      "test_mae": 7.964684516842706,
+      "test_r2": 0.6228682545860127
+    },
+    {
+      "model": "RandomForest",
+      "cv_rmse": 6.167091884437536,
+      "cv_mae": 4.418323108699311,
+      "cv_r2": 0.8573906716866598
+    },
+    {
+      "model": "GradientBoosting",
+      "cv_rmse": 6.645904048920732,
+      "cv_mae": 4.749187213809735,
+      "cv_r2": 0.8343866928250664
+    },
+    {
+      "model": "XGBoost",
+      "cv_rmse": 6.116593254793027,
+      "cv_mae": 4.22725653723637,
+      "cv_r2": 0.8597165948573395,
+      "test_rmse": 5.491270979744762,
+      "test_mae": 3.97638266655115,
+      "test_r2": 0.8809463194074478
+    }
+  ],
+  "split": {
+    "seed": 20261123,
+    "group_columns": [
+      "cement",
+      "blast_furnace_slag",
+      "fly_ash",
+      "water",
+      "superplasticizer",
+      "coarse_aggregate",
+      "fine_aggregate"
+    ],
+    "training_rows": 849,
+    "test_rows": 156,
+    "training_groups": 341,
+    "test_groups": 86,
+    "cv_folds": 5,
+    "test_groups_overlap_training": false
+  },
+  "model_sha256": "923a6ce3efdf12770cfe875df774e4d9662262a963560211262de02afcf00934"
+}

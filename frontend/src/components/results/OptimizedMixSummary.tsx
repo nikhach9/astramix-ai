@@ -15,7 +15,7 @@ export function OptimizedMixSummary({ result }: OptimizedMixSummaryProps) {
           Optimization result
         </h3>
         <Badge variant={result.success ? "success" : "warning"}>
-          {result.success ? "Converged" : "Did not converge"}
+          {result.success ? "Feasible candidate found" : "No feasible candidate found"}
         </Badge>
       </div>
 
@@ -30,7 +30,7 @@ export function OptimizedMixSummary({ result }: OptimizedMixSummaryProps) {
       </div>
 
       <p className="font-mono text-xs text-ink-faint">
-        Objective value: {result.objectiveValue.toFixed(4)}
+        Normalized score: {result.objectiveValue.toFixed(4)}
       </p>
 
       {result.warnings.length > 0 && (

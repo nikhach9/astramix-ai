@@ -64,7 +64,7 @@ export interface CostEstimateApi {
 }
 
 // ---------------------------------------------------------------------------
-// Mix optimization — v0.1: single weighted-sum SLSQP result, not a Pareto set
+// Mix optimization — v0.1: bounded candidate search with explicit feasibility
 // ---------------------------------------------------------------------------
 
 export interface OptimizedMixResult {
@@ -73,6 +73,7 @@ export interface OptimizedMixResult {
   co2KgPerM3: number;
   costPerM3: number;
   objectiveValue: number;
+  search?: Record<string, unknown>;
   success: boolean;
   warnings: string[];
 }
@@ -83,6 +84,7 @@ export interface OptimizedMixResultApi {
   co2_kg_per_m3: number;
   cost_per_m3: number;
   objective_value: number;
+  search?: Record<string, unknown>;
   success: boolean;
   warnings: string[];
 }

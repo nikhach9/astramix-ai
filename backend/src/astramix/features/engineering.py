@@ -1,8 +1,7 @@
-"""Stub only — real implementation lives in the astramix core package."""
+"""Compatibility identity transform; the model uses eight raw input features."""
 import pandas as pd
 
 
 def engineer_features(df: pd.DataFrame) -> pd.DataFrame:
-    """Placeholder passthrough. Tests monkeypatch this directly when
-    they need to control feature-engineering behavior."""
+    """Return an independent copy without inventing untrained feature columns."""
     return df.copy()

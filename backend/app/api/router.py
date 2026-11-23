@@ -1,7 +1,7 @@
 """Aggregates all route modules into a single router mounted in main.py."""
 from fastapi import APIRouter
 
-from app.api.routes import carbon, cost, health, optimize, strength
+from app.api.routes import carbon, cost, health, market, mix_lab, optimize, strength
 
 api_router = APIRouter(prefix="/api/v1")
 
@@ -10,3 +10,5 @@ api_router.include_router(strength.router, tags=["Strength"])
 api_router.include_router(carbon.router, tags=["Carbon"])
 api_router.include_router(cost.router, tags=["Cost"])
 api_router.include_router(optimize.router, tags=["Optimization"])
+api_router.include_router(mix_lab.router, tags=["Mix Lab"])
+api_router.include_router(market.router, tags=["Materials Market"])

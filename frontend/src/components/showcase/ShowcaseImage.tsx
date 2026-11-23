@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
+import modelValidation from "@/data/modelValidation.json";
 import React, { useState } from "react";
 
 interface ShowcaseImageProps {
@@ -66,7 +67,7 @@ export function ShowcaseImage({ src, alt, mockupType }: ShowcaseImageProps) {
             <div>
               <div className="flex items-center justify-between border-b border-line pb-2 mb-2">
                 <span className="font-mono text-xxs font-bold text-blueprint-600 uppercase tracking-wider">Inference Output</span>
-                <span className="text-[10px] text-ink-faint">XGBoost v0.1</span>
+                <span className="text-[10px] text-ink-faint">{modelValidation.best_model_name} {modelValidation.model_version}</span>
               </div>
               <div className="text-center py-2">
                 <div className="text-xxs uppercase tracking-wider text-ink-faint font-mono">Predicted Compressive Strength</div>
@@ -80,7 +81,7 @@ export function ShowcaseImage({ src, alt, mockupType }: ShowcaseImageProps) {
               </div>
               <div className="flex justify-between">
                 <span>Estimated Model Error:</span>
-                <span className="font-bold text-ink">±4.62 MPa (RMSE)</span>
+                <span className="font-bold text-ink">{modelValidation.validation_metrics.rmse.toFixed(2)} MPa validation RMSE</span>
               </div>
               <div className="flex justify-between items-center mt-1 pt-1 border-t border-line/50">
                 <span>Envelope Verification:</span>
@@ -97,7 +98,7 @@ export function ShowcaseImage({ src, alt, mockupType }: ShowcaseImageProps) {
           <div className="flex flex-col justify-between w-full h-full bg-paper-raised p-4 font-sans text-xs select-none">
             <div>
               <div className="flex items-center justify-between border-b border-line pb-1 mb-2">
-                <span className="font-mono text-xxs font-bold text-blueprint-600 uppercase tracking-wider">SLSQP Solver Results</span>
+                <span className="font-mono text-xxs font-bold text-blueprint-600 uppercase tracking-wider">Candidate Search Results</span>
                 <span className="bg-blueprint-100 text-blueprint-800 text-[8px] font-mono font-bold px-1 py-0.5 rounded">Success</span>
               </div>
               <div className="grid grid-cols-2 gap-2 text-[10px] font-mono mb-2">
@@ -135,15 +136,15 @@ export function ShowcaseImage({ src, alt, mockupType }: ShowcaseImageProps) {
               <div className="space-y-1 text-[10px] font-mono text-ink-muted">
                 <div className="flex justify-between">
                   <span>Selected Model:</span>
-                  <span className="font-bold text-ink">XGBoost Regressor</span>
+                  <span className="font-bold text-ink">{modelValidation.best_model_name} regressor</span>
                 </div>
                 <div className="flex justify-between">
                   <span>R² Coefficient:</span>
-                  <span className="font-bold text-blueprint-600">0.917</span>
+                  <span className="font-bold text-blueprint-600">{modelValidation.validation_metrics.r2.toFixed(3)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>RMSE / MAE:</span>
-                  <span className="font-bold text-ink">4.62 / 3.03 MPa</span>
+                  <span className="font-bold text-ink">{modelValidation.validation_metrics.rmse.toFixed(2)} / {modelValidation.validation_metrics.mae.toFixed(2)} MPa</span>
                 </div>
               </div>
             </div>

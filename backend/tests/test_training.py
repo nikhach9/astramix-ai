@@ -70,40 +70,46 @@ def extra_col_dataset_path(tmp_path):
 def test_training_pipeline_success_and_artifacts(valid_dataset_path, temp_artifacts_dir):
     """Test that training runs successfully and creates the expected artifacts."""
     metrics_df, metadata = train_strength_models(valid_dataset_path, temp_artifacts_dir)
-    
+
     # Verify generated metrics comparison file exists
-    metrics_file = temp_artifacts_dir / "metrics" / "strength" / "baseline" / "comparison.csv"
+    metrics_file = temp_artifacts_dir / "models" / "strength" / "grouped_v1" / "comparison.csv"
     assert metrics_file.exists(), "Metrics comparison file was not created"
-    
+
     # Verify metrics DF has expected models
     assert len(metrics_df) >= 3
     assert "LinearRegression" in metrics_df["model"].values
-    
+
     # Verify saved model artifact exists
-    models_dir = temp_artifacts_dir / "models" / "strength" / "baseline"
+    models_dir = temp_artifacts_dir / "models" / "strength" / "grouped_v1"
     assert (models_dir / "linearregression.joblib").exists(), "Model artifact not saved"
     assert (models_dir / "randomforest.joblib").exists(), "Model artifact not saved"
-    
+
     # Verify model_metadata.json exists and contains correct info
     metadata_file = models_dir / "model_metadata.json"
     assert metadata_file.exists(), "Model metadata file was not created"
-    
+
     import json
     with open(metadata_file, "r") as f:
         saved_metadata = json.load(f)
-        
+
     assert saved_metadata["best_model_name"] == metadata["best_model_name"]
     assert saved_metadata["best_model_name"] in saved_metadata["trained_model_names"]
     assert saved_metadata["feature_columns"] == STRENGTH_REQUIRED_COLUMNS[:-1]
     from astramix.data.schema import STRENGTH_TARGET_COLUMN
     assert saved_metadata["target_column"] == STRENGTH_TARGET_COLUMN
-    assert saved_metadata["project_version"] == "v0.1"
+    assert saved_metadata["project_version"] == "grouped-v1"
+    split = pd.read_csv(models_dir / "split_assignments.csv")
+    development = set(split.loc[split.partition == "development", "recipe_group"])
+    heldout = set(split.loc[split.partition == "test", "recipe_group"])
+    assert development.isdisjoint(heldout)
+    assert split.loc[split.partition == "test", "cv_fold"].eq(-1).all()
+    assert saved_metadata["split"]["seed"] == 20261123
 
 def test_missing_column_fails_before_training(missing_col_dataset_path, temp_artifacts_dir):
     """Test that missing required dataset columns fail before training."""
     with pytest.raises(ValueError, match="Schema validation failed"):
         train_strength_models(missing_col_dataset_path, temp_artifacts_dir)
-        
+
     # Verify training didn't produce artifacts because it failed early
     assert not (temp_artifacts_dir / "metrics").exists()
 

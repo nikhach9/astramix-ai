@@ -10,6 +10,11 @@ export const metadata: Metadata = {
     "AstraMix AI uses computational optimization to analyze concrete strength, cost, material composition, and carbon footprint.",
   keywords:
     "AstraMix AI, concrete mix optimization, sustainable concrete, civil engineering AI, compressive strength prediction, embodied carbon reduction, material science",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/astramix-icon-32.png",
+    apple: "/astramix-icon-192.png",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -7,7 +7,7 @@ export default function AboutResearchPage() {
       <PageHeader
         eyebrow="Reference"
         title="About Research"
-        subtitle="How AstraMix AI's four models fit together."
+        subtitle="How predictions, ingredient estimates and candidate search work together."
       />
 
       <div className="flex flex-col gap-6">
@@ -32,31 +32,24 @@ export default function AboutResearchPage() {
         </Card>
 
         <Card>
-          <h2 className="text-sm font-semibold text-ink">Mix optimization (v0.1)</h2>
+          <h2 className="text-sm font-semibold text-ink">Mix candidate search</h2>
           <p className="mt-2 text-sm leading-relaxed text-ink-muted">
-            The optimizer is a weighted-sum SLSQP solver: it combines strength,
-            cost, and CO₂ objectives into a single scalar objective and returns
-            one best trade-off mix, subject to whatever constraints are set.
-            This means v0.1 returns exactly one result, not a set of
-            alternatives to choose between.
-          </p>
-          <p className="mt-2 text-sm leading-relaxed text-ink-muted">
-            A future version is planned to add a Pareto-front optimizer
-            (NSGA-II) behind a separate endpoint, returning multiple
-            non-dominated candidates instead of one. That endpoint does not
-            exist yet — this page will be updated when it ships, and it will
-            be a new tool alongside the current one rather than a replacement
-            for it.
+            The backend checks a reproducible set of bounded recipes, then ranks
+            feasible candidates by normalized ingredient cost and CO₂. Strength,
+            water/cement and water/binder ratios are constraints. The response
+            records the seed, budget, evaluated count and normalization references.
+            A successful search identifies the best feasible recipe checked within
+            that budget. Laboratory suitability and a global optimum are not established.
           </p>
         </Card>
 
         <Card>
           <h2 className="text-sm font-semibold text-ink">Model Comparison</h2>
           <p className="mt-2 text-sm leading-relaxed text-ink-muted">
-            The Model Comparison page is reserved for benchmarking prediction
-            models against each other (RMSE, MAE, R²). It stays empty until a
-            comparison endpoint exists on the backend, rather than showing
-            placeholder figures.
+            Model Comparison shows the versioned development cross-validation
+            results and separate internal test scores for the selected model and
+            linear baseline. Both recipe groups and evaluation protocol are recorded
+            with the released artifacts.
           </p>
         </Card>
       </div>

@@ -1,43 +1,17 @@
-import sys
-import os
+"""Train the grouped-v1 release; activation is a separate PHP-parity check."""
 from pathlib import Path
+import sys
 
-# Add src to sys.path so it works without PYTHONPATH if needed
-SCRIPT_DIR = Path(__file__).resolve().parent
-PROJECT_ROOT = SCRIPT_DIR.parent.parent
-sys.path.insert(0, str(SCRIPT_DIR.parent / "src"))
-
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / 'backend/src'))
 from astramix.training.strength import train_strength_models
 
-def main():
-    print("--- AstraMix v0.1 Strength Model Training Pipeline ---")
-    
-    # Paths assuming script is run from anywhere and resolves relative to the repo root
-    dataset_path = PROJECT_ROOT / "data" / "processed" / "strength_dataset_v0_1.csv"
-    artifacts_dir = PROJECT_ROOT / "artifacts"
-    
-    print(f"Dataset Path: {dataset_path.resolve()}")
-    print(f"Artifact Output Path: {artifacts_dir.resolve()}")
-    
-    if not dataset_path.exists():
-        print(f"Error: Dataset not found at {dataset_path}")
-        sys.exit(1)
-        
-    print("\nStarting training...\n")
-    
-    try:
-        metrics_df, metadata = train_strength_models(dataset_path, artifacts_dir)
-    except Exception as e:
-        print(f"Training failed: {e}")
-        sys.exit(1)
-        
-    print("--- Training Complete ---")
-    print("\nMetrics Table:")
-    print(metrics_df.to_string(index=False))
-    
-    print(f"\nBest Model by RMSE: {metadata['best_model_name']}")
-    print("Metadata and model artifacts successfully saved to:")
-    print(Path(metadata["metrics_path"]).parent)
 
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    comparison, metadata = train_strength_models(
+        ROOT / 'data/processed/strength_dataset_v0_1.csv', ROOT / 'artifacts')
+    print(comparison.to_string(index=False))
+    print(f"Selected by grouped development CV: {metadata['best_model_name']}")
+    print('Final holdout metrics:', metadata['validation_metrics'])
+    print('This regenerates the existing release, not a new independent validation experiment.')
+    print('Run python backend/scripts/activate_model.py --php <php-cli> to verify and activate.')

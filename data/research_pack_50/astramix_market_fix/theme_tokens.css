@@ -1,0 +1,22 @@
+/* Integration reference: map these variables onto existing components. */
+:root {
+  --astra-background: #f7f5ef;
+  --astra-surface: #ffffff;
+  --astra-text: #172d44;
+  --astra-muted-text: #536574;
+  --astra-primary: #176b65;
+  --astra-primary-hover: #10564f;
+  --astra-on-primary: #ffffff;
+  --astra-accent: #a65429;
+  --astra-accent-soft: #f5e7db;
+  --astra-border: #d8dfdf;
+  --astra-focus: #176b65;
+  --astra-good: #146c43;
+  --astra-good-soft: #e6f4ec;
+  --astra-normal: #805700;
+  --astra-normal-soft: #fff3cd;
+  --astra-bad: #b42318;
+  --astra-bad-soft: #fce9e7;
+  --astra-unknown: #536574;
+  --astra-unknown-soft: #edf0f2;
+}

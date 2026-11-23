@@ -1,5 +1,36 @@
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
-const API_PREFIX = BASE_URL.endsWith("/api/v1") ? "" : "/api/v1";
+/**
+ * Central API URL resolver for AstraMix AI.
+ * 
+ * Guarantees:
+ * 1. Default to same-origin relative `/api/v1` for cPanel static hosting.
+ * 2. Never falls back to localhost:8000 in production.
+ * 3. Never duplicates `/api/v1` even if the caller supplies `/api/v1/...` or `/...`.
+ * 4. Respects `NEXT_PUBLIC_API_BASE_URL` when explicitly configured.
+ */
+export function resolveApiEndpoint(path: string): string {
+  let cleanPath = (path || "").trim();
+  if (!cleanPath.startsWith("/")) {
+    cleanPath = `/${cleanPath}`;
+  }
+
+  // Strip leading /api/v1 or /api to prevent duplication
+  if (cleanPath.startsWith("/api/v1/")) {
+    cleanPath = cleanPath.substring(7);
+  } else if (cleanPath === "/api/v1") {
+    cleanPath = "";
+  } else if (cleanPath.startsWith("/api/")) {
+    cleanPath = cleanPath.substring(4);
+  }
+
+  const rawBase = (process.env.NEXT_PUBLIC_API_BASE_URL || "").trim().replace(/\/+$/, "");
+
+  if (rawBase) {
+    const trimmedBase = rawBase.replace(/\/api(\/v1)?\/?$/, "");
+    return `${trimmedBase}/api/v1${cleanPath}`;
+  }
+
+  return `/api/v1${cleanPath}`;
+}
 
 export class ApiError extends Error {
   status: number;
@@ -70,11 +101,17 @@ async function handleResponseError(res: Response): Promise<never> {
 
 export async function apiPost<TResponse, TBody = unknown>(
   path: string,
-  body: TBody
+  body: TBody,
+  options?: RequestInit
 ): Promise<TResponse> {
-  const res = await fetch(`${BASE_URL}${API_PREFIX}${path}`, {
+  const url = resolveApiEndpoint(path);
+  const res = await fetch(url, {
+    ...options,
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      ...(options?.headers || {}),
+    },
     body: JSON.stringify(body),
   });
 
@@ -85,8 +122,12 @@ export async function apiPost<TResponse, TBody = unknown>(
   return res.json() as Promise<TResponse>;
 }
 
-export async function apiGet<TResponse>(path: string): Promise<TResponse> {
-  const res = await fetch(`${BASE_URL}${API_PREFIX}${path}`);
+export async function apiGet<TResponse>(
+  path: string,
+  options?: RequestInit
+): Promise<TResponse> {
+  const url = resolveApiEndpoint(path);
+  const res = await fetch(url, options);
 
   if (!res.ok) {
     await handleResponseError(res);

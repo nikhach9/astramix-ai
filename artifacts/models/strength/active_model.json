@@ -1,0 +1,6 @@
+{
+  "model_path": "grouped_v1/xgboost.joblib",
+  "metadata_path": "grouped_v1/model_metadata.json",
+  "envelope_path": "grouped_v1/training_envelope.json",
+  "schema_path": "grouped_v1/input_schema_v1.json"
+}

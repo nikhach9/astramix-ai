@@ -145,6 +145,7 @@ export function apiToFrontendOptimizedResult(
     co2KgPerM3: res.co2_kg_per_m3,
     costPerM3: res.cost_per_m3,
     objectiveValue: res.objective_value,
+    search: res.search,
     success: res.success,
     warnings: res.warnings,
   };

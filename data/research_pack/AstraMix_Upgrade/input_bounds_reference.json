@@ -1,0 +1,99 @@
+{
+  "reference_dataset": "UCI Concrete Compressive Strength, Yeh",
+  "row_count": 1030,
+  "reference_file_sha256": "710076c66b9ca3f8050e7942f3dcbdbe04013534daeb0077ffd3079a52d8e0c4",
+  "generated_at": "2026-10-17",
+  "bounds": [
+    {
+      "feature": "cement",
+      "minimum": 102.0,
+      "maximum": 540.0,
+      "unit": "kg/m3",
+      "integer_only": false,
+      "source_ids": [
+        "UCI"
+      ],
+      "meaning": "full_reference_dataset_support_not_engineering_safety_limit"
+    },
+    {
+      "feature": "slag",
+      "minimum": 0.0,
+      "maximum": 359.4,
+      "unit": "kg/m3",
+      "integer_only": false,
+      "source_ids": [
+        "UCI"
+      ],
+      "meaning": "full_reference_dataset_support_not_engineering_safety_limit"
+    },
+    {
+      "feature": "fly_ash",
+      "minimum": 0.0,
+      "maximum": 200.1,
+      "unit": "kg/m3",
+      "integer_only": false,
+      "source_ids": [
+        "UCI"
+      ],
+      "meaning": "full_reference_dataset_support_not_engineering_safety_limit"
+    },
+    {
+      "feature": "water",
+      "minimum": 121.75,
+      "maximum": 247.0,
+      "unit": "kg/m3",
+      "integer_only": false,
+      "source_ids": [
+        "UCI"
+      ],
+      "meaning": "full_reference_dataset_support_not_engineering_safety_limit"
+    },
+    {
+      "feature": "superplasticizer",
+      "minimum": 0.0,
+      "maximum": 32.2,
+      "unit": "kg/m3",
+      "integer_only": false,
+      "source_ids": [
+        "UCI"
+      ],
+      "meaning": "full_reference_dataset_support_not_engineering_safety_limit"
+    },
+    {
+      "feature": "coarse_aggregate",
+      "minimum": 801.0,
+      "maximum": 1145.0,
+      "unit": "kg/m3",
+      "integer_only": false,
+      "source_ids": [
+        "UCI"
+      ],
+      "meaning": "full_reference_dataset_support_not_engineering_safety_limit"
+    },
+    {
+      "feature": "fine_aggregate",
+      "minimum": 594.0,
+      "maximum": 992.6,
+      "unit": "kg/m3",
+      "integer_only": false,
+      "source_ids": [
+        "UCI"
+      ],
+      "meaning": "full_reference_dataset_support_not_engineering_safety_limit"
+    },
+    {
+      "feature": "age_days",
+      "minimum": 1.0,
+      "maximum": 365.0,
+      "unit": "days",
+      "integer_only": true,
+      "source_ids": [
+        "UCI"
+      ],
+      "meaning": "full_reference_dataset_support_not_engineering_safety_limit"
+    }
+  ],
+  "deployed_model_verified": false,
+  "instruction": "Inspect the deployed model feature pipeline and actual training split. Its validated envelope takes priority; do not claim all reference rows were used to fit the deployed model.",
+  "attribution": "Yeh, I. (1998). Concrete Compressive Strength [Dataset]. UCI Machine Learning Repository. DOI:10.24432/C5PK67. CC BY 4.0."
+}

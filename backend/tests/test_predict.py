@@ -8,15 +8,15 @@ def test_prediction_uses_saved_model(tmp_path):
     from sklearn.linear_model import LinearRegression
     import pandas as pd
     from astramix.data.schema import STRENGTH_FEATURE_COLUMNS
-    
+
     # Train dummy model
     dummy = LinearRegression()
     dummy_df = pd.DataFrame([[1]*8, [2]*8], columns=STRENGTH_FEATURE_COLUMNS)
     dummy.fit(dummy_df, [10.0, 20.0])
-    
+
     model_path = tmp_path / "xgboost.joblib"
     joblib.dump(dummy, model_path)
-    
+
     input_data = {
         "cement": 1.0,
         "blast_furnace_slag": 1.0,
@@ -27,7 +27,7 @@ def test_prediction_uses_saved_model(tmp_path):
         "fine_aggregate": 1.0,
         "age": 1.0
     }
-    
+
     res = predict_strength(input_data, model_path)
     assert res["success"] is True
     assert "predicted_strength_mpa" in res
@@ -38,14 +38,14 @@ def test_prediction_response_matches_contract(tmp_path):
     from sklearn.linear_model import LinearRegression
     import pandas as pd
     from astramix.data.schema import STRENGTH_FEATURE_COLUMNS
-    
+
     dummy = LinearRegression()
     dummy_df = pd.DataFrame([[1]*8, [2]*8], columns=STRENGTH_FEATURE_COLUMNS)
     dummy.fit(dummy_df, [10.0, 20.0])
-    
+
     model_path = tmp_path / "dummy.joblib"
     joblib.dump(dummy, model_path)
-    
+
     input_data = {
         "cement": 300.0,
         "blast_furnace_slag": 100.0,
@@ -56,14 +56,14 @@ def test_prediction_response_matches_contract(tmp_path):
         "fine_aggregate": 800.0,
         "age": 28.0
     }
-    
+
     res = predict_strength(input_data, model_path)
     legacy_fields = {
-        "success", 
-        "predicted_strength_mpa", 
-        "age", 
-        "water_cement_ratio", 
-        "water_binder_ratio", 
+        "success",
+        "predicted_strength_mpa",
+        "age",
+        "water_cement_ratio",
+        "water_binder_ratio",
         "model_version"
     }
     assert legacy_fields.issubset(res.keys())
@@ -74,7 +74,7 @@ def test_prediction_response_matches_contract(tmp_path):
     assert res["age"] == 28.0
     assert res["water_cement_ratio"] == 200.0 / 300.0
     assert res["water_binder_ratio"] == 200.0 / 400.0
-    assert res["model_version"] == "v0.1"
+    assert res["model_version"] == "unversioned"
 
 def test_missing_model_fails_clearly(tmp_path):
     input_data = {
@@ -117,3 +117,17 @@ def test_slag_is_rejected():
     }
     with pytest.raises(ValueError, match="Invalid material name 'slag'"):
         predict_strength(input_data, "dummy.joblib")
+
+
+def test_model_hash_mismatch_is_not_reported_as_a_validated_prediction(tmp_path):
+    import json
+    import shutil
+    from astramix.models.strength.predict import MODEL_ROOT, get_best_model_path
+    source = get_best_model_path(MODEL_ROOT / "baseline")
+    target = tmp_path / source.name
+    shutil.copy2(source, target)
+    (tmp_path / "model_metadata.json").write_text(json.dumps({"model_sha256":"0" * 64}))
+    mix = dict(cement=350.,blast_furnace_slag=0.,fly_ash=0.,water=175.,
+               superplasticizer=2.5,coarse_aggregate=1040.,fine_aggregate=760.,age=28)
+    with pytest.raises(RuntimeError, match="SHA-256"):
+        predict_strength(mix, target)

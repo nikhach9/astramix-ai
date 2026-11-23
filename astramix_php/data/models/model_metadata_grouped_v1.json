@@ -1,0 +1,176 @@
+{
+  "model_version": "grouped-v1",
+  "project_version": "grouped-v1",
+  "best_model_name": "XGBoost",
+  "selection_rule": "Lowest pooled out-of-fold development RMSE; five recipe-grouped folds where available.",
+  "dataset_path": "strength_dataset_v0_1.csv",
+  "dataset_sha256": "befc0ecc70f11afdb2ae65b82ce8a39f33911cb50275f6368e58c5730c846b82",
+  "dataset_row_count": 1030,
+  "exact_duplicates_removed": 25,
+  "deduplicated_row_count": 1005,
+  "feature_columns": [
+    "cement",
+    "blast_furnace_slag",
+    "fly_ash",
+    "water",
+    "superplasticizer",
+    "coarse_aggregate",
+    "fine_aggregate",
+    "age"
+  ],
+  "target_column": "compressive_strength_mpa",
+  "trained_model_names": [
+    "LinearRegression",
+    "RandomForest",
+    "GradientBoosting",
+    "XGBoost"
+  ],
+  "validation_metrics": {
+    "rmse": 5.491270979744762,
+    "mae": 3.97638266655115,
+    "r2": 0.8809463194074478
+  },
+  "baseline_test_metrics": {
+    "rmse": 9.773452529508283,
+    "mae": 7.964684516842706,
+    "r2": 0.6228682545860127
+  },
+  "validation_protocol": "recipe-grouped holdout after grouped cross-validation; exact complete-row deduplication",
+  "split": {
+    "seed": 20261123,
+    "group_columns": [
+      "cement",
+      "blast_furnace_slag",
+      "fly_ash",
+      "water",
+      "superplasticizer",
+      "coarse_aggregate",
+      "fine_aggregate"
+    ],
+    "training_rows": 849,
+    "test_rows": 156,
+    "training_groups": 341,
+    "test_groups": 86,
+    "cv_folds": 5,
+    "test_groups_overlap_training": false
+  },
+  "development_comparison": [
+    {
+      "model": "LinearRegression",
+      "cv_rmse": 10.49748354107078,
+      "cv_mae": 8.320069379216546,
+      "cv_r2": 0.5868026753116065,
+      "test_rmse": 9.773452529508283,
+      "test_mae": 7.964684516842706,
+      "test_r2": 0.6228682545860127
+    },
+    {
+      "model": "RandomForest",
+      "cv_rmse": 6.167091884437536,
+      "cv_mae": 4.418323108699311,
+      "cv_r2": 0.8573906716866598
+    },
+    {
+      "model": "GradientBoosting",
+      "cv_rmse": 6.645904048920732,
+      "cv_mae": 4.749187213809735,
+      "cv_r2": 0.8343866928250664
+    },
+    {
+      "model": "XGBoost",
+      "cv_rmse": 6.116593254793027,
+      "cv_mae": 4.22725653723637,
+      "cv_r2": 0.8597165948573395,
+      "test_rmse": 5.491270979744762,
+      "test_mae": 3.97638266655115,
+      "test_r2": 0.8809463194074478
+    }
+  ],
+  "training_bounds": {
+    "cement": {
+      "min": 102.0,
+      "max": 540.0
+    },
+    "blast_furnace_slag": {
+      "min": 0.0,
+      "max": 359.4
+    },
+    "fly_ash": {
+      "min": 0.0,
+      "max": 200.1
+    },
+    "water": {
+      "min": 121.8,
+      "max": 228.0
+    },
+    "superplasticizer": {
+      "min": 0.0,
+      "max": 32.2
+    },
+    "coarse_aggregate": {
+      "min": 801.0,
+      "max": 1145.0
+    },
+    "fine_aggregate": {
+      "min": 594.0,
+      "max": 992.6
+    },
+    "age": {
+      "min": 1.0,
+      "max": 365.0
+    }
+  },
+  "model_parameters": {
+    "objective": "reg:squarederror",
+    "base_score": null,
+    "booster": null,
+    "callbacks": null,
+    "colsample_bylevel": null,
+    "colsample_bynode": null,
+    "colsample_bytree": null,
+    "device": null,
+    "early_stopping_rounds": null,
+    "enable_categorical": false,
+    "eval_metric": null,
+    "feature_types": null,
+    "gamma": null,
+    "grow_policy": null,
+    "importance_type": null,
+    "interaction_constraints": null,
+    "learning_rate": null,
+    "max_bin": null,
+    "max_cat_threshold": null,
+    "max_cat_to_onehot": null,
+    "max_delta_step": null,
+    "max_depth": null,
+    "max_leaves": null,
+    "min_child_weight": null,
+    "missing": "NaN",
+    "monotone_constraints": null,
+    "multi_strategy": null,
+    "n_estimators": null,
+    "n_jobs": 1,
+    "num_parallel_tree": null,
+    "random_state": 42,
+    "reg_alpha": null,
+    "reg_lambda": null,
+    "sampling_method": null,
+    "scale_pos_weight": null,
+    "subsample": null,
+    "tree_method": null,
+    "validate_parameters": null,
+    "verbosity": 0
+  },
+  "dependencies": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "scikit_learn": "1.8.0",
+    "xgboost": "2.1.4"
+  },
+  "model_sha256": "923a6ce3efdf12770cfe875df774e4d9662262a963560211262de02afcf00934",
+  "portable_model_sha256": "e0643550122f028653e2b15fe54af58fc24e8b514ace4fb401924afc721bd729",
+  "metrics_path": "artifacts/models/strength/grouped_v1/comparison.csv",
+  "training_datetime": "2026-11-23T05:11:33.432109+00:00",
+  "evaluation_scope": "Internal holdout for this release; this dataset was used in earlier diagnostic experiments. No independent external validation is claimed."
+}

@@ -1,0 +1,2056 @@
+{
+  "validated_at": "2026-10-18T13:28:08.896085+00:00",
+  "scope": "50-market data, source/relationship integrity and offline locality lookup; not the application",
+  "passed": true,
+  "check_count": 480,
+  "checks": [
+    {
+      "name": "Same 100 countries in manifest and location index",
+      "passed": true
+    },
+    {
+      "name": "AE: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "AE: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "AE: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "AM: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "AM: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "AM: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "AR: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "AR: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "AR: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "AT: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "AT: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "AT: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "AU: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "AU: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "AU: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "AZ: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "AZ: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "AZ: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "BA: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "BA: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "BA: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "BD: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "BD: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "BD: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "BE: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "BE: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "BE: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "BF: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "BF: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "BF: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "BG: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "BG: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "BG: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "BJ: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "BJ: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "BJ: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "BN: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "BN: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "BN: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "BR: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "BR: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "BR: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "BZ: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "BZ: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "BZ: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "CA: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "CA: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "CA: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "CG: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "CG: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "CG: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "CH: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "CH: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "CH: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "CI: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "CI: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "CI: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "CL: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "CL: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "CL: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "CM: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "CM: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "CM: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "CN: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "CN: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "CN: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "CO: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "CO: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "CO: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "CR: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "CR: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "CR: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "CY: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "CY: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "CY: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "CZ: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "CZ: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "CZ: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "DE: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "DE: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "DE: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "DK: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "DK: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "DK: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "DO: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "DO: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "DO: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "DZ: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "DZ: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "DZ: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "EC: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "EC: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "EC: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "EE: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "EE: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "EE: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "EG: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "EG: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "EG: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "ES: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "ES: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "ES: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "ET: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "ET: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "ET: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "FI: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "FI: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "FI: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "FR: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "FR: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "FR: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "GA: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "GA: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "GA: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "GB: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "GB: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "GB: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "GE: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "GE: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "GE: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "GH: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "GH: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "GH: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "GN: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "GN: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "GN: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "GR: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "GR: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "GR: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "GT: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "GT: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "GT: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "GW: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "GW: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "GW: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "HN: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "HN: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "HN: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "HR: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "HR: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "HR: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "HU: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "HU: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "HU: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "ID: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "ID: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "ID: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "IE: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "IE: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "IE: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "IL: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "IL: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "IL: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "IN: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "IN: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "IN: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "IS: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "IS: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "IS: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "IT: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "IT: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "IT: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "JM: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "JM: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "JM: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "JP: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "JP: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "JP: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "KE: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "KE: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "KE: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "KR: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "KR: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "KR: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "KZ: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "KZ: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "KZ: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "LR: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "LR: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "LR: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "LT: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "LT: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "LT: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "LV: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "LV: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "LV: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "MA: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "MA: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "MA: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "ML: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "ML: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "ML: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "MR: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "MR: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "MR: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "MX: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "MX: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "MX: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "MY: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "MY: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "MY: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "MZ: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "MZ: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "MZ: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "NG: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "NG: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "NG: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "NI: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "NI: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "NI: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "NL: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "NL: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "NL: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "NO: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "NO: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "NO: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "NZ: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "NZ: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "NZ: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "PA: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "PA: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "PA: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "PE: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "PE: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "PE: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "PH: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "PH: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "PH: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "PK: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "PK: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "PK: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "PL: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "PL: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "PL: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "PT: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "PT: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "PT: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "RO: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "RO: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "RO: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "RU: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "RU: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "RU: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "SA: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "SA: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "SA: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "SE: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "SE: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "SE: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "SG: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "SG: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "SG: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "SI: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "SI: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "SI: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "SK: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "SK: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "SK: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "SL: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "SL: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "SL: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "SN: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "SN: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "SN: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "SV: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "SV: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "SV: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "TD: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "TD: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "TD: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "TG: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "TG: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "TG: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "TH: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "TH: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "TH: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "TR: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "TR: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "TR: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "TT: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "TT: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "TT: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "TZ: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "TZ: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "TZ: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "UA: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "UA: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "UA: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "US: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "US: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "US: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "VN: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "VN: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "VN: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "ZA: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "ZA: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "ZA: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "ZM: nonempty locations, matching country and valid coordinates",
+      "passed": true
+    },
+    {
+      "name": "ZM: globally unique place IDs",
+      "passed": true
+    },
+    {
+      "name": "ZM: actual largest-place query returns country-scoped results",
+      "passed": true
+    },
+    {
+      "name": "Total location count matches metadata",
+      "passed": true
+    },
+    {
+      "name": "CM: query Douala",
+      "passed": true
+    },
+    {
+      "name": "CM: query Yaounde",
+      "passed": true
+    },
+    {
+      "name": "CM: query Yaoundé",
+      "passed": true
+    },
+    {
+      "name": "AM: query Yerevan",
+      "passed": true
+    },
+    {
+      "name": "AM: query Երևան",
+      "passed": true
+    },
+    {
+      "name": "US: query New York",
+      "passed": true
+    },
+    {
+      "name": "CA: query Toronto",
+      "passed": true
+    },
+    {
+      "name": "Native-script query remains isolated to selected country",
+      "passed": true
+    },
+    {
+      "name": "Blank query offers bounded country locations",
+      "passed": true
+    },
+    {
+      "name": "Punctuation-only query does not return arbitrary places",
+      "passed": true
+    },
+    {
+      "name": "Reject invalid lookup input ('../CM', 'Douala', 8)",
+      "passed": true
+    },
+    {
+      "name": "Reject invalid lookup input ('CMR', 'Douala', 8)",
+      "passed": true
+    },
+    {
+      "name": "Reject invalid lookup input ('ZZ', 'Town', 8)",
+      "passed": true
+    },
+    {
+      "name": "Reject invalid lookup input ('CM', 'a', 0)",
+      "passed": true
+    },
+    {
+      "name": "Reject invalid lookup input ('CM', 'a', 21)",
+      "passed": true
+    },
+    {
+      "name": "Reject invalid lookup input ('CM', 'a', True)",
+      "passed": true
+    },
+    {
+      "name": "Reject invalid lookup input ('CM', None, 8)",
+      "passed": true
+    },
+    {
+      "name": "Reject invalid lookup input ('CM', 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "passed": true
+    },
+    {
+      "name": "Forty unique supplier/contact records, 33 directory branches",
+      "passed": true
+    },
+    {
+      "name": "All supplier records have resolvable sources and Cameroon country",
+      "passed": true
+    },
+    {
+      "name": "No invented coordinates, price eligibility, stock confirmations or reviews",
+      "passed": true
+    },
+    {
+      "name": "Numeric prices retain units, city/quantity evidence and unknown delivered costs",
+      "passed": true
+    },
+    {
+      "name": "Mira 32.5R: distinct compatible retail/bulk quantity tiers",
+      "passed": true
+    },
+    {
+      "name": "Mira 42.5: distinct compatible retail/bulk quantity tiers",
+      "passed": true
+    },
+    {
+      "name": "Dangote offers retain two distinct marketplace sellers",
+      "passed": true
+    },
+    {
+      "name": "Backorder/unpriced catalog observations never receive an invented price",
+      "passed": true
+    },
+    {
+      "name": "No Miami/Dade County template entry imported",
+      "passed": true
+    },
+    {
+      "name": "Exactly 50 researched country codes including Armenia, US, Canada and Cameroon",
+      "passed": true
+    },
+    {
+      "name": "Exactly one coverage row for each market",
+      "passed": true
+    },
+    {
+      "name": "Unique source IDs and URLs; all public HTTP URLs",
+      "passed": true
+    },
+    {
+      "name": "No source claims live inventory or merchant contact",
+      "passed": true
+    },
+    {
+      "name": "Staging/demo sites excluded",
+      "passed": true
+    },
+    {
+      "name": "Supplier and branch IDs unique",
+      "passed": true
+    },
+    {
+      "name": "Supplier references, countries and discovery scope valid",
+      "passed": true
+    },
+    {
+      "name": "Supplier unknown stock, reviews and delivery preserved",
+      "passed": true
+    },
+    {
+      "name": "AE: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "AE: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "AM: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "AM: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "AR: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "AR: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "AT: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "AT: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "AU: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "AU: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "BD: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "BD: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "BE: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "BE: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "BR: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "BR: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "CA: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "CA: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "CH: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "CH: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "CI: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "CI: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "CL: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "CL: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "CM: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "CM: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "CN: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "CN: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "CO: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "CO: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "CZ: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "CZ: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "DE: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "DE: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "EG: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "EG: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "ES: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "ES: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "FR: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "FR: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "GB: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "GB: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "GE: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "GE: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "GH: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "GH: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "ID: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "ID: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "IE: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "IE: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "IN: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "IN: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "IT: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "IT: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "JP: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "JP: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "KE: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "KE: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "KR: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "KR: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "MA: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "MA: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "MX: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "MX: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "MY: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "MY: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "NG: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "NG: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "NL: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "NL: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "NZ: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "NZ: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "PE: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "PE: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "PH: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "PH: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "PK: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "PK: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "PL: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "PL: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "PT: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "PT: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "RO: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "RO: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "SA: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "SA: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "SE: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "SE: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "SN: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "SN: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "TR: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "TR: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "TZ: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "TZ: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "US: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "US: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "VN: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "VN: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "ZA: sourced buying channels or retained Cameroon supplement",
+      "passed": true
+    },
+    {
+      "name": "ZA: coverage agrees with actual records",
+      "passed": true
+    },
+    {
+      "name": "Branches reference same-country supplier and resolvable sources",
+      "passed": true
+    },
+    {
+      "name": "Retail, plant, warehouse and office roles remain distinct",
+      "passed": true
+    },
+    {
+      "name": "Branch stock, quantity, reviews and delivery unknown",
+      "passed": true
+    },
+    {
+      "name": "Published phone normalization uses E164 shape",
+      "passed": true
+    },
+    {
+      "name": "Future openings excluded from current discovery",
+      "passed": true
+    },
+    {
+      "name": "Physical source coordinates paired, in bounds and source-address matched",
+      "passed": true
+    },
+    {
+      "name": "No coordinates or nearest eligibility invented for address-only records",
+      "passed": true
+    },
+    {
+      "name": "China AMap CRS and Ghana uncertain precision kept outside shop map",
+      "passed": true
+    },
+    {
+      "name": "GeoJSON equals mapped branch set with longitude/latitude order",
+      "passed": true
+    },
+    {
+      "name": "Toronto Leaside original ID and published pin preserved",
+      "passed": true
+    },
+    {
+      "name": "Canadian directory/leaf pages merge to 182 unique store IDs with pins",
+      "passed": true
+    },
+    {
+      "name": "Australia actual Belconnen store point used, not selected/default store",
+      "passed": true
+    },
+    {
+      "name": "Colombia Armenia branches keep CO country",
+      "passed": true
+    },
+    {
+      "name": "Distinct same-name French outlets retained at different source IDs",
+      "passed": true
+    },
+    {
+      "name": "Distinct same-name Mexican stores retained by address",
+      "passed": true
+    },
+    {
+      "name": "Korean ready-mix, mortar and cement terminals classified separately",
+      "passed": true
+    },
+    {
+      "name": "Chilean cement, ready mix, aggregate and office contacts distinct",
+      "passed": true
+    },
+    {
+      "name": "Price IDs and supplier/branch/source references valid",
+      "passed": true
+    },
+    {
+      "name": "Positive numeric price or explicit positive range with currency",
+      "passed": true
+    },
+    {
+      "name": "Explicit unit normalization is arithmetic only",
+      "passed": true
+    },
+    {
+      "name": "Unknown fees/stock never imply cheapest delivered",
+      "passed": true
+    },
+    {
+      "name": "mx-plomerama: quantity tiers remain non-overlapping",
+      "passed": true
+    },
+    {
+      "name": "nl-bouwmaat: quantity tiers remain non-overlapping",
+      "passed": true
+    },
+    {
+      "name": "at-bauhaus: quantity tiers remain non-overlapping",
+      "passed": true
+    },
+    {
+      "name": "cz-hornbach: quantity tiers remain non-overlapping",
+      "passed": true
+    },
+    {
+      "name": "MM Leader unresolved unit stays outside volume ranking",
+      "passed": true
+    },
+    {
+      "name": "Armenian seller market and Iranian origin distinct",
+      "passed": true
+    },
+    {
+      "name": "Senegal variable guide range remains EUR and unnormalized",
+      "passed": true
+    },
+    {
+      "name": "Cash/deferred and retail/trade conditions preserved",
+      "passed": true
+    },
+    {
+      "name": "Specialty products not relabeled ordinary concrete ingredients",
+      "passed": true
+    },
+    {
+      "name": "Dufferin unsupported air/intended-use labels removed from all observations",
+      "passed": true
+    },
+    {
+      "name": "Dufferin 50 MPa standard includes HSF and superplasticizer footnote",
+      "passed": true
+    },
+    {
+      "name": "Dufferin CXL 50 MPa at 56 days remains separate at CAD395/m3",
+      "passed": true
+    },
+    {
+      "name": "Availability scoped to source product/branch/channel, not live",
+      "passed": true
+    },
+    {
+      "name": "Bricoma 24 branch claims and online out-of-stock claim remain separate",
+      "passed": true
+    },
+    {
+      "name": "Plomerama website quantity not attributed to invented branch",
+      "passed": true
+    },
+    {
+      "name": "Kenya placeholder marketplace excluded",
+      "passed": true
+    },
+    {
+      "name": "Historical Erkat/retired GAMMA and Dufferin correction explicit",
+      "passed": true
+    },
+    {
+      "name": "Former 102 branch IDs and 84 price IDs preserved in canonical upsert",
+      "passed": true
+    },
+    {
+      "name": "Dufferin correction targets existing three price IDs",
+      "passed": true
+    },
+    {
+      "name": "Cameroon external supplement imported once",
+      "passed": true
+    },
+    {
+      "name": "Only 50 of 100 locality countries marked market-researched",
+      "passed": true
+    },
+    {
+      "name": "All summary counts reflect canonical data",
+      "passed": true
+    }
+  ],
+  "not_tested": [
+    "actual website, frontend and backend",
+    "database import idempotency",
+    "live supplier inventory or order pricing",
+    "live providers, reviews, map rendering or additional branch geocoding",
+    "prediction/optimization models or public deployment"
+  ],
+  "files_sha256": {
+    "ANTIGRAVITY_FIX_PROMPT.md": "6097eb3d7f6acd269ecced83b6d99201ef5921d23970c7af80d7dc97a2bc1f34",
+    "cameroon_market_supplement.json": "35ceef5113c5cba2bb60f02dbdf644cda28d125fdbcdef3d82caf9008679034d",
+    "COUNTRY_COVERAGE_50.md": "9d19f1d7b3bf7945e88bdad95f01bc601a01f1da1cd465fc38f785869d83a4a4",
+    "country_discovery_manifest.json": "73d7b56a13188b2c227e15d20d217f05c44d88ee7d7dfd8eae6c3bd9b1cc7a80",
+    "coverage_summary.json": "5bff7c06f9aa111121838980c78180f6ba1aca4932a374bb1102fcbe924b015c",
+    "data_quality_actions.json": "0d4027830840863560baff91e63efaea7f1988d504c31f9fdd6dee3a8393067e",
+    "GEONAMES_ATTRIBUTION.md": "da6f5ed0b9a9b4b334c4a16fbf51e02dc6a9ca38e055788e35807f88c652dc79",
+    "global_market_50.json": "3bf97c07c743eb109fac5fab98bc944e1e55666c7dfda259dccb8bb981a617de",
+    "input_bounds_reference.json": "9f478d715a91699983c128963b965a3b9794c768200ae21a7b31dc6dbdeb46eb",
+    "location_lookup.py": "f105f80cb4f446dbe39a31f5b9acbc3cbea253c120ee36769641c23aa300e182",
+    "locations\\AE.json": "d106aa7fd2c94c0d7cd32df4d6da50da9ecc2d6b88cfd6f12c17a7e8206a5136",
+    "locations\\AM.json": "dee9e3ea17fc1e427e35903a8be31bbf26dd2d048c345de1e700384bb4ac4384",
+    "locations\\AR.json": "08ae7f5731aad6c5a3677f420c3d81e3fcb75274fb7cda26dc4da49e0180d2d5",
+    "locations\\AT.json": "0ec1178c3619c594c8ba31282e70320c9acb85a0bdcb2a889892c6bc5398f6e1",
+    "locations\\AU.json": "86712c508ee2b881de1fee3796691a55549d626a7c2fa0fc6900db1cac39fe4b",
+    "locations\\AZ.json": "eac4502966891c5eab4f73bdcfc6c952fa025d089c969bd063461d9e130027d3",
+    "locations\\BA.json": "1551bed7f924ea283dd432b7e96e3e5ea28d0724d91431c862ade1df9b310c50",
+    "locations\\BD.json": "822a9b611cb667bd4b17402167d27706b6e632ceff51adb7efc7c422d943ea6a",
+    "locations\\BE.json": "b160b6dd24f29c6fd71a7f303b76101841ab8c106311c5254fed160ab678b149",
+    "locations\\BF.json": "7c3976918f8d3fa4e2a368438d119547e37232a422192ac2f77149154ae2c7f4",
+    "locations\\BG.json": "2c04465f021030c2b5c7cdcb99f5ee9d471b3e16571328ae48605a5170001f36",
+    "locations\\BJ.json": "d695b7bb237d3ab4d6de5d3ea319ad3022656fdb073cdafbf185e37aa7ea7928",
+    "locations\\BN.json": "9443fe0b8229eedad931863192176b3e6adb0e51c393e51880fc89782cf787e5",
+    "locations\\BR.json": "9dfda8f56322ca217a49f09103dd12b52426f030fea5892aebea439deae72492",
+    "locations\\BZ.json": "5e5748bbd938071cf44e8a46146898e7dfcac6f1dbb47ba2bf6e09b7d52b197f",
+    "locations\\CA.json": "6ba76f0ad7fcca0dc8adcd19de79e04bd456e66b3926ace20af821308866c40d",
+    "locations\\CG.json": "91451a6bb2357c1ecc87a404dfd98d4575d77b47ebd6fdcfc24494b6ebda2932",
+    "locations\\CH.json": "af82c63928c03e892d2c56291cb69e233ee74cff41f0f594355d5606aca6899e",
+    "locations\\CI.json": "e4a2daf7675d83eca6c21a2b1721b50927eab4fd30de39f923f872ede9f6be56",
+    "locations\\CL.json": "4e6a7c6b75bedf98ad513b68ca06e5cbe5822d7219e961f363c12eddda803a62",
+    "locations\\CM.json": "ee0c0d09871d155ac2fcde8e896c831135ddcb3f563d1778b6e39756f8d4fb59",
+    "locations\\CN.json": "6cb7a0a199dc7e6c362225b39313180cbde13e9403f3c912f95ad24fd09f1c5d",
+    "locations\\CO.json": "65571fc493a9cdf349924d741517c122eabeabfb67bbd683f4fd713e752e10ea",
+    "locations\\CR.json": "090d2665ad24db42ed0d00280674de8cd36c8761f5ae6bc679b3a42af0463dbe",
+    "locations\\CY.json": "d8011df33ceca1ad3b9aea61fc3a5d5b6bc83a63cf6d57abb64b5e2e83837c60",
+    "locations\\CZ.json": "dc3dba7cd82654c72b8cd89ebfb59ff1ee17eee8d86beb1a6f3d0d3a091a6086",
+    "locations\\DE.json": "9d4bee8c43ec75d907f22e5b6fb5de455738ad9b099bf3a2961cd9549a5b4ae6",
+    "locations\\DK.json": "9b70c1ffa4ed7afa92cbe4611f1ffd5b3f74367f23f5d3598a43e05625d1edfb",
+    "locations\\DO.json": "9e9fe6808217f194ae59ac4cf02800ac0a8c326ae80f67a05c57d476e737212f",
+    "locations\\DZ.json": "f122b0ae21b00c4ca1c3c90376ce4984f90914cf9d1fc92c1d43d7c28e776c61",
+    "locations\\EC.json": "642203754d07226e8f36ae9e1406ad5aef23a5c6d26db77c97319464f526e33d",
+    "locations\\EE.json": "cce310661c014384aefbb675c97339cdd737895fd5c537b5ab757b9943fe37b6",
+    "locations\\EG.json": "d1856a070738bb793f1a98d59dd101e0fefd7dd4bebcdbb252eefc775bb48ded",
+    "locations\\ES.json": "1712280fe2a3b15b16b02346ded5269d04c2121d648de1675cb3eda3105efa66",
+    "locations\\ET.json": "4bc030b1bef614cde217b0a9d6259cc531772948bd7decf343b32b14f213155c",
+    "locations\\FI.json": "69f5bd0e65b7b3d0e01b4e6ea277bf7d9807d7505f5a33a7a5e51bcd3194ca12",
+    "locations\\FR.json": "3f25e0141633b092a87fc2f9e8c99812a38b6726be338a549ba215eb196f4379",
+    "locations\\GA.json": "ee353c0f44c398ca7ca6b01d3684fff28c97543eafedbb5915e3e7f6c8351360",
+    "locations\\GB.json": "44779f4546123c47c928eeec6e3b5ee94679af70c9da4d828d3b0fca55ebc6fb",
+    "locations\\GE.json": "498c94d364e094d2f7a58a66c20954b6e803179243dd313f84f6413478b86644",
+    "locations\\GH.json": "ae2f28c117b2bb188be5eda4c8baf2be0ff8782616936e0a4b79b13d5cc01192",
+    "locations\\GN.json": "063e318e526625c31336e27e781caa6babb0aa97f1b21331b50829ea5ff4416f",
+    "locations\\GR.json": "561c7a9f39bb33dd3b9c6174bb8dbef252fc05e28ea76579bea46036160490d9",
+    "locations\\GT.json": "b0c41e566bfe8e283c2e28574ec01698ddc9fabdc6d7ec27c01a7c9c6cb6ae35",
+    "locations\\GW.json": "066cfad6e75496f93a616df2ebe766aff5f14c3f27ad5ddaa0ab4d34354da1d9",
+    "locations\\HN.json": "c65cf1128a6e187920e43ce677b6c806fdb8bd5e78e14a39796c2fa0d39dc6a7",
+    "locations\\HR.json": "e01af10afee30a020de542f7941dd0f416701e1addc7ca226161f585c30eea08",
+    "locations\\HU.json": "e287e0736796522b8667b41fd7aeca8e1918ce392c3f16a2fe16d312ceb2f922",
+    "locations\\ID.json": "a51a664180379064a9989e84b633ac34d9ea5e1097a8378295d4a4e2f8fda68d",
+    "locations\\IE.json": "2f6044b7b5e6bbf7d1989064863a334cba76876b26554f6b004a26306840eb8b",
+    "locations\\IL.json": "fe00dee1d831aa0f1560f87a691b49a50e5831658366bacfd5093c8d03347ca1",
+    "locations\\IN.json": "7ffdc69886b7713cb55c89852546afc14dcbf35cb9e0038d3c882d6e08ad6b56",
+    "locations\\index.json": "c69459974b8b39b51014e12e5b517a63984c749d3dffb22d46a91ed6f684fe4b",
+    "locations\\IS.json": "d51c2470d5c329e1cc67e19161092fb872a836caec58704aec5fe550dd1625a2",
+    "locations\\IT.json": "7c66b0b119c8301bce74d00a3a8730092200bd9cbd94e71de4876f4d5e4d1784",
+    "locations\\JM.json": "e0fd03ec8d151c25c5150119fc541684208bbad9cba55de77f69ae7f6cbb7f16",
+    "locations\\JP.json": "bbe87df927975211ae27ca25f59203dfab1179b17dcf5f5b22c7f6626883e6be",
+    "locations\\KE.json": "cfb7f4cbac3da36fb9e8bd521a5a96904e5d11b97257ffdce575795c64a87455",
+    "locations\\KR.json": "1c769d8e41e7ce0be2421b7cb56f18bf7fa488c110656d840bb0289aee946a83",
+    "locations\\KZ.json": "b80c273bc6e2c52177c3dd1206cd472bc6237786505a4a50189fa63ee0541602",
+    "locations\\LR.json": "249c694dfba27b20555573b528e2ddfdcbaa41d365f6ed0b1b02f888a7ec4944",
+    "locations\\LT.json": "5257c9f9475164199f3ca8677b3a29ce94755f6c3965026bc6c0825358eac3dc",
+    "locations\\LV.json": "85eb5ab2b4fd91b2abc14b0023c1d487b9913c2b12e79cc22c4d9265c2aa05b1",
+    "locations\\MA.json": "7cb6be50660a2f8339396174f73f7f9d6fa387affc45e6671c8a1b5ba1778d6b",
+    "locations\\ML.json": "d6020c0a68d08b4284be6b13b46fd12af38c8298113a712f7b32e8b4ac091712",
+    "locations\\MR.json": "6c2bda43e2b8397e91d0d374e82a8da934f1f5e4531edafade08a9e614a92b79",
+    "locations\\MX.json": "b505d80587f9ea442243fa2b0b3a27c50942eea088404f84b2050fe2acba76ac",
+    "locations\\MY.json": "5a125cf667f411e9cf40a2c47ac659acd4219e73c22d9bb3ac544eac1728776f",
+    "locations\\MZ.json": "f566ae36fc0a47d08e419533f5a76596c3c9cf96d3b0edaa03dd5209968dafbf",
+    "locations\\NG.json": "3158cbe055f071c2a26abe0540f636ecc3391b085a7d3ee377a28df0cf5e5019",
+    "locations\\NI.json": "fb111f97516c709cbd3c8bce5437b803c8d06ad7517d1a1cb854f7f95763af75",
+    "locations\\NL.json": "f3daa5bbf4ccbc4cf2f52627b1b04d3c5780b08babef4f93d46abe4b5dbdf069",
+    "locations\\NO.json": "e4445779b453e2cb21f1212b5918c959f6d1290177522f1036a2f0260b1f0814",
+    "locations\\NZ.json": "477a56df5423b1d091cbcb091a850a65d88cb7d97189a9ae58df1adbba9d70a1",
+    "locations\\PA.json": "735c3d4e28040008eabb9413b6bfa7d783ad6156d4ec511651e7f84a2ee238a1",
+    "locations\\PE.json": "f5835c3d0b0852c29489a9edeaf065087f9186f9a9a8f1c216fe09773109cd33",
+    "locations\\PH.json": "5a88c28ee76aef50c1a6d5f1c04fb197eaf7a2f33a5dbb05c4467f8e3eecfc86",
+    "locations\\PK.json": "d087d1004e1d761019598f70cf0da4087d2374d322e6a516c29cbb2bb5db307a",
+    "locations\\PL.json": "aab8478bddad7543790d01b4db096067e2469e91366071d396daae6ef0008714",
+    "locations\\PT.json": "bdb2da2aea6fa864c29ff046fcb55cafde3684011de2add136e0f1115797e886",
+    "locations\\RO.json": "34c7f72809feadd6c51dbbba0a81a693678ca234b7801a61388a9b83cef51c0c",
+    "locations\\RU.json": "5465c89e7563ae199c798a76cfa3cf2ab4e48b2e2a6c88857b967f158321cc29",
+    "locations\\SA.json": "6cb38d3d37ae90d594850f84aa1aecb200b3ad55d2c39ee9c7a188d3862448ed",
+    "locations\\SE.json": "1ca888f85f13d13890966a050bc1c1d8246225d2f1407b1ca896a2c8892a53da",
+    "locations\\SG.json": "097d4dbc3f2e79d9097240731b0169f7363202e26c83e1580759eb484fd8e448",
+    "locations\\SI.json": "6d04fb36a7a06b7bbcbc774a707c1209e61d75b0506e256b245c8f028978a41c",
+    "locations\\SK.json": "4d2b258e396825bf921d0da98252733332d2d2aa5840236d99a6a959928d7e0d",
+    "locations\\SL.json": "89a521d3c9cc920a184120017d9ef722140115046387823bb12cd9c64622c9bd",
+    "locations\\SN.json": "8204d47f9a90412d7173a3fa69f941a8d7fd0df4bb5004ab8e10f5c04bbaaade",
+    "locations\\SV.json": "95df4586bff96f14c8cd8214349e777b9f88642d89e424025a2bafb063015d39",
+    "locations\\TD.json": "5db32abea4227a464d47c021c96ba61ef656398bb2edb98f11434c7e49059d07",
+    "locations\\TG.json": "45a5aafa14f394d23dbf33292a4f3ca27e7bdf270793c3312167361ad17d584c",
+    "locations\\TH.json": "0c3eda9c973ebcbc6f6ac7ca7e5f691e7c1748c14b80abc4dc99d669c4750705",
+    "locations\\TR.json": "04428cad2fa702f57498f94b5fe51e4edfa8c751e218c9d215a063a10fbfabe8",
+    "locations\\TT.json": "3e78c62c1cc5d5873a7014157548f15623d807b2a6420fae0aa563f0d2eaf47c",
+    "locations\\TZ.json": "d9a669dcbdf76ce0853924ed706fe71ca22195dc03cc69febb4fc1aafa5a1030",
+    "locations\\UA.json": "289a077a17876a8f627e6079089eaca50009b4fc96f11a14e38599c85145188c",
+    "locations\\US.json": "4ec978754a793a51f1074d152f90dfbecccad6cd71bbbe5874678fac361c1b47",
+    "locations\\VN.json": "ded27262356703d6b93dc31d53053e87b9ccc2c6170d3f423d69d860dc009dd0",
+    "locations\\ZA.json": "b27d1ce70c780d30ef9f3223dc035b520ec862a0d67fcf78ef876469795d92c9",
+    "locations\\ZM.json": "15db010e77ac4e11b4ce8cf96bbe29b2c133bd46519542a1586698e7aa2e5909",
+    "map_seed.geojson": "34dec2572f38e8e830002dfb7bdddaa40c0863b988e37dee5c668003acb70470",
+    "market_depth_delta.json": "996027b3580049b9230a78949e594a83b8430ee89a296da0d3604f310921097c",
+    "README.md": "bbe02f7c2d84626feb90456e5c64e07e58bda21aa26917eb3fd9b6c3d68d178f",
+    "research_sources.json": "c30d09fbeda7229d04c323dd4ac5bcbf82990db485d4c0605f16131f7d5bdcfa",
+    "sources_50.json": "f01ef4134996e5abea1ce42471a65acb0e42364a199eecde85cfe85fbe2d080a",
+    "theme_tokens.css": "2aab8aa3a820bdaddeb74f7b6eaf411c85cff68507038411b609cf5258402977",
+    "validate_global_data.py": "cd03b160dfd74f078cd88b2dcafb62c979f0b0d84c5927c63e64dd8db6606206",
+    "validate_pack.py": "05b5abdb0758bd0a2cfb4572f9d765215e23ca58e87b2d2fc026d62cac3ffb9e"
+  }
+}

@@ -1,11 +1,10 @@
 """
 Application configuration.
 
-Centralizes environment-driven settings so the rest of the codebase
-never reads os.environ directly.
+Application-level debug, identity and CORS settings. Model selection lives
+in the versioned active-model manifest; request schemas define search settings.
 """
 from functools import lru_cache
-from pathlib import Path
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -15,14 +14,6 @@ class Settings(BaseSettings):
     app_name: str = "AstraMix AI Backend"
     app_version: str = "1.0.0"
     debug: bool = False
-
-    # --- Model artifacts ---
-    model_dir: Path = Path("models")
-    strength_model_filename: str = "strength_model.pkl"
-
-    # --- Optimization defaults ---
-    optimizer_max_iterations: int = 500
-    optimizer_timeout_seconds: int = 30
 
     # --- CORS ---
     # Comma-separated list of allowed origins, e.g.
@@ -34,10 +25,6 @@ class Settings(BaseSettings):
         env_prefix="ASTRAMIX_",
         case_sensitive=False,
     )
-
-    @property
-    def strength_model_path(self) -> Path:
-        return self.model_dir / self.strength_model_filename
 
     @property
     def cors_origins_list(self) -> list[str]:

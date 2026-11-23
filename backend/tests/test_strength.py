@@ -69,21 +69,21 @@ def test_predict_strength_accepts_float_and_zero_values():
         "cement": 350.0,
         "water": 177.45,
         "fine_aggregate": 750.5,
-        "coarse_aggregate": 98.98,
+        "coarse_aggregate": 898.98,
         "fly_ash": 0.0,
         "blast_furnace_slag": 0.0,
         "superplasticizer": 0.0,
-        "age": 28.5,
+        "age": 28,
     }
     response = client.post("/api/v1/predict-strength", json={"mix": mix_with_floats})
     assert response.status_code == 200
     body = response.json()
     assert body["success"] is True
     assert body["predicted_strength_mpa"] >= 0.0
-    assert body["age"] == 28.5
+    assert body["age"] == 28
 
 
-def test_predict_strength_clamping_and_ood_flag():
+def test_predict_strength_rejects_out_of_bounds_and_fractional_age_without_clamping():
     ood_mix = {
         "cement": 750.0,
         "water": 200.0,
@@ -92,12 +92,15 @@ def test_predict_strength_clamping_and_ood_flag():
         "fly_ash": 0.0,
         "blast_furnace_slag": 0.0,
         "superplasticizer": 0.0,
-        "age": 28.0,
+        "age": 28,
     }
     response = client.post("/api/v1/predict-strength", json={"mix": ood_mix})
-    assert response.status_code == 200
+    assert response.status_code == 422
     body = response.json()
-    assert body["success"] is True
-    assert body["predicted_strength_mpa"] >= 0.0
-    assert body["is_out_of_distribution"] is True
-    assert len(body["warnings"]) > 0
+    assert body["success"] is False
+    assert body["error"] == "ValidationError"
+
+    fractional_age_mix = {**VALID_MIX, "age": 28.5}
+    resp_age = client.post("/api/v1/predict-strength", json={"mix": fractional_age_mix})
+    assert resp_age.status_code == 422
+

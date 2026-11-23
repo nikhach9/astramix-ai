@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "checks": 12,
+  "coverage": {
+    "country_count": 93,
+    "countries_with_price_snapshots": 23,
+    "countries_with_any_numeric_reference": 24,
+    "price_snapshot_count": 62,
+    "benchmark_reference_count": 1,
+    "confirmed_live_prices": 0,
+    "geocoded_retail_branches": 0,
+    "imported_customer_reviews": 0
+  },
+  "limitations": [
+    "Source factual checks were performed during research; this validator checks data integrity and honest status flags, not future supplier price validity."
+  ]
+}

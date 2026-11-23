@@ -1,0 +1,241 @@
+{
+  "description": "Reference model predictions for cross-language translation checks; arithmetic oracles live in separate tests.",
+  "generated_at": "2026-11-23T05:40:14.252794+00:00",
+  "model_version": "grouped-v1",
+  "mixes": [
+    {
+      "id": "standard_c25_30",
+      "input": {
+        "cement": 350.0,
+        "blast_furnace_slag": 0.0,
+        "fly_ash": 0.0,
+        "water": 175.0,
+        "superplasticizer": 2.5,
+        "coarse_aggregate": 1040.0,
+        "fine_aggregate": 760.0,
+        "age": 28
+      },
+      "prediction": {
+        "predicted_strength_mpa": 53.26374053955078,
+        "model_version": "grouped-v1",
+        "model_sha256": "923a6ce3efdf12770cfe875df774e4d9662262a963560211262de02afcf00934"
+      }
+    },
+    {
+      "id": "standard_with_slag_flyash",
+      "input": {
+        "cement": 250.0,
+        "blast_furnace_slag": 100.0,
+        "fly_ash": 50.0,
+        "water": 165.0,
+        "superplasticizer": 4.0,
+        "coarse_aggregate": 1000.0,
+        "fine_aggregate": 750.0,
+        "age": 28
+      },
+      "prediction": {
+        "predicted_strength_mpa": 46.008914947509766,
+        "model_version": "grouped-v1",
+        "model_sha256": "923a6ce3efdf12770cfe875df774e4d9662262a963560211262de02afcf00934"
+      }
+    },
+    {
+      "id": "high_strength_early",
+      "input": {
+        "cement": 500.0,
+        "blast_furnace_slag": 0.0,
+        "fly_ash": 0.0,
+        "water": 140.0,
+        "superplasticizer": 12.0,
+        "coarse_aggregate": 1000.0,
+        "fine_aggregate": 700.0,
+        "age": 3
+      },
+      "prediction": {
+        "predicted_strength_mpa": 35.96749496459961,
+        "model_version": "grouped-v1",
+        "model_sha256": "923a6ce3efdf12770cfe875df774e4d9662262a963560211262de02afcf00934"
+      }
+    },
+    {
+      "id": "high_strength_28d",
+      "input": {
+        "cement": 540.0,
+        "blast_furnace_slag": 0.0,
+        "fly_ash": 0.0,
+        "water": 162.0,
+        "superplasticizer": 2.5,
+        "coarse_aggregate": 1040.0,
+        "fine_aggregate": 676.0,
+        "age": 28
+      },
+      "prediction": {
+        "predicted_strength_mpa": 63.00497055053711,
+        "model_version": "grouped-v1",
+        "model_sha256": "923a6ce3efdf12770cfe875df774e4d9662262a963560211262de02afcf00934"
+      }
+    },
+    {
+      "id": "low_strength_lean",
+      "input": {
+        "cement": 150.0,
+        "blast_furnace_slag": 150.0,
+        "fly_ash": 100.0,
+        "water": 200.0,
+        "superplasticizer": 0.0,
+        "coarse_aggregate": 900.0,
+        "fine_aggregate": 800.0,
+        "age": 7
+      },
+      "prediction": {
+        "predicted_strength_mpa": 14.228388786315918,
+        "model_version": "grouped-v1",
+        "model_sha256": "923a6ce3efdf12770cfe875df774e4d9662262a963560211262de02afcf00934"
+      }
+    },
+    {
+      "id": "boundary_min_water",
+      "input": {
+        "cement": 400.0,
+        "blast_furnace_slag": 50.0,
+        "fly_ash": 25.0,
+        "water": 121.75,
+        "superplasticizer": 8.0,
+        "coarse_aggregate": 1050.0,
+        "fine_aggregate": 720.0,
+        "age": 28
+      },
+      "prediction": {
+        "predicted_strength_mpa": 56.72697448730469,
+        "model_version": "grouped-v1",
+        "model_sha256": "923a6ce3efdf12770cfe875df774e4d9662262a963560211262de02afcf00934"
+      }
+    },
+    {
+      "id": "boundary_max_water",
+      "input": {
+        "cement": 250.0,
+        "blast_furnace_slag": 0.0,
+        "fly_ash": 0.0,
+        "water": 247.0,
+        "superplasticizer": 0.0,
+        "coarse_aggregate": 950.0,
+        "fine_aggregate": 850.0,
+        "age": 28
+      },
+      "prediction": {
+        "predicted_strength_mpa": 21.94991683959961,
+        "model_version": "grouped-v1",
+        "model_sha256": "923a6ce3efdf12770cfe875df774e4d9662262a963560211262de02afcf00934"
+      }
+    },
+    {
+      "id": "age_1_day",
+      "input": {
+        "cement": 380.0,
+        "blast_furnace_slag": 0.0,
+        "fly_ash": 0.0,
+        "water": 175.0,
+        "superplasticizer": 2.5,
+        "coarse_aggregate": 1040.0,
+        "fine_aggregate": 760.0,
+        "age": 1
+      },
+      "prediction": {
+        "predicted_strength_mpa": 25.06917381286621,
+        "model_version": "grouped-v1",
+        "model_sha256": "923a6ce3efdf12770cfe875df774e4d9662262a963560211262de02afcf00934"
+      }
+    },
+    {
+      "id": "age_90_days",
+      "input": {
+        "cement": 300.0,
+        "blast_furnace_slag": 80.0,
+        "fly_ash": 40.0,
+        "water": 160.0,
+        "superplasticizer": 3.0,
+        "coarse_aggregate": 1000.0,
+        "fine_aggregate": 750.0,
+        "age": 90
+      },
+      "prediction": {
+        "predicted_strength_mpa": 63.106422424316406,
+        "model_version": "grouped-v1",
+        "model_sha256": "923a6ce3efdf12770cfe875df774e4d9662262a963560211262de02afcf00934"
+      }
+    },
+    {
+      "id": "age_365_days",
+      "input": {
+        "cement": 300.0,
+        "blast_furnace_slag": 80.0,
+        "fly_ash": 40.0,
+        "water": 160.0,
+        "superplasticizer": 3.0,
+        "coarse_aggregate": 1000.0,
+        "fine_aggregate": 750.0,
+        "age": 365
+      },
+      "prediction": {
+        "predicted_strength_mpa": 66.02283477783203,
+        "model_version": "grouped-v1",
+        "model_sha256": "923a6ce3efdf12770cfe875df774e4d9662262a963560211262de02afcf00934"
+      }
+    },
+    {
+      "id": "pure_opc_plain",
+      "input": {
+        "cement": 320.0,
+        "blast_furnace_slag": 0.0,
+        "fly_ash": 0.0,
+        "water": 190.0,
+        "superplasticizer": 0.0,
+        "coarse_aggregate": 1050.0,
+        "fine_aggregate": 780.0,
+        "age": 28
+      },
+      "prediction": {
+        "predicted_strength_mpa": 32.36750030517578,
+        "model_version": "grouped-v1",
+        "model_sha256": "923a6ce3efdf12770cfe875df774e4d9662262a963560211262de02afcf00934"
+      }
+    },
+    {
+      "id": "high_ggbs",
+      "input": {
+        "cement": 180.0,
+        "blast_furnace_slag": 350.0,
+        "fly_ash": 0.0,
+        "water": 160.0,
+        "superplasticizer": 5.0,
+        "coarse_aggregate": 980.0,
+        "fine_aggregate": 720.0,
+        "age": 56
+      },
+      "prediction": {
+        "predicted_strength_mpa": 57.41630172729492,
+        "model_version": "grouped-v1",
+        "model_sha256": "923a6ce3efdf12770cfe875df774e4d9662262a963560211262de02afcf00934"
+      }
+    },
+    {
+      "id": "high_fly_ash",
+      "input": {
+        "cement": 220.0,
+        "blast_furnace_slag": 0.0,
+        "fly_ash": 195.0,
+        "water": 155.0,
+        "superplasticizer": 6.0,
+        "coarse_aggregate": 1020.0,
+        "fine_aggregate": 730.0,
+        "age": 28
+      },
+      "prediction": {
+        "predicted_strength_mpa": 37.73322296142578,
+        "model_version": "grouped-v1",
+        "model_sha256": "923a6ce3efdf12770cfe875df774e4d9662262a963560211262de02afcf00934"
+      }
+    }
+  ]
+}

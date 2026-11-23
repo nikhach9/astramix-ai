@@ -68,7 +68,9 @@ $checks['memory_limit'] = [
 // 4. Autoloader & Model Loading Test
 $baseDir = __DIR__;
 $autoloadPath = $baseDir . '/src/autoload.php';
-$modelPath = $baseDir . '/data/models/xgboost_model.json';
+$modelManifestPath = $baseDir . '/data/models/active_model.json';
+$modelManifest = is_file($modelManifestPath) ? json_decode(file_get_contents($modelManifestPath), true) : [];
+$modelPath = $baseDir . '/data/models/' . ($modelManifest['model_file'] ?? 'missing-model');
 $dbPath = $baseDir . '/data/market/astramix_market.db';
 
 $autoloaderFound = file_exists($autoloadPath);
@@ -79,13 +81,13 @@ $checks['files'] = [
     'name' => 'AstraMix Package Files',
     'status' => ($autoloaderFound && $modelFound && $dbFound) ? 'PASS' : 'WARN',
     'required' => 'All present in private root',
-    'detected' => sprintf("autoload: %s | model: %s | db: %s", 
-        $autoloaderFound ? 'YES' : 'NO', 
-        $modelFound ? 'YES' : 'NO', 
+    'detected' => sprintf("autoload: %s | model: %s | db: %s",
+        $autoloaderFound ? 'YES' : 'NO',
+        $modelFound ? 'YES' : 'NO',
         $dbFound ? 'YES' : 'NO'
     ),
-    'message' => ($autoloaderFound && $modelFound && $dbFound) 
-        ? 'All private backend components detected.' 
+    'message' => ($autoloaderFound && $modelFound && $dbFound)
+        ? 'All private backend components detected.'
         : 'Ensure astramix_php directory was extracted to /home/username/astramix_php/.',
 ];
 
@@ -98,11 +100,11 @@ if ($autoloaderFound && $modelFound) {
     try {
         require_once $autoloadPath;
         $t0 = microtime(true);
-        $ensemble = \AstraMix\ML\TreeEnsemble::getInstance($modelPath);
+        $ensemble = \AstraMix\ML\TreeEnsemble::getInstance();
         $testVec = [350.0, 0.0, 0.0, 175.0, 2.5, 1040.0, 760.0, 28.0];
         $testMpa = $ensemble->predict($testVec);
         $testElapsedMs = round((microtime(true) - $t0) * 1000, 2);
-        
+
         // Expected ~55.99 MPa
         if (abs($testMpa - 55.985) < 0.05) {
             $modelTestPassed = true;
@@ -117,7 +119,7 @@ $checks['ml_inference'] = [
     'status' => $modelTestPassed ? 'PASS' : 'FAIL',
     'required' => 'Standard C25/30 mix predicts ~55.99 MPa',
     'detected' => $modelTestPassed ? sprintf("%.2f MPa (in %s ms)", $testMpa, $testElapsedMs) : 'Failed',
-    'message' => $modelTestPassed ? 'Pure PHP XGBoost inference operating at peak performance.' : 'Failed running test prediction.',
+    'message' => $modelTestPassed ? 'Selected model produced a finite reference prediction.' : 'Failed running test prediction.',
 ];
 if (!$modelTestPassed && $autoloaderFound) $allPassed = false;
 

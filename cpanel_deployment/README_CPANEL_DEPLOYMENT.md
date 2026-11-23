@@ -1,3 +1,5 @@
+> Historical deployment notes. Use [the current packaging instructions](../README_CPANEL_DEPLOYMENT.md) for the active model and freshly built archives.
+
 # AstraMix AI — cPanel Deployment & Fix Guide
 
 ## 1. Problem Diagnosis & Root Cause

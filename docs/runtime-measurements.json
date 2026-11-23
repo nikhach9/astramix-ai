@@ -1,0 +1,59 @@
+{
+  "measured_at": "2026-11-23T05:38:53.506356+00:00",
+  "python": "3.12.14",
+  "php": "8.4.27",
+  "platform": "Linux x86_64",
+  "model_version": "grouped-v1",
+  "python_first_artifact_load_and_prediction_ms": 926.3655370000379,
+  "measurement_scope": "Wall time on this shared execution host; imports excluded from Python load time; PHP includes optimizer construction and artifact loading. Three sequential samples per budget. Not a latency guarantee.",
+  "search": [
+    {
+      "runtime": "Python",
+      "candidate_budget": 64,
+      "evaluated": 64,
+      "samples_ms": [
+        102.52068599993436,
+        100.90744699982679,
+        97.18892400042023
+      ],
+      "median_ms": 100.90744699982679,
+      "model_cache": "warm"
+    },
+    {
+      "runtime": "Python",
+      "candidate_budget": 512,
+      "evaluated": 512,
+      "samples_ms": [
+        826.9143560000884,
+        852.1499069997844,
+        778.8106930001959
+      ],
+      "median_ms": 826.9143560000884,
+      "model_cache": "warm"
+    },
+    {
+      "runtime": "PHP",
+      "candidate_budget": 64,
+      "evaluated": 64,
+      "samples_ms": [
+        29.466646,
+        29.189818,
+        30.324674
+      ],
+      "median_ms": 29.466646,
+      "model_cache": "cold per-process"
+    },
+    {
+      "runtime": "PHP",
+      "candidate_budget": 512,
+      "evaluated": 512,
+      "samples_ms": [
+        105.155907,
+        119.129597,
+        111.154818
+      ],
+      "median_ms": 111.154818,
+      "model_cache": "cold per-process"
+    }
+  ]
+}

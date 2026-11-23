@@ -18,3 +18,24 @@ with the environment's configured Codex identity and actual commit timestamps.
 No dates were backdated or rewritten. Runtime databases, dependency directories,
 compiled exports and nested delivery archives are excluded from the source
 snapshot; the original uploaded archive remains unchanged.
+
+The supplied Antigravity transcript also lists a separate Windows branch,
+`fix/ia-audit-repairs`, and five reported commits from 22 November. Their Git
+objects were not supplied with the archive. This branch records its own verified
+23 November work and does not recreate the reported commits from a text table.
+If the original local repository is recovered, its real branch history can be
+preserved separately.
+
+## Recording future work
+
+Commit meaningful changes when they are made, then push the branch. File edits and ZIP creation do not create Git commits. A network graph groups date labels; inspect a commit or the history CSV to see both exact timestamps.
+
+```bash
+git status
+git add <reviewed-files>
+git commit -m "Describe the completed change"
+git push -u origin <branch-name>
+python backend/scripts/export_git_history.py /tmp/astramix-history.csv
+```
+
+The export command records full commit SHA, author date, committer date, author and subject. It reads existing metadata and cannot manufacture missing historical work. Current assisted repairs and the imported snapshot have present-day dates; they do not reconstruct when the original local edits were written.

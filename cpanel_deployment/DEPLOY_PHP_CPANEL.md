@@ -1,3 +1,5 @@
+> Historical deployment notes. Use [the current packaging instructions](../README_CPANEL_DEPLOYMENT.md) for the active model and freshly built archives.
+
 # AstraMix AI — Production Deployment Guide for cPanel (Pure PHP 8.2+)
 
 This guide documents the complete deployment of AstraMix AI on standard cPanel hosting with Apache or LiteSpeed Web Server.

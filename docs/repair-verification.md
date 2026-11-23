@@ -14,7 +14,7 @@ Branch: `fix/ia-reliability-2026-11-23`. Original public baseline: `4bfa55477772
 | Exported HTML asset check | 13 HTML files, 129 references, 20 distinct Next.js assets, 0 missing |
 | cPanel archive structure and clean extraction | Passed, using an explicit fresh database snapshot |
 | Live browser workflow | Incomplete: cloud browser could not reach the local preview |
-| GitHub push and remote CI | Blocked by missing authenticated GitHub tools/credentials in this session |
+| GitHub push and remote CI | Read connection confirmed; first write rejected with 403 Resource not accessible by integration; connector reports zero installations and zero accessible repositories |
 
 The 512-candidate warm Python search had median wall time 826.9 ms across three runs. PHP search with per-process model loading had median 111.2 ms. Python's first model load and prediction took 926.4 ms after imports. See `runtime-measurements.json` for every sample and measurement scope. These are shared-host observations, not response-time guarantees.
 
@@ -22,6 +22,8 @@ The tests include a hand-calculated two-recipe ranking oracle, separate w/c and 
 
 Reports preserve the exact request, factor tables, model identity and search settings. Storage tests exercise serialization and recovery. They do not substitute for live browser navigation, reload, download and layout checks. Those remain a final review item on a reachable browser session.
 
-CI now installs PHP and runs backend/parity checks, isolated PHP market cases, report storage tests, TypeScript, lint and the production build on repair branches and pull requests. No remote green CI status is claimed before an authenticated push and an observed GitHub Actions run.
+CI now installs PHP and runs backend/parity checks, isolated PHP market cases, report storage tests, TypeScript, lint and the production build on repair branches and pull requests. No remote green CI status is claimed before a successful publication and an observed GitHub Actions run. The authenticated account owns the repository, but the connected app currently has no repository installation; sign-in alone did not grant app write access.
 
 The prepared code and new commits are assisted work recorded with the configured Codex identity. Existing author and committer dates are preserved. Missing local Git metadata cannot be reconstructed from ZIP file dates. No client consultation, development chronology or IA assessment evidence was invented.
+
+A fresh archive of committed source at `a91628c` also passed all 102 Python cases, all 14 isolated PHP cases and the frontend production build. The following change updates only this verification record.

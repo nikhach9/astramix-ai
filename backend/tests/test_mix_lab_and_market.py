@@ -53,7 +53,8 @@ def test_mix_input_schema_endpoint_exposes_bounds_and_split_comparison():
     assert features["blast_furnace_slag"]["max"] == 359.4
     assert features["fly_ash"]["min"] == 0.0
     assert features["fly_ash"]["max"] == 200.1
-    assert features["fly_ash"]["train_split_bounds"]["max"] == 195.0
+    from astramix.models.strength.predict import load_model_metadata
+    assert features["fly_ash"]["train_split_bounds"] == load_model_metadata()["training_bounds"]["fly_ash"]
     assert features["water"]["min"] == 121.75
     assert features["water"]["max"] == 247.0
     assert features["superplasticizer"]["min"] == 0.0
@@ -182,6 +183,9 @@ def test_mix_lab_market_cohort_requires_at_least_10_observations():
         json={
             "mix": VALID_MIX,
             "comparison_mode": "market_cohort",
+            "pricing_region": "AM",
+            "cohort_context": {"region": "AM", "currency": "USD", "unit_basis": "m3", "scope": "ingredients_only"},
+            "cohort_observation_ids": [f"row-{i}" for i in range(5)],
             "market_cohort_costs": [50.0, 60.0, 70.0, 80.0, 90.0],
             "market_cohort_emissions": [200.0, 250.0, 300.0],
         },
@@ -202,6 +206,9 @@ def test_mix_lab_market_cohort_requires_at_least_10_observations():
         json={
             "mix": VALID_MIX,
             "comparison_mode": "market_cohort",
+            "pricing_region": "AM",
+            "cohort_context": {"region": "AM", "currency": "USD", "unit_basis": "m3", "scope": "ingredients_only"},
+            "cohort_observation_ids": [f"row-{i}" for i in range(12)],
             "market_cohort_costs": cohort_12_costs,
             "market_cohort_emissions": cohort_12_co2,
         },
@@ -280,8 +287,9 @@ def test_optimizer_distinguishes_wc_and_wb_and_reports_infeasibility():
     assert res_ok.status_code == 200
     body_ok = res_ok.json()
     assert body_ok["success"] is True
-    assert body_ok["is_optimum"] is True
-    assert body_ok["solver_status"] == "optimal"
+    assert body_ok["is_optimum"] is False
+    assert body_ok["search"]["optimality_scope"] == "best_evaluated_candidate"
+    assert body_ok["solver_status"] == "feasible_candidate_found"
     mix = body_ok["mix"]
     assert 102.0 <= mix["cement"] <= 540.0
     assert 121.75 <= mix["water"] <= 247.0
@@ -306,9 +314,9 @@ def test_optimizer_distinguishes_wc_and_wb_and_reports_infeasibility():
     body_inf = res_inf.json()
     assert body_inf["success"] is False
     assert body_inf["is_optimum"] is False
-    assert body_inf["solver_status"] == "infeasible"
+    assert body_inf["solver_status"] == "no_feasible_candidate_found"
     assert body_inf["failure_reason"] is not None
-    assert "Not an Optimum" in body_inf["status_label"]
+    assert "search budget" in body_inf["status_label"]
 
 
 # --- 3. Materials Market 50-Country Refresh, Location Suggestions, Unit Normalization, Basket & Order Pricing ---
@@ -765,3 +773,47 @@ def test_data_quality_rules_armenia_cameroon_kenya_senegal_and_map_seed():
     assert man_res["resolved_location"]["longitude"] is None
     assert man_res["resolved_location"]["resolution_status"] == "manual_unverified_text"
 
+
+
+@pytest.mark.parametrize("context", [None, {"region":"US","currency":"USD","unit_basis":"m3","scope":"ingredients_only"}, {"region":"AM","currency":"EUR","unit_basis":"m3","scope":"ingredients_only"}, {"region":"AM","currency":"USD","unit_basis":"tonne","scope":"ingredients_only"}])
+def test_mismatched_cohort_never_gets_a_market_ranking(context):
+    response = client.post("/api/v1/mix-lab/evaluate", json={"mix":VALID_MIX,
+        "comparison_mode":"market_cohort", "pricing_region":"AM", "cohort_context":context,
+        "market_cohort_costs":[100.] * 12, "market_cohort_emissions":[300.] * 12})
+    assert response.status_code == 200
+    assert response.json()["cards"]["estimated_ingredient_cost"]["status"] == "insufficient_comparison_data"
+
+
+def test_non_usd_cannot_relabel_default_usd_prices():
+    response = client.post("/api/v1/mix-lab/evaluate", json={"mix":VALID_MIX,"currency":"EUR"})
+    assert response.status_code == 422
+
+
+@pytest.mark.parametrize("identifiers", [None, ["same-observation"] * 12])
+def test_cohort_requires_unique_observation_ids(identifiers):
+    response = client.post("/api/v1/mix-lab/evaluate", json={"mix":VALID_MIX,
+        "comparison_mode":"market_cohort", "pricing_region":"AM",
+        "cohort_context":{"region":"AM","currency":"USD","unit_basis":"m3","scope":"ingredients_only"},
+        "cohort_observation_ids":identifiers,"market_cohort_costs":[100.] * 12})
+    assert response.status_code == 200
+    assert response.json()["cards"]["estimated_ingredient_cost"]["status"] == "insufficient_comparison_data"
+
+
+def test_zero_factors_and_missing_reference_factors_do_not_fall_back_to_defaults():
+    from astramix.domain.input_schema import MATERIAL_FEATURE_ORDER
+    zeros = dict.fromkeys(MATERIAL_FEATURE_ORDER, 0.)
+    response = client.post("/api/v1/mix-lab/evaluate", json={"mix":VALID_MIX,
+        "unit_costs":zeros,"emission_factors":zeros,"strict_custom_prices":True,"strict_custom_factors":True})
+    assert response.status_code == 200
+    for key in ["estimated_ingredient_cost", "estimated_embodied_emissions"]:
+        card = response.json()["cards"][key]
+        assert card["headline_value"] == 0
+        assert card["comparison"]["reference_value"] is None
+        assert card["color"] == "neutral"
+    partial = {k:.1 for k in MATERIAL_FEATURE_ORDER if k != "superplasticizer"}
+    response = client.post("/api/v1/mix-lab/evaluate", json={"mix":{**VALID_MIX,"superplasticizer":0},
+        "unit_costs":partial,"strict_custom_prices":True})
+    assert response.status_code == 200
+    card = response.json()["cards"]["estimated_ingredient_cost"]
+    assert card["is_complete"]
+    assert card["comparison"]["reference_value"] is None

@@ -35,6 +35,10 @@ class OptimizationConstraints(BaseModel):
     )
     alpha: Any = Field(1.0, description="Weight on the CO2 term of the objective (>= 0)")
     beta: Any = Field(1.0, description="Weight on the cost term of the objective (>= 0)")
+    candidate_budget: int = Field(512, ge=1, le=10000, strict=True)
+    seed: int = Field(42, ge=0, le=4294967295, strict=True)
+    cost_reference: Any = Field(100.0, description="Cost normalization reference, in the same currency per m3 as the factor table")
+    co2_reference: Any = Field(400.0, description="Emissions normalization reference in kg CO2e per m3")
     material_bounds: Optional[Dict[str, MaterialBoundRange]] = Field(
         None, description="Optional narrower per-material bounds within the active schema limits"
     )
@@ -82,6 +86,14 @@ class OptimizationConstraints(BaseModel):
         if val < 0:
             raise ValueError(f"Objective weight '{info.field_name}' cannot be negative.")
         return float(val)
+
+    @field_validator("cost_reference", "co2_reference", mode="before")
+    @classmethod
+    def _validate_reference(cls, v: Any, info) -> float:
+        val = parse_strict_finite_float(v, info.field_name, info.field_name)
+        if val <= 0:
+            raise ValueError(f"{info.field_name} must be positive.")
+        return val
 
     @model_validator(mode="after")
     def _validate_weights_and_bounds(self) -> "OptimizationConstraints":
@@ -135,7 +147,7 @@ class OptimizedMixResult(BaseModel):
 class OptimizeMixResponse(BaseModel):
     success: bool
     is_optimum: bool = False
-    solver_status: str = "optimal"
+    solver_status: str = "no_feasible_candidate_found"
     failure_reason: Optional[str] = None
     mix: OptimizedMixResult
     predicted_strength_mpa: float
@@ -145,3 +157,4 @@ class OptimizeMixResponse(BaseModel):
     cost_per_m3: float
     objective_value: float
     warnings: list[str] = Field(default_factory=list)
+    search: dict = Field(default_factory=dict)

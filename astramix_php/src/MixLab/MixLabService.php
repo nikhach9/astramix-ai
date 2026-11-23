@@ -47,8 +47,26 @@ class MixLabService
         ?float $referenceCo2KgPerM3 = null,
         string $referenceLabel = "Baseline OPC 380 kg/m³ reference mix",
         string $priceSourceId = "ASTRAMIX_ENGINEERING_REF_V1",
-        string $emissionFactorSetId = "ICE_V3_CRADLE_TO_GATE_A1_A3"
+        string $emissionFactorSetId = "ICE_V3_CRADLE_TO_GATE_A1_A3",
+        ?array $cohortContext = null,
+        ?string $pricingRegion = null,
+        ?array $cohortObservationIds = null
     ): array {
+        if (strtoupper($currency) !== 'USD' && !$strictCustomPrices) {
+            throw new \AstraMix\Core\ValidationException('Non-USD estimates require strict custom prices in that currency.');
+        }
+        $cohortValid = $cohortContext !== null && $pricingRegion !== null &&
+            ($cohortContext['region'] ?? null) === $pricingRegion &&
+            ($cohortContext['currency'] ?? null) === strtoupper($currency) &&
+            ($cohortContext['unit_basis'] ?? null) === 'm3' &&
+            ($cohortContext['scope'] ?? null) === 'ingredients_only' &&
+            !empty($cohortObservationIds) && !in_array('', $cohortObservationIds, true) &&
+            count($cohortObservationIds) === count(array_unique($cohortObservationIds)) &&
+            (!$marketCohortCosts || count($marketCohortCosts) === count($cohortObservationIds)) &&
+            (!$marketCohortEmissions || count($marketCohortEmissions) === count($cohortObservationIds));
+        if ($comparisonMode === 'market_cohort' && !$cohortValid) {
+            $marketCohortCosts = $marketCohortEmissions = null;
+        }
         $predResult = $this->predictor->predict($mix);
         $normMix = $predResult['normalized_mix'];
 
@@ -57,12 +75,12 @@ class MixLabService
 
         $refMixNorm = $referenceMix ? $this->predictor->normalizeMix($referenceMix) : self::BASELINE_REFERENCE_MIX;
         if ($referenceCostPerM3 === null) {
-            $refCostEst = CostEstimator::estimate($refMixNorm, $unitCosts, false, $currency);
-            $referenceCostPerM3 = $refCostEst['total_cost_per_m3'];
+            $refCostEst = CostEstimator::estimate($refMixNorm, $unitCosts, $strictCustomPrices, $currency);
+            $referenceCostPerM3 = $refCostEst['is_complete'] ? $refCostEst['total_cost_per_m3'] : null;
         }
         if ($referenceCo2KgPerM3 === null) {
-            $refCo2Est = CarbonEstimator::estimate($refMixNorm, $emissionFactors, false);
-            $referenceCo2KgPerM3 = $refCo2Est['total_co2_kg_per_m3'];
+            $refCo2Est = CarbonEstimator::estimate($refMixNorm, $emissionFactors, $strictCustomFactors);
+            $referenceCo2KgPerM3 = $refCo2Est['is_complete'] ? $refCo2Est['total_co2_kg_per_m3'] : null;
         }
 
         $strengthCard = $this->evaluateStrengthCard($normMix, $predResult, $targetStrengthMpa, $targetStrengthClass);
@@ -92,6 +110,9 @@ class MixLabService
             $co2Result['factors_used'] ?? []
         );
 
+        $costCard = $this->applyCoverage($costCard, $costResult, $normMix, true);
+        $emissionsCard = $this->applyCoverage($emissionsCard, $co2Result, $normMix, false);
+
         $wc = round(InputSchema::computeWaterCementRatio($normMix["water"], $normMix["cement"]), 4);
         $wb = round(InputSchema::computeWaterBinderRatio($normMix["water"], $normMix["cement"], $normMix["blast_furnace_slag"], $normMix["fly_ash"]), 4);
 
@@ -100,15 +121,19 @@ class MixLabService
             "mix" => $normMix,
             "prediction" => $predResult,
             "cost" => [
-                "total" => $costResult['total'],
-                "total_cost_per_m3" => $costResult['total_cost_per_m3'],
+                "is_complete" => $costResult['is_complete'],
+                "known_subtotal" => $costResult['known_subtotal'],
+                "total" => $costResult['is_complete'] ? $costResult['total'] : null,
+                "total_cost_per_m3" => $costResult['is_complete'] ? $costResult['total_cost_per_m3'] : null,
                 "currency" => $currency,
                 "breakdown" => $costResult['breakdown'],
                 "unit" => $costResult['unit'],
             ],
             "co2" => [
-                "total" => $co2Result['total'],
-                "total_co2_kg_per_m3" => $co2Result['total_co2_kg_per_m3'],
+                "is_complete" => $co2Result['is_complete'],
+                "known_subtotal" => $co2Result['known_subtotal'],
+                "total" => $co2Result['is_complete'] ? $co2Result['total'] : null,
+                "total_co2_kg_per_m3" => $co2Result['is_complete'] ? $co2Result['total_co2_kg_per_m3'] : null,
                 "breakdown" => $co2Result['breakdown'],
                 "unit" => $co2Result['unit'],
             ],
@@ -124,15 +149,23 @@ class MixLabService
                 "evaluated_at" => gmdate("Y-m-d\TH:i:s\Z"),
                 "calculated_at" => gmdate("Y-m-d\TH:i:s\Z"),
                 "schema_version" => InputSchema::SCHEMA_VERSION,
-                "model_id" => "xgboost_baseline_uci_1030",
-                "model_version" => "v0.1",
+                "model_id" => Trust::modelMetadata()["best_model_name"],
+                "model_sha256" => Trust::modelMetadata()["model_sha256"],
+                "validation_protocol" => Trust::modelMetadata()["validation_protocol"],
+                "model_version" => Trust::modelMetadata()["model_version"],
                 "curing_age_days" => (int)$normMix["age"],
                 "water_cement_ratio" => $wc,
                 "water_binder_ratio" => $wb,
                 "price_source_id" => $priceSourceId,
+                "effective_unit_costs" => $costResult['unit_costs_used'],
+                "effective_emission_factors" => $co2Result['factors_used'],
                 "currency" => strtoupper($currency),
                 "emission_factor_set_id" => $emissionFactorSetId,
                 "system_boundary" => "Cradle-to-Gate (A1–A3) concrete constituent ingredients",
+                "cohort_context" => $cohortContext,
+                "cohort_observation_ids" => $cohortObservationIds,
+                "pricing_region" => $pricingRegion,
+                "cohort_context_status" => $cohortValid ? 'declared_compatible' : 'missing_or_mismatched',
                 "comparison_mode" => $comparisonMode,
                 "tolerance_pct" => $tolerancePct,
                 "reference_label" => $comparisonMode === "selected_reference" ? $referenceLabel : "Market cohort",
@@ -148,8 +181,8 @@ class MixLabService
     ): array {
         $predMpa = round(max(0.0, (float)$predResult["predicted_strength_mpa"]), 2);
         $ageDays = (int)$mix["age"];
-        $rmseMpa = (float)($predResult["estimated_error_rmse_mpa"] ?? Trust::RMSE_METRIC);
-        $maeMpa = (float)($predResult["estimated_error_mae_mpa"] ?? Trust::MAE_METRIC);
+        $rmseMpa = (float)$predResult["estimated_error_rmse_mpa"];
+        $maeMpa = (float)$predResult["estimated_error_mae_mpa"];
 
         $schema = InputSchema::loadVersionedInputSchema();
         $targetRef = $schema["target_reference"] ?? [];
@@ -186,7 +219,7 @@ class MixLabService
                 $color = "green";
                 $badge = "Meets target (above RMSE margin)";
                 $summary = sprintf(
-                    "%+.2f MPa (%+.1f%%) vs %.2f MPa target at %d days — exceeds target by more than model validation RMSE (±%.2f MPa).",
+                    "%+.2f MPa (%+.1f%%) vs %.2f MPa target at %d days — exceeds target by more than model validation aggregate RMSE (%.2f MPa).",
                     $deltaMpa,
                     $deltaPct,
                     $targetVal,
@@ -198,7 +231,7 @@ class MixLabService
                 $color = "yellow";
                 $badge = "Caution: within model RMSE";
                 $summary = sprintf(
-                    "%+.2f MPa (%+.1f%%) vs %.2f MPa target at %d days — barely meets target within model validation error (RMSE ±%.2f MPa; MAE ±%.2f MPa).",
+                    "%+.2f MPa (%+.1f%%) vs %.2f MPa target at %d days — barely meets target within model validation error (RMSE %.2f MPa; MAE %.2f MPa).",
                     $deltaMpa,
                     $deltaPct,
                     $targetVal,
@@ -299,7 +332,7 @@ class MixLabService
                     InputSchema::computeWaterBinderRatio($mix["water"], $mix["cement"], $mix["blast_furnace_slag"], $mix["fly_ash"]),
                     4
                 ),
-                "model_version" => "v0.1",
+                "model_version" => Trust::modelMetadata()["model_version"],
                 "estimated_error_rmse_mpa" => $rmseMpa,
                 "estimated_error_mae_mpa" => $maeMpa,
                 "confidence_note" => Trust::CONFIDENCE_DISCLAIMER,
@@ -667,4 +700,36 @@ class MixLabService
 
         return (float)($sortedData[$lower] * (1.0 - $weight) + $sortedData[$upper] * $weight);
     }
+    private function applyCoverage(array $card, array $result, array $mix, bool $cost): array
+    {
+        $missing = $result['missing_ingredients'];
+        if (!$missing) {
+            return $card;
+        }
+        $totalMass = array_sum(array_intersect_key($mix, array_flip(InputSchema::MATERIAL_FEATURE_ORDER)));
+        $missingMass = array_sum(array_intersect_key($mix, array_flip($missing)));
+        $card['is_complete'] = false;
+        $card['headline_value'] = null;
+        $card[$cost ? 'total_per_m3' : 'total_kg_co2e_per_m3'] = null;
+        $card['status'] = 'incomplete';
+        $card['color'] = 'neutral';
+        $card['rating_label'] = 'Incomplete estimate';
+        $card['badge'] = $cost ? 'Incomplete cost estimate' : 'Incomplete embodied emissions estimate';
+        $card['summary'] = 'Known subtotal only. Missing factors for: ' . implode(', ', $missing) . '. Missing values are not assumed zero.';
+        $card['coverage'] = ['missing_ingredients' => $missing,
+            $cost ? 'priced_mass_coverage_ratio' : 'covered_mass_ratio' => $totalMass > 0 ? 1 - $missingMass / $totalMass : 0];
+        $card['comparison'] = ['status' => 'blocked_incomplete_estimate', 'note' => 'Ranking is disabled while active ingredient factors are missing.'];
+        foreach ($card['details']['line_items'] as &$line) {
+            if (in_array($line['material'], $missing, true)) {
+                $line['status'] = $cost ? 'missing_price' : 'missing_factor';
+                $line[$cost ? 'cost_per_m3' : 'co2_kg_per_m3'] = null;
+                if ($cost) {
+                    $line['unit_price_per_kg'] = null;
+                }
+            }
+        }
+        unset($line);
+        return $card;
+    }
+
 }

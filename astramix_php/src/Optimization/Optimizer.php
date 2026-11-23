@@ -11,26 +11,13 @@ use AstraMix\Sustainability\CostEstimator;
 
 class Optimizer
 {
-    public const DESIGN_VARIABLES = [
-        "cement",
-        "water",
-        "fly_ash",
-        "blast_furnace_slag",
-        "coarse_aggregate",
-        "fine_aggregate",
-        "superplasticizer",
-    ];
-
+    public const DESIGN_VARIABLES = ['cement', 'water', 'fly_ash', 'blast_furnace_slag', 'coarse_aggregate', 'fine_aggregate', 'superplasticizer'];
     public const DEFAULT_VARIABLE_BOUNDS = [
-        "cement" => [102.0, 540.0],
-        "water" => [121.75, 247.0],
-        "fly_ash" => [0.0, 200.1],
-        "blast_furnace_slag" => [0.0, 359.4],
-        "coarse_aggregate" => [801.0, 1145.0],
-        "fine_aggregate" => [594.0, 992.6],
-        "superplasticizer" => [0.0, 32.2],
+        'cement' => [102.0, 540.0], 'water' => [121.75, 247.0],
+        'fly_ash' => [0.0, 200.1], 'blast_furnace_slag' => [0.0, 359.4],
+        'coarse_aggregate' => [801.0, 1145.0], 'fine_aggregate' => [594.0, 992.6], 'superplasticizer' => [0.0, 32.2],
     ];
-
+    private const TOLERANCE = 1e-8;
     private StrengthPredictor $predictor;
 
     public function __construct(?StrengthPredictor $predictor = null)
@@ -39,254 +26,175 @@ class Optimizer
     }
 
     public function optimize(
-        float $targetStrengthMpa,
-        int $ageDays = 28,
-        float $maxWcRatio = 0.60,
-        ?float $maxWbRatio = null,
-        float $alpha = 1.0,
-        float $beta = 1.0,
-        ?array $materialBounds = null,
-        ?array $initialGuess = null,
-        ?array $unitCosts = null,
-        ?array $emissionFactors = null
+        float $targetStrengthMpa, int $ageDays = 28, float $maxWcRatio = 0.60,
+        ?float $maxWbRatio = null, float $alpha = 1.0, float $beta = 1.0,
+        ?array $materialBounds = null, ?array $initialGuess = null,
+        ?array $unitCosts = null, ?array $emissionFactors = null,
+        int $candidateBudget = 512, int $seed = 42, float $costReference = 100.0, float $co2Reference = 400.0
     ): array {
-        if ($targetStrengthMpa <= 0 || $targetStrengthMpa > 150.0) {
-            throw new OptimizationException("Target compressive strength must be in (0, 150] MPa.");
+        foreach ([$targetStrengthMpa, $maxWcRatio, $alpha, $beta, $costReference, $co2Reference] as $value) {
+            if (!is_finite($value)) {
+                throw new OptimizationException('Search settings must be finite.');
+            }
         }
-        if ($ageDays < 1 || $ageDays > 365) {
-            throw new OptimizationException("Curing age must be between 1 and 365 days.");
+        if ($targetStrengthMpa <= 0 || $targetStrengthMpa > 150 || $ageDays < 1 || $ageDays > 365) {
+            throw new OptimizationException('Invalid target strength or curing age.');
         }
-        if ($maxWcRatio <= 0.0 || $maxWcRatio > 2.5) {
-            throw new OptimizationException("max_w_c_ratio must be in (0.0, 2.5].");
+        if ($maxWcRatio <= 0 || $maxWcRatio > 2 || ($maxWbRatio !== null && (!is_finite($maxWbRatio) || $maxWbRatio < .20 || $maxWbRatio > 1))) {
+            throw new OptimizationException('Invalid water ratio constraint.');
         }
-        if ($maxWbRatio !== null && ($maxWbRatio < 0.20 || $maxWbRatio > 1.00)) {
-            throw new OptimizationException("max_w_b_ratio must be in [0.20, 1.00].");
+        if (min($alpha, $beta) < 0 || max($alpha, $beta) == 0 || min($costReference, $co2Reference) <= 0) {
+            throw new OptimizationException('Weights must be non-negative with a positive sum; references must be positive.');
         }
-        if ($alpha < 0 || $beta < 0 || ($alpha == 0.0 && $beta == 0.0)) {
-            throw new OptimizationException("Objective weights alpha and beta cannot both be zero or negative.");
+        if ($candidateBudget < 1 || $candidateBudget > 10000 || $seed < 0 || $seed > 4294967295) {
+            throw new OptimizationException('Invalid search budget or seed.');
         }
-
-        // Resolve active bounds
+        $contract = json_decode(file_get_contents(dirname(__DIR__, 2) . '/data/search/contract_v1.json'), true, 512, JSON_THROW_ON_ERROR);
         $bounds = self::DEFAULT_VARIABLE_BOUNDS;
-        if ($materialBounds) {
-            foreach ($materialBounds as $var => $rng) {
-                if (isset($bounds[$var]) && isset($rng['min']) && isset($rng['max'])) {
-                    $uLow = (float)$rng['min'];
-                    $uHigh = (float)$rng['max'];
-                    if ($uLow > $uHigh) {
-                        throw new OptimizationException("Material bound for '$var' has min ($uLow) > max ($uHigh).");
-                    }
-                    $bounds[$var] = [
-                        max($bounds[$var][0], $uLow),
-                        min($bounds[$var][1], $uHigh),
-                    ];
-                }
+        foreach ($materialBounds ?? [] as $key => $range) {
+            if (!isset($bounds[$key]) || !is_array($range) || !array_key_exists('min', $range) || !array_key_exists('max', $range)) {
+                throw new OptimizationException("Invalid material bounds for $key.");
             }
+            $low = InputSchema::parseStrictFiniteFloat($range['min'], $key, $key);
+            $high = InputSchema::parseStrictFiniteFloat($range['max'], $key, $key);
+            if ($low > $high || $low < $bounds[$key][0] || $high > $bounds[$key][1]) {
+                throw new OptimizationException("Material bounds for $key are outside the supported domain or reversed.");
+            }
+            $bounds[$key] = [$low, $high];
         }
-
-        $rawCandidates = [
-            [250.0, 145.0, 120.0, 140.0, 1020.0, 760.0, 6.0],
-            [280.0, 150.0, 100.0, 120.0, 1020.0, 750.0, 5.5],
-            [320.0, 155.0, 80.0, 100.0, 1020.0, 750.0, 5.0],
-            [350.0, 165.0, 40.0, 60.0, 1000.0, 750.0, 4.0],
-            [380.0, 160.0, 30.0, 80.0, 1020.0, 740.0, 6.0],
-            [420.0, 155.0, 0.0, 100.0, 1000.0, 740.0, 7.5],
-            [450.0, 150.0, 40.0, 80.0, 1000.0, 750.0, 8.0],
-            [490.0, 145.0, 0.0, 120.0, 1020.0, 720.0, 10.0],
-            [525.0, 140.0, 0.0, 150.0, 1000.0, 700.0, 12.0],
-            [540.0, 138.0, 0.0, 180.0, 980.0, 680.0, 14.0],
-        ];
-
         $candidates = [];
+        $seen = [];
+        $add = static function (array $values, bool $generated = true) use (&$candidates, &$seen, $bounds, $candidateBudget): void {
+            $row = [];
+            foreach (self::DESIGN_VARIABLES as $i => $key) {
+                [$low, $high] = $bounds[$key];
+                $value = (float)$values[$i];
+                $row[] = $generated ? min($high, max($low, floor($value * 100 + .5) / 100)) : $value;
+            }
+            $key = json_encode($row, JSON_PRESERVE_ZERO_FRACTION | JSON_THROW_ON_ERROR);
+            if (!isset($seen[$key]) && count($candidates) < $candidateBudget) {
+                $seen[$key] = true;
+                $candidates[] = $row;
+            }
+        };
         if ($initialGuess !== null) {
-            $igVec = [];
-            foreach (self::DESIGN_VARIABLES as $v) {
-                $igVec[] = (float)($initialGuess[$v] ?? self::DEFAULT_VARIABLE_BOUNDS[$v][0]);
-            }
-            $candidates[] = $igVec;
-        }
-
-        foreach ($rawCandidates as $rc) {
-            $clipped = [];
-            foreach (self::DESIGN_VARIABLES as $idx => $v) {
-                $low = $bounds[$v][0];
-                $high = $bounds[$v][1];
-                $val = max($low, min($high, $rc[$idx]));
-                $clipped[] = $val;
-            }
-
-            // Adjust water / cement if max_w_c_ratio is violated
-            $cVal = $clipped[0];
-            $wVal = $clipped[1];
-            if ($wVal / $cVal > $maxWcRatio) {
-                $neededC = min($bounds['cement'][1], max($bounds['cement'][0], $wVal / $maxWcRatio + 1.0));
-                $clipped[0] = $neededC;
-                if ($wVal / $clipped[0] > $maxWcRatio) {
-                    $clipped[1] = max($bounds['water'][0], $clipped[0] * $maxWcRatio - 0.5);
+            $mix = $this->predictor->normalizeMix($initialGuess);
+            $row = [];
+            foreach (self::DESIGN_VARIABLES as $key) {
+                if ($mix[$key] < $bounds[$key][0] || $mix[$key] > $bounds[$key][1]) {
+                    throw new OptimizationException('Initial guess is outside the requested material bounds.');
                 }
+                $row[] = $mix[$key];
             }
-
-            $candidates[] = $clipped;
+            $add($row, false);
         }
-
-        $penalty = 1000.0;
-        $bestFeasibleMix = null;
-        $bestFeasibleObj = INF;
-        $bestFeasibleStrength = 0.0;
-        $bestFeasibleCost = 0.0;
-        $bestFeasibleCo2 = 0.0;
-
-        $bestAnyMix = null;
-        $bestAnyObj = INF;
-        $bestAnyStrength = 0.0;
-        $bestAnyCost = 0.0;
-        $bestAnyCo2 = 0.0;
-
-        $warnings = [];
-        $maxObservedStrength = 0.0;
-
-        foreach ($candidates as $cand) {
-            $mixDict = [
-                'cement' => $cand[0],
-                'water' => $cand[1],
-                'fly_ash' => $cand[2],
-                'blast_furnace_slag' => $cand[3],
-                'coarse_aggregate' => $cand[4],
-                'fine_aggregate' => $cand[5],
-                'superplasticizer' => $cand[6],
-                'age' => $ageDays,
-            ];
-
-            $predRes = $this->predictor->predict($mixDict);
-            $predStrength = (float)$predRes['predicted_strength_mpa'];
-            if ($predStrength > $maxObservedStrength) {
-                $maxObservedStrength = $predStrength;
+        foreach ($contract['anchors'] as $anchor) {
+            $add($anchor);
+        }
+        $state = $seed;
+        $fixed = count(array_filter($bounds, static fn($b) => $b[0] != $b[1])) === 0;
+        for ($attempt = 0; $attempt < $candidateBudget * 3 && count($candidates) < $candidateBudget && !$fixed; $attempt++) {
+            $row = [];
+            foreach (self::DESIGN_VARIABLES as $key) {
+                $state = (1664525 * $state + 1013904223) % 4294967296;
+                [$low, $high] = $bounds[$key];
+                $row[] = $low + ($high - $low) * $state / 4294967296;
             }
-
-            $costRes = CostEstimator::estimate($mixDict, $unitCosts);
-            $co2Res = CarbonEstimator::estimate($mixDict, $emissionFactors);
-
-            $costVal = (float)$costRes['total_cost_per_m3'];
-            $co2Val = (float)$co2Res['total_co2_kg_per_m3'];
-            $baseObj = $alpha * $co2Val + $beta * $costVal;
-
-            $isFeasible = true;
-            $violPen = 0.0;
-
-            // Bounds check
-            foreach (self::DESIGN_VARIABLES as $idx => $v) {
-                $val = $cand[$idx];
-                $low = $bounds[$v][0];
-                $high = $bounds[$v][1];
-                if ($val < $low - 1e-6) {
-                    $isFeasible = false;
-                    $violPen += $penalty * ($low - $val);
-                } elseif ($val > $high + 1e-6) {
-                    $isFeasible = false;
-                    $violPen += $penalty * ($val - $high);
-                }
+            $add($row);
+        }
+        $costs = $this->validateFactors($unitCosts ?? CostEstimator::DEFAULT_COST_FACTORS);
+        $emissions = $this->validateFactors($emissionFactors ?? CarbonEstimator::DEFAULT_CO2_FACTORS);
+        $scale = max($alpha, $beta);
+        $a = $alpha / $scale;
+        $b = $beta / $scale;
+        $weightSum = $a + $b;
+        $a /= $weightSum;
+        $b /= $weightSum;
+        $best = null;
+        $evaluated = $feasibleCount = $omitted = 0;
+        foreach ($candidates as $vector) {
+            $mix = array_combine(self::DESIGN_VARIABLES, $vector);
+            $cost = $this->total($mix, $costs);
+            $co2 = $this->total($mix, $emissions);
+            if ($cost === null || $co2 === null) {
+                $omitted++;
+                continue;
             }
-
-            // Strength check
-            if ($predStrength < $targetStrengthMpa - 0.05) {
-                $isFeasible = false;
-                $violPen += $penalty * ($targetStrengthMpa - $predStrength);
+            // The search records failed-ratio candidates as diagnostics; it
+            // checks all ratios itself before declaring a candidate feasible.
+            $pred = $this->predictor->predict($mix + ['age' => $ageDays], false);
+            $strength = max(0.0, (float)$pred['raw_prediction']);
+            if (!is_finite($strength)) {
+                throw new OptimizationException('Strength model returned a non-finite prediction.');
             }
-
-            // w/c check
-            $wc = $mixDict['cement'] > 0 ? $mixDict['water'] / $mixDict['cement'] : 999.0;
-            if ($wc > $maxWcRatio + 1e-4) {
-                $isFeasible = false;
-                $violPen += $penalty * 100.0 * ($wc - $maxWcRatio);
+            $evaluated++;
+            $wc = $mix['water'] / $mix['cement'];
+            $wb = $mix['water'] / ($mix['cement'] + $mix['fly_ash'] + $mix['blast_furnace_slag']);
+            $violations = [max(0.0, $targetStrengthMpa - $strength), max(0.0, .20 - $wb), max(0.0, $wb - 1), max(0.0, $wc - $maxWcRatio)];
+            if ($maxWbRatio !== null) {
+                $violations[] = max(0.0, $wb - $maxWbRatio);
             }
-
-            // w/b check
-            $binder = $mixDict['cement'] + $mixDict['fly_ash'] + $mixDict['blast_furnace_slag'];
-            $wb = $binder > 0 ? $mixDict['water'] / $binder : 999.0;
-            if ($wb < 0.20 - 1e-4) {
-                $isFeasible = false;
-                $violPen += $penalty * 100.0 * (0.20 - $wb);
-            } elseif ($wb > 1.00 + 1e-4) {
-                $isFeasible = false;
-                $violPen += $penalty * 100.0 * ($wb - 1.00);
+            $feasible = max($violations) <= self::TOLERANCE;
+            $feasibleCount += (int)$feasible;
+            $score = $a * $co2 / $co2Reference + $b * $cost / $costReference;
+            if (!is_finite($score)) {
+                throw new OptimizationException('Normalized objective exceeds finite numeric range.');
             }
-            if ($maxWbRatio !== null && $wb > $maxWbRatio + 1e-4) {
-                $isFeasible = false;
-                $violPen += $penalty * 100.0 * ($wb - $maxWbRatio);
-            }
-
-            $totalObj = $baseObj + $violPen;
-
-            if ($isFeasible && $baseObj < $bestFeasibleObj) {
-                $bestFeasibleObj = $baseObj;
-                $bestFeasibleMix = $mixDict;
-                $bestFeasibleStrength = $predStrength;
-                $bestFeasibleCost = $costVal;
-                $bestFeasibleCo2 = $co2Val;
-            }
-
-            if ($totalObj < $bestAnyObj) {
-                $bestAnyObj = $totalObj;
-                $bestAnyMix = $mixDict;
-                $bestAnyStrength = $predStrength;
-                $bestAnyCost = $costVal;
-                $bestAnyCo2 = $co2Val;
+            $rank = [!$feasible, $feasible ? 0.0 : array_sum($violations), $score, $vector];
+            if ($best === null || $rank < $best['rank']) {
+                $best = compact('rank', 'mix', 'strength', 'co2', 'cost', 'wc', 'wb', 'score', 'feasible');
             }
         }
-
-        if ($maxObservedStrength < $targetStrengthMpa - 15.0) {
-            $warnings[] = "Target strength appears unreachable within the validated training envelope; short-circuiting optimizer.";
+        if ($best === null) {
+            throw new OptimizationException('No rankable candidates: missing factors for active ingredients.');
         }
-
-        if ($bestFeasibleMix !== null) {
-            $finalMix = $bestFeasibleMix;
-            $finalStrength = $bestFeasibleStrength;
-            $finalCost = $bestFeasibleCost;
-            $finalCo2 = $bestFeasibleCo2;
-            $finalObj = $bestFeasibleObj;
-            $isOptimum = true;
-            $solverStatus = "optimal";
-            $failureReason = null;
-        } else {
-            $finalMix = $bestAnyMix ?? $candidates[0];
-            $finalStrength = $bestAnyStrength;
-            $finalCost = $bestAnyCost;
-            $finalCo2 = $bestAnyCo2;
-            $finalObj = $bestAnyObj;
-            $isOptimum = false;
-            $solverStatus = "infeasible";
-            $failureReason = "Target constraints could not be met.";
-            $warnings[] = "Optimization could not satisfy all target constraints; returning best diagnostic screening candidate.";
+        $warnings = ['Best candidate among the evaluated recipes; global optimality and physical suitability are not established.', 'Normalized weighted-sum ranking uses the recorded cost and emissions references.'];
+        if ($omitted) {
+            $warnings[] = "$omitted candidates excluded because active ingredient factors were missing.";
         }
-
-        $mixClean = [
-            'cement' => round((float)$finalMix['cement'], 2),
-            'water' => round((float)$finalMix['water'], 2),
-            'fine_aggregate' => round((float)$finalMix['fine_aggregate'], 2),
-            'coarse_aggregate' => round((float)$finalMix['coarse_aggregate'], 2),
-            'fly_ash' => round((float)$finalMix['fly_ash'], 2),
-            'blast_furnace_slag' => round((float)$finalMix['blast_furnace_slag'], 2),
-            'superplasticizer' => round((float)$finalMix['superplasticizer'], 2),
-            'age' => $ageDays,
-        ];
-
-        $wcRatio = $mixClean['cement'] > 0 ? round($mixClean['water'] / $mixClean['cement'], 4) : 0.0;
-        $binderTotal = $mixClean['cement'] + $mixClean['fly_ash'] + $mixClean['blast_furnace_slag'];
-        $wbRatio = $binderTotal > 0 ? round($mixClean['water'] / $binderTotal, 4) : 0.0;
-
         return [
-            "success" => $isOptimum,
-            "is_optimum" => $isOptimum,
-            "solver_status" => $solverStatus,
-            "failure_reason" => $failureReason,
-            "mix" => $mixClean,
-            "predicted_strength_mpa" => round($finalStrength, 2),
-            "water_cement_ratio" => $wcRatio,
-            "water_binder_ratio" => $wbRatio,
-            "co2_kg_per_m3" => round($finalCo2, 3),
-            "cost_per_m3" => round($finalCost, 2),
-            "objective_value" => round($finalObj, 4),
-            "warnings" => $warnings,
+            'success' => $best['feasible'], 'is_optimum' => false,
+            'solver_status' => $best['feasible'] ? 'feasible_candidate_found' : 'no_feasible_candidate_found',
+            'failure_reason' => $best['feasible'] ? null : 'No feasible candidate was found within the declared search budget.',
+            'mix' => $best['mix'] + ['age' => $ageDays], 'predicted_strength_mpa' => $best['strength'],
+            'water_cement_ratio' => $best['wc'], 'water_binder_ratio' => $best['wb'],
+            'co2_kg_per_m3' => $best['co2'], 'cost_per_m3' => $best['cost'], 'objective_value' => $best['score'], 'warnings' => $warnings,
+            'search' => ['method' => $contract['version'], 'seed' => $seed, 'candidate_budget' => $candidateBudget,
+                'generated' => count($candidates), 'evaluated' => $evaluated, 'feasible' => $feasibleCount,
+                'optimality_scope' => 'best_evaluated_candidate', 'cost_reference' => $costReference,
+                'co2_reference' => $co2Reference, 'alpha' => $alpha, 'beta' => $beta, 'constraint_tolerance' => self::TOLERANCE],
         ];
+    }
+
+    private function validateFactors(array $factors): array
+    {
+        foreach ($factors as $key => $value) {
+            if (!in_array($key, self::DESIGN_VARIABLES, true)) {
+                throw new OptimizationException("Unknown factor material: $key.");
+            }
+            if ($value !== null) {
+                $value = InputSchema::parseStrictFiniteFloat($value, $key, $key);
+                if ($value < 0) {
+                    throw new OptimizationException("Negative factor for $key.");
+                }
+                $factors[$key] = $value;
+            }
+        }
+        return $factors;
+    }
+
+    private function total(array $mix, array $factors): ?float
+    {
+        $total = 0.0;
+        foreach ($mix as $key => $quantity) {
+            if ($quantity > 0 && !isset($factors[$key])) {
+                return null;
+            }
+            $total += $quantity * ($factors[$key] ?? 0.0);
+        }
+        if (!is_finite($total)) {
+            throw new OptimizationException('Factor calculation exceeds finite numeric range.');
+        }
+        return $total;
     }
 }

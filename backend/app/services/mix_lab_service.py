@@ -61,8 +61,8 @@ def _evaluate_strength_card(
 ) -> Dict[str, Any]:
     pred_mpa = round(max(0.0, float(pred_result["predicted_strength_mpa"])), 2)
     age_days = int(mix_dict["age"])
-    rmse_mpa = float(pred_result.get("estimated_error_rmse_mpa") or 4.62)
-    mae_mpa = float(pred_result.get("estimated_error_mae_mpa") or 3.03)
+    rmse_mpa = float(pred_result["estimated_error_rmse_mpa"])
+    mae_mpa = float(pred_result["estimated_error_mae_mpa"])
 
     schema = load_versioned_input_schema()
     target_ref = schema.get("target_reference", {})
@@ -101,7 +101,7 @@ def _evaluate_strength_card(
             badge = "Meets target (above RMSE margin)"
             summary = (
                 f"{delta_mpa:+.2f} MPa ({delta_pct:+.1f}%) vs {target_val:.2f} MPa target at {age_days} days — "
-                f"exceeds target by more than model validation RMSE (±{rmse_mpa:.2f} MPa)."
+                f"exceeds target by more than model aggregate validation RMSE ({rmse_mpa:.2f} MPa)."
             )
         elif pred_mpa >= target_val:
             status = "meets_target_within_uncertainty"
@@ -109,7 +109,7 @@ def _evaluate_strength_card(
             badge = "Caution: within model RMSE"
             summary = (
                 f"{delta_mpa:+.2f} MPa ({delta_pct:+.1f}%) vs {target_val:.2f} MPa target at {age_days} days — "
-                f"barely meets target within model validation error (RMSE ±{rmse_mpa:.2f} MPa; MAE ±{mae_mpa:.2f} MPa)."
+                f"exceeds target by less than aggregate validation RMSE ({rmse_mpa:.2f} MPa). This is a comparison heuristic, not a per-mix confidence interval."
             )
         else:
             status = "below_target"
@@ -198,7 +198,7 @@ def _evaluate_strength_card(
                 ),
                 4,
             ),
-            "model_version": pred_result.get("model_version", "v0.1"),
+            "model_version": pred_result["model_version"],
             "estimated_error_rmse_mpa": rmse_mpa,
             "estimated_error_mae_mpa": mae_mpa,
             "confidence_note": pred_result.get("confidence_note"),
@@ -486,9 +486,13 @@ def evaluate_cost_card(
         ref_dec = Decimal("0")
         for mat in MATERIAL_FEATURE_ORDER:
             q_ref = Decimal(str(ref_mix_used.get(mat, 0.0)))
-            p_ref = Decimal(str(price_table.get(mat) or DEFAULT_COST_FACTORS[mat]))
+            factor = price_table.get(mat)
+            if q_ref > 0 and factor is None:
+                ref_dec = None
+                break
+            p_ref = Decimal(str(factor if factor is not None else 0))
             ref_dec += q_ref * p_ref
-        ref_val = float(ref_dec.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP))
+        ref_val = None if ref_dec is None else float(ref_dec.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP))
 
     status, color, badge, summary, comp_dict = _evaluate_cost_or_emissions_comparison(
         value=known_subtotal,
@@ -661,9 +665,13 @@ def evaluate_emissions_card(
         ref_dec = Decimal("0")
         for mat in MATERIAL_FEATURE_ORDER:
             q_ref = Decimal(str(ref_mix_used.get(mat, 0.0)))
-            f_ref = Decimal(str(factor_table.get(mat) or DEFAULT_CO2_FACTORS[mat]))
+            factor = factor_table.get(mat)
+            if q_ref > 0 and factor is None:
+                ref_dec = None
+                break
+            f_ref = Decimal(str(factor if factor is not None else 0))
             ref_dec += q_ref * f_ref
-        ref_val = float(ref_dec.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP))
+        ref_val = None if ref_dec is None else float(ref_dec.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP))
 
     status, color, badge, summary, comp_dict = _evaluate_cost_or_emissions_comparison(
         value=known_subtotal,
@@ -729,11 +737,27 @@ def evaluate_mix_lab(
     reference_label: str = "Baseline OPC 380 kg/m³ reference mix",
     price_source_id: str = "ASTRAMIX_ENGINEERING_REF_V1",
     emission_factor_set_id: str = "ICE_V3_CRADLE_TO_GATE_A1_A3",
+    cohort_context: Optional[Dict[str, str]] = None,
+    pricing_region: Optional[str] = None,
+    cohort_observation_ids: Optional[List[str]] = None,
 ) -> Dict[str, Any]:
     """
     Complete Mix Lab evaluation returning the 3 primary result cards and
     full calculation provenance.
     """
+    cohort_valid = bool(cohort_context and pricing_region and
+        cohort_context.get("region") == pricing_region and
+        cohort_context.get("currency") == currency.upper() and
+        cohort_context.get("unit_basis") == "m3" and
+        cohort_context.get("scope") == "ingredients_only" and
+        cohort_observation_ids and all(cohort_observation_ids) and
+        len(cohort_observation_ids) == len(set(cohort_observation_ids)) and
+        all(not values or len(values) == len(cohort_observation_ids) for values in
+            (market_cohort_costs, market_cohort_emissions)))
+    if comparison_mode == "market_cohort" and not cohort_valid:
+        market_cohort_costs = None
+        market_cohort_emissions = None
+
     mix_dict = {f: getattr(mix, f) for f in CANONICAL_FEATURE_ORDER}
     pred_result = strength_predictor.predict_with_trust(mix)
 
@@ -772,16 +796,24 @@ def evaluate_mix_lab(
     provenance = {
         "evaluated_at": datetime.now(timezone.utc).isoformat(),
         "schema_version": SCHEMA_VERSION,
-        "model_id": "xgboost_baseline_uci_1030",
-        "model_version": pred_result.get("model_version", "v0.1"),
+        "model_id": pred_result["model_name"],
+        "model_sha256": pred_result.get("model_sha256"),
+        "validation_protocol": pred_result.get("validation_protocol"),
+        "model_version": pred_result["model_version"],
         "curing_age_days": int(mix.age),
         "water_cement_ratio": mix.water_cement_ratio,
         "water_binder_ratio": mix.water_binder_ratio,
         "price_source_id": price_source_id,
+        "effective_unit_costs": dict(unit_costs or {}) if strict_custom_prices else {**DEFAULT_COST_FACTORS, **(unit_costs or {})},
+        "effective_emission_factors": dict(emission_factors or {}) if strict_custom_factors else {**DEFAULT_CO2_FACTORS, **(emission_factors or {})},
         "currency": (currency or "USD").upper(),
         "emission_factor_set_id": emission_factor_set_id,
         "system_boundary": "Cradle-to-Gate (A1–A3) concrete constituent ingredients",
         "comparison_mode": comparison_mode,
+        "cohort_context": cohort_context,
+        "pricing_region": pricing_region,
+        "cohort_context_status": "declared_compatible" if cohort_valid else "missing_or_mismatched",
+        "cohort_observation_ids": cohort_observation_ids,
         "tolerance_pct": tolerance_pct,
         "reference_label": reference_label if comparison_mode == "selected_reference" else "Market cohort",
         "market_cost_observation_count": len(market_cohort_costs or []),

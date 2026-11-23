@@ -20,16 +20,17 @@ class CarbonEstimator
 
     public static function estimate(array $materialQuantities, ?array $customFactors = null, bool $strictCustom = false): array
     {
-        $factors = self::DEFAULT_CO2_FACTORS;
-        if ($customFactors !== null) {
-            foreach ($customFactors as $k => $v) {
-                if ($v !== null && isset($factors[$k])) {
-                    if (is_numeric($v)) {
-                        $factors[$k] = (float)$v;
-                    } elseif ($strictCustom) {
-                        throw new ValidationException("Invalid emission factor for '$k'");
-                    }
+        $factors = $strictCustom ? ($customFactors ?? []) : array_replace(self::DEFAULT_CO2_FACTORS, $customFactors ?? []);
+        foreach ($factors as $key => $value) {
+            if (!in_array($key, InputSchema::MATERIAL_FEATURE_ORDER, true)) {
+                throw new ValidationException("Unknown factor material: $key");
+            }
+            if ($value !== null) {
+                $value = InputSchema::parseStrictFiniteFloat($value, $key, $key);
+                if ($value < 0) {
+                    throw new ValidationException("Negative factor for $key");
                 }
+                $factors[$key] = $value;
             }
         }
 
@@ -41,15 +42,23 @@ class CarbonEstimator
             if ($qty < 0.0) {
                 throw new ValidationException("Quantity for '$mat' cannot be negative.");
             }
+            if ($qty > 0 && !isset($factors[$mat])) {
+                $breakdown[$mat] = null;
+                continue;
+            }
             $factor = $factors[$mat] ?? 0.0;
             $emissions = $qty * $factor;
             $breakdown[$mat] = $emissions;
             $total += $emissions;
         }
 
+        $missing = array_keys(array_filter($breakdown, static fn($value) => $value === null));
         return [
+            "is_complete" => count($missing) === 0,
+            "missing_ingredients" => $missing,
+            "known_subtotal" => $total,
             "total" => $total,
-            "total_co2_kg_per_m3" => round($total, 3),
+            "total_co2_kg_per_m3" => round($total, 2),
             "breakdown" => $breakdown,
             "unit" => "kg_co2e_per_m3",
             "factors_used" => $factors,

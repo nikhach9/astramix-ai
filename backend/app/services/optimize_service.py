@@ -22,7 +22,7 @@ def _initial_guess_vector(mix: MixComposition) -> np.ndarray:
     return np.array([float(getattr(mix, field)) for field in DESIGN_VARIABLES], dtype=float)
 
 
-def optimize_mix(request: OptimizeMixRequest) -> OptimizeMixResponse:
+def optimize_mix(request: OptimizeMixRequest, unit_costs=None, emission_factors=None) -> OptimizeMixResponse:
     constraints = request.constraints
 
     mat_bounds = None
@@ -53,7 +53,12 @@ def optimize_mix(request: OptimizeMixRequest) -> OptimizeMixResponse:
             alpha=float(constraints.alpha),
             beta=float(constraints.beta),
             initial_guess=initial_guess,
-            max_iter=5,
+            candidate_budget=constraints.candidate_budget,
+            seed=constraints.seed,
+            cost_reference=constraints.cost_reference,
+            co2_reference=constraints.co2_reference,
+            unit_costs=unit_costs,
+            emission_factors=emission_factors,
         )
     except AstraMixError:
         raise
@@ -63,7 +68,7 @@ def optimize_mix(request: OptimizeMixRequest) -> OptimizeMixResponse:
             details={"reason": str(exc)},
         ) from exc
 
-    mix_dict = {k: round(float(v), 2) for k, v in result.mix.items()}
+    mix_dict = {k: float(v) for k, v in result.mix.items()}
     mix_dict["age"] = int(constraints.age)
 
     wc_ratio = getattr(result, "water_cement_ratio", None)
@@ -74,8 +79,8 @@ def optimize_mix(request: OptimizeMixRequest) -> OptimizeMixResponse:
         binder = mix_dict["cement"] + mix_dict["fly_ash"] + mix_dict["blast_furnace_slag"]
         wb_ratio = round(mix_dict["water"] / binder, 4) if binder > 0 else 0.0
 
-    is_optimum = getattr(result, "is_optimum", bool(result.success))
-    solver_status = getattr(result, "solver_status", "optimal" if result.success else "infeasible")
+    is_optimum = result.is_optimum
+    solver_status = result.solver_status
     failure_reason = getattr(result, "failure_reason", None if result.success else "Target constraints could not be met.")
 
     return OptimizeMixResponse(
@@ -84,11 +89,12 @@ def optimize_mix(request: OptimizeMixRequest) -> OptimizeMixResponse:
         solver_status=solver_status,
         failure_reason=failure_reason,
         mix=OptimizedMixResult(**mix_dict),
-        predicted_strength_mpa=round(float(result.predicted_strength), 2),
-        water_cement_ratio=round(float(wc_ratio), 4),
-        water_binder_ratio=round(float(wb_ratio), 4),
-        co2_kg_per_m3=round(float(result.co2), 3),
-        cost_per_m3=round(float(result.cost), 2),
-        objective_value=round(float(result.objective_value), 4),
+        predicted_strength_mpa=float(result.predicted_strength),
+        water_cement_ratio=float(wc_ratio),
+        water_binder_ratio=float(wb_ratio),
+        co2_kg_per_m3=float(result.co2),
+        cost_per_m3=float(result.cost),
+        objective_value=float(result.objective_value),
         warnings=list(result.warnings),
+        search=result.search,
     )

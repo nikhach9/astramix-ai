@@ -60,7 +60,12 @@ class MixLabController
 
         $res = CostEstimator::estimate($normMix, $customCosts, false, $currency);
         return Response::json([
-            "total_cost" => $res['total_cost_per_m3'],
+            "success" => true,
+            "total_cost_per_m3" => $res['is_complete'] ? $res['total_cost_per_m3'] : null,
+            "breakdown_per_m3" => array_map(static fn($v) => $v === null ? null : round($v, 2), $res['breakdown']),
+            "total_cost" => $res['is_complete'] ? $res['total_cost_per_m3'] : null,
+            "is_complete" => $res['is_complete'],
+            "known_subtotal" => $res['known_subtotal'],
             "currency" => $currency,
             "cost_breakdown" => $res['breakdown'],
             "unit" => $res['unit'],
@@ -81,7 +86,12 @@ class MixLabController
 
         $res = CarbonEstimator::estimate($normMix, $customFactors);
         return Response::json([
-            "total_co2" => $res['total_co2_kg_per_m3'],
+            "success" => true,
+            "total_co2_kg_per_m3" => $res['is_complete'] ? round($res['known_subtotal'], 3) : null,
+            "breakdown_kg_per_m3" => array_map(static fn($v) => $v === null ? null : round($v, 3), $res['breakdown']),
+            "total_co2" => $res['is_complete'] ? round($res['known_subtotal'], 3) : null,
+            "is_complete" => $res['is_complete'],
+            "known_subtotal" => $res['known_subtotal'],
             "carbon_breakdown" => $res['breakdown'],
             "unit" => $res['unit'],
         ]);
@@ -97,12 +107,22 @@ class MixLabController
         }
 
         $c = $body['constraints'];
-        $targetMpa = (float)($c['target_strength_mpa'] ?? 0.0);
-        $age = (int)($c['age'] ?? 28);
-        $maxWc = (float)($c['max_w_c_ratio'] ?? 0.60);
-        $maxWb = isset($c['max_w_b_ratio']) ? (float)$c['max_w_b_ratio'] : null;
-        $alpha = (float)($c['alpha'] ?? 1.0);
-        $beta = (float)($c['beta'] ?? 1.0);
+        $budget = $c['candidate_budget'] ?? 512;
+        $seed = $c['seed'] ?? 42;
+        if (!is_int($budget) || !is_int($seed)) {
+            throw new ValidationException('Search budget and seed must be integers.');
+        }
+        $costReference = InputSchema::parseStrictFiniteFloat($c['cost_reference'] ?? 100., 'cost_reference', 'Cost reference');
+        $co2Reference = InputSchema::parseStrictFiniteFloat($c['co2_reference'] ?? 400., 'co2_reference', 'Carbon reference');
+        $costs = ($body['strict_custom_prices'] ?? false) ? ($body['unit_costs'] ?? []) : array_replace(CostEstimator::DEFAULT_COST_FACTORS, $body['unit_costs'] ?? []);
+        $factors = ($body['strict_custom_factors'] ?? false) ? ($body['emission_factors'] ?? []) : array_replace(CarbonEstimator::DEFAULT_CO2_FACTORS, $body['emission_factors'] ?? []);
+
+        $targetMpa = InputSchema::parseStrictFiniteFloat($c['target_strength_mpa'] ?? null, 'target_strength_mpa', 'Target strength');
+        $age = InputSchema::parseStrictIntegerAge($c['age'] ?? 28);
+        $maxWc = InputSchema::parseStrictFiniteFloat($c['max_w_c_ratio'] ?? .60, 'max_w_c_ratio', 'Maximum w/c');
+        $maxWb = isset($c['max_w_b_ratio']) ? InputSchema::parseStrictFiniteFloat($c['max_w_b_ratio'], 'max_w_b_ratio', 'Maximum w/b') : null;
+        $alpha = InputSchema::parseStrictFiniteFloat($c['alpha'] ?? 1., 'alpha', 'Carbon weight');
+        $beta = InputSchema::parseStrictFiniteFloat($c['beta'] ?? 1., 'beta', 'Cost weight');
         $matBounds = $c['material_bounds'] ?? null;
         $initialGuess = $body['initial_guess'] ?? null;
 
@@ -114,7 +134,13 @@ class MixLabController
             $alpha,
             $beta,
             $matBounds,
-            $initialGuess
+            $initialGuess,
+            $costs,
+            $factors,
+            $budget,
+            $seed,
+            $costReference,
+            $co2Reference
         );
 
         return Response::json($res);
@@ -138,6 +164,9 @@ class MixLabController
             targetStrengthMpa: $targetMpa,
             targetStrengthClass: $body['target_strength_class'] ?? null,
             comparisonMode: $body['comparison_mode'] ?? 'selected_reference',
+            cohortContext: $body['cohort_context'] ?? null,
+            cohortObservationIds: $body['cohort_observation_ids'] ?? null,
+            pricingRegion: $body['pricing_region'] ?? null,
             tolerancePct: (float)($body['tolerance_pct'] ?? 5.0),
             currency: $body['currency'] ?? 'USD',
             unitCosts: $body['unit_costs'] ?? null,
@@ -167,12 +196,22 @@ class MixLabController
         }
 
         $c = $body['constraints'];
-        $targetMpa = (float)($c['target_strength_mpa'] ?? 0.0);
-        $age = (int)($c['age'] ?? 28);
-        $maxWc = (float)($c['max_w_c_ratio'] ?? 0.60);
-        $maxWb = isset($c['max_w_b_ratio']) ? (float)$c['max_w_b_ratio'] : null;
-        $alpha = (float)($c['alpha'] ?? 1.0);
-        $beta = (float)($c['beta'] ?? 1.0);
+        $budget = $c['candidate_budget'] ?? 512;
+        $seed = $c['seed'] ?? 42;
+        if (!is_int($budget) || !is_int($seed)) {
+            throw new ValidationException('Search budget and seed must be integers.');
+        }
+        $costReference = InputSchema::parseStrictFiniteFloat($c['cost_reference'] ?? 100., 'cost_reference', 'Cost reference');
+        $co2Reference = InputSchema::parseStrictFiniteFloat($c['co2_reference'] ?? 400., 'co2_reference', 'Carbon reference');
+        $costs = ($body['strict_custom_prices'] ?? false) ? ($body['unit_costs'] ?? []) : array_replace(CostEstimator::DEFAULT_COST_FACTORS, $body['unit_costs'] ?? []);
+        $factors = ($body['strict_custom_factors'] ?? false) ? ($body['emission_factors'] ?? []) : array_replace(CarbonEstimator::DEFAULT_CO2_FACTORS, $body['emission_factors'] ?? []);
+
+        $targetMpa = InputSchema::parseStrictFiniteFloat($c['target_strength_mpa'] ?? null, 'target_strength_mpa', 'Target strength');
+        $age = InputSchema::parseStrictIntegerAge($c['age'] ?? 28);
+        $maxWc = InputSchema::parseStrictFiniteFloat($c['max_w_c_ratio'] ?? .60, 'max_w_c_ratio', 'Maximum w/c');
+        $maxWb = isset($c['max_w_b_ratio']) ? InputSchema::parseStrictFiniteFloat($c['max_w_b_ratio'], 'max_w_b_ratio', 'Maximum w/b') : null;
+        $alpha = InputSchema::parseStrictFiniteFloat($c['alpha'] ?? 1., 'alpha', 'Carbon weight');
+        $beta = InputSchema::parseStrictFiniteFloat($c['beta'] ?? 1., 'beta', 'Cost weight');
         $matBounds = $c['material_bounds'] ?? null;
         $initialGuess = $body['initial_guess'] ?? null;
 
@@ -184,7 +223,13 @@ class MixLabController
             $alpha,
             $beta,
             $matBounds,
-            $initialGuess
+            $initialGuess,
+            $costs,
+            $factors,
+            $budget,
+            $seed,
+            $costReference,
+            $co2Reference
         );
 
         // Evaluate candidate mix cards
@@ -197,6 +242,9 @@ class MixLabController
                 mix: $optRes['mix'],
                 targetStrengthMpa: $targetMpa,
                 comparisonMode: $body['comparison_mode'] ?? 'selected_reference',
+                cohortContext: $body['cohort_context'] ?? null,
+            cohortObservationIds: $body['cohort_observation_ids'] ?? null,
+                pricingRegion: $body['pricing_region'] ?? null,
                 tolerancePct: (float)($body['tolerance_pct'] ?? 5.0),
                 currency: $body['currency'] ?? 'USD',
                 unitCosts: $body['unit_costs'] ?? null,
@@ -208,8 +256,10 @@ class MixLabController
                 referenceMix: $refMixDict,
                 referenceLabel: $refLabel
             );
-        } catch (\Throwable) {
-            $cardsEval = null;
+        } catch (ValidationException $error) {
+            if ($optRes['success']) {
+                throw $error;
+            }
         }
 
         return Response::json([
@@ -217,9 +267,9 @@ class MixLabController
             "is_optimum" => $optRes['is_optimum'],
             "solver_status" => $optRes['solver_status'],
             "failure_reason" => $optRes['failure_reason'],
-            "status_label" => $optRes['is_optimum']
+            "status_label" => $optRes['success']
                 ? "Verified Feasible Candidate"
-                : "Optimization Infeasible — Diagnostic Candidate Only (Not an Optimum)",
+                : "No feasible candidate found within the search budget — diagnostic only",
             "mix" => $optRes['mix'],
             "predicted_strength_mpa" => $optRes['predicted_strength_mpa'],
             "water_cement_ratio" => $optRes['water_cement_ratio'],
@@ -228,6 +278,7 @@ class MixLabController
             "cost_per_m3" => $optRes['cost_per_m3'],
             "objective_value" => $optRes['objective_value'],
             "warnings" => $optRes['warnings'],
+            "search" => $optRes['search'],
             "cards" => $cardsEval ? $cardsEval['cards'] : null,
             "provenance" => $cardsEval ? $cardsEval['provenance'] : null,
         ]);

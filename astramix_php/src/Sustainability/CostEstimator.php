@@ -24,16 +24,17 @@ class CostEstimator
         bool $strictCustom = false,
         string $currency = "USD"
     ): array {
-        $costs = self::DEFAULT_COST_FACTORS;
-        if ($customCosts !== null) {
-            foreach ($customCosts as $k => $v) {
-                if ($v !== null && isset($costs[$k])) {
-                    if (is_numeric($v)) {
-                        $costs[$k] = (float)$v;
-                    } elseif ($strictCustom) {
-                        throw new ValidationException("Invalid unit cost for '$k'");
-                    }
+        $costs = $strictCustom ? ($customCosts ?? []) : array_replace(self::DEFAULT_COST_FACTORS, $customCosts ?? []);
+        foreach ($costs as $key => $value) {
+            if (!in_array($key, InputSchema::MATERIAL_FEATURE_ORDER, true)) {
+                throw new ValidationException("Unknown factor material: $key");
+            }
+            if ($value !== null) {
+                $value = InputSchema::parseStrictFiniteFloat($value, $key, $key);
+                if ($value < 0) {
+                    throw new ValidationException("Negative factor for $key");
                 }
+                $costs[$key] = $value;
             }
         }
 
@@ -45,13 +46,21 @@ class CostEstimator
             if ($qty < 0.0) {
                 throw new ValidationException("Quantity for '$mat' cannot be negative.");
             }
+            if ($qty > 0 && !isset($costs[$mat])) {
+                $breakdown[$mat] = null;
+                continue;
+            }
             $costFactor = $costs[$mat] ?? 0.0;
             $c = $qty * $costFactor;
             $breakdown[$mat] = $c;
             $total += $c;
         }
 
+        $missing = array_keys(array_filter($breakdown, static fn($value) => $value === null));
         return [
+            "is_complete" => count($missing) === 0,
+            "missing_ingredients" => $missing,
+            "known_subtotal" => $total,
             "total" => $total,
             "total_cost_per_m3" => round($total, 2),
             "currency" => $currency,

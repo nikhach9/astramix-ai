@@ -82,3 +82,12 @@ def test_legacy_estimate_response_fields_match_the_python_contract():
     carbon = php_request('/api/v1/estimate-carbon', {'mix':MIX})
     assert carbon['status'] == 200
     assert carbon['body']['total_co2_kg_per_m3'] == pytest.approx(325.803)
+
+
+def test_php_legacy_cost_does_not_relabel_usd_prices():
+    result = php_request('/api/v1/estimate-cost', {'mix':MIX, 'currency':'EUR', 'unit_costs':{'cement':.12}})
+    assert result['status'] == 422
+    prices = {key:1. for key in MIX if key != 'age'}
+    result = php_request('/api/v1/estimate-cost', {'mix':MIX, 'currency':'EUR', 'unit_costs':prices})
+    assert result['status'] == 200
+    assert result['body']['total_cost_per_m3'] == pytest.approx(2327.5)

@@ -56,7 +56,17 @@ class MixLabController
 
         $normMix = $this->predictor->normalizeMix($body['mix']);
         $customCosts = $body['custom_costs'] ?? $body['unit_costs'] ?? null;
-        $currency = $body['currency'] ?? 'USD';
+        $currency = strtoupper(trim($body['currency'] ?? 'USD'));
+        if (!preg_match('/^[A-Z]{3}$/', $currency)) {
+            throw new ValidationException('Currency must be a three-letter code.');
+        }
+        if ($currency !== 'USD') {
+            foreach (InputSchema::MATERIAL_FEATURE_ORDER as $material) {
+                if ($normMix[$material] > 0 && !isset($customCosts[$material])) {
+                    throw new ValidationException('Non-USD estimates require prices in that currency for every active ingredient.');
+                }
+            }
+        }
 
         $res = CostEstimator::estimate($normMix, $customCosts, false, $currency);
         return Response::json([

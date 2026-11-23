@@ -23,6 +23,6 @@ for mod_name in list(sys.modules.keys()):
     if mod_name == "astramix" or mod_name.startswith("astramix.") or mod_name == "app" or mod_name.startswith("app."):
         sys.modules.pop(mod_name, None)
 
-if importlib.util.find_spec("astramix") is None:
-    stub_dir = Path(__file__).parent / "_astramix_stub"
-    sys.path.insert(0, str(stub_dir))
+spec = importlib.util.find_spec("astramix")
+if spec is None or spec.origin is None or not Path(spec.origin).resolve().is_relative_to(SRC_DIR.resolve()):
+    raise RuntimeError("Tests require the real astramix package from this checkout's backend/src.")

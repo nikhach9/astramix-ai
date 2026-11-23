@@ -1,0 +1,2220 @@
+{
+  "schema_version": "2.0",
+  "researched_at": "2026-10-18",
+  "refreshed_market_count": 50,
+  "location_fallback_country_count": 100,
+  "countries": [
+    {
+      "country_code": "AE",
+      "country_name": "United Arab Emirates",
+      "currency": "AED",
+      "locales": [
+        "ar-AE",
+        "fa",
+        "en",
+        "hi",
+        "ur"
+      ],
+      "location_count": 94,
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.supplyvan.com/emirates-cement-grey-50kg.html",
+        "https://www.fepy.com/building-material",
+        "https://www.pillarstoneuae.com/materials/cement-aggregates",
+        "https://www.pillarstoneuae.com/catalogue?cat=building",
+        "https://misar.ae/"
+      ],
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "AM",
+      "country_name": "Armenia",
+      "currency": "AMD",
+      "locales": [
+        "hy"
+      ],
+      "location_count": 80,
+      "prior_research_start_urls": [
+        "https://khachaturovgroup.am/cement-factory/",
+        "https://erkatproff.am/en/product/cement-m500-parskakan-50-kg",
+        "https://www.yell.am/-MM-LIDER-LLC-MM-LIDER-PRODUCTION-OF-CONCRETE-81005"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://erkatproff.am/en/product/cement-m500-parskakan-50-kg",
+        "https://erkatproff.am/en/kontakty",
+        "https://shinshin.am/ru/construction-materials/cement-and-bulk-materials/",
+        "https://shinshin.am/contact-us",
+        "https://www.agimpex.am/en/shop/",
+        "https://agimpex.am/hy/shop/",
+        "https://mmleader.am/",
+        "https://www.araratcement.am/en/contact",
+        "https://armnab.am/certificates/1066",
+        "https://www.spyur.am/en/companies/armbeton/52460/",
+        "https://www.construction.am/companies/armbeton/",
+        "https://www.pages.am/en/building-suppliers/?building_materials_com_furniture_and_construction_equipment%5B%5D=Ready-Mixed+Concrete"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "AR",
+      "country_name": "Argentina",
+      "currency": "ARS",
+      "locales": [
+        "es-AR",
+        "en",
+        "it",
+        "de",
+        "fr",
+        "gn"
+      ],
+      "location_count": 635,
+      "prior_research_start_urls": [
+        "https://www.holcim.com/find-holcim"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.easy.com.ar/tienda/es/easyar/search/cemento-y-complementos",
+        "https://easy.com.ar/construccion/construccion",
+        "https://www.menaracorralon.com.ar/tienda/construccion/cementos"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "AT",
+      "country_name": "Austria",
+      "currency": "EUR",
+      "locales": [
+        "de-AT",
+        "hr",
+        "hu",
+        "sl"
+      ],
+      "location_count": 214,
+      "prior_research_start_urls": [
+        "https://www.holcim.com/find-holcim",
+        "https://wopfinger.com/files/cto_layout/media/preislisten/2026/Wopfinger_Transportbeton_Preisliste_Beton_2026.pdf"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.hornbach.at/c/baustoffe/rohbau/beton-moertel-zement/S2388/",
+        "https://www.bauhaus.at/zement-moertel/zement-cem-ii-b-m-s-l-325r/p/30536140",
+        "https://www.bauhaus.at/fachcentren/fachcentrum-791/fc/791"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "AU",
+      "country_name": "Australia",
+      "currency": "AUD",
+      "locales": [
+        "en-AU"
+      ],
+      "location_count": 1495,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/asia-pacific",
+        "https://www.bunnings.com.au/bastion-20kg-general-purpose-cement_p0760330?store=7118"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.bunnings.com.au/products/building-hardware/cement-concreting/cement",
+        "https://trade.bunnings.com.au/products/building-hardware/cement-concreting/concrete",
+        "https://trade.bunnings.com.au/stores/nsw/alexandria",
+        "https://www.mitre10.com.au/cement-australia-concrete-mix"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "AZ",
+      "country_name": "Azerbaijan",
+      "currency": "AZN",
+      "locales": [
+        "az",
+        "ru",
+        "hy"
+      ],
+      "location_count": 134,
+      "prior_research_start_urls": [
+        "https://www.holcim.com/find-holcim"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "BA",
+      "country_name": "Bosnia and Herzegovina",
+      "currency": "BAM",
+      "locales": [
+        "bs",
+        "hr-BA",
+        "sr-BA"
+      ],
+      "location_count": 117,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/europe"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "BD",
+      "country_name": "Bangladesh",
+      "currency": "BDT",
+      "locales": [
+        "bn-BD",
+        "en"
+      ],
+      "location_count": 151,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/asia-pacific"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.build360bd.com/en",
+        "https://www.fatemasteelcobd.com/cement",
+        "https://www.fatemasteelcobd.com/"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "BE",
+      "country_name": "Belgium",
+      "currency": "EUR",
+      "locales": [
+        "nl-BE",
+        "fr-BE",
+        "de-BE"
+      ],
+      "location_count": 686,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/europe/benelux"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.gamma.be/nl/assortiment/gamma-cement-25-kg/p/B397138",
+        "https://www.hubo.be/nl/p/hubo-betonmortel-25kg/92763/",
+        "https://www.hubo.be/nl/winkels/"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "BF",
+      "country_name": "Burkina Faso",
+      "currency": "XOF",
+      "locales": [
+        "fr-BF",
+        "mos"
+      ],
+      "location_count": 83,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/africa-mediterranean-west-asia/sub-saharan-africa"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "BG",
+      "country_name": "Bulgaria",
+      "currency": "BGN",
+      "locales": [
+        "bg",
+        "tr-BG",
+        "rom"
+      ],
+      "location_count": 138,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/europe",
+        "https://bg-beton.bg/wp-content/uploads/2025/10/%D0%9D%D0%BE%D0%B2%D0%B0-%D0%A6%D0%B5%D0%BD%D0%BE%D0%B2%D0%B0-%D0%BB%D0%B8%D1%81%D1%82%D0%B0-01.11.2025.pdf"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "BJ",
+      "country_name": "Benin",
+      "currency": "XOF",
+      "locales": [
+        "fr-BJ"
+      ],
+      "location_count": 76,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/africa-mediterranean-west-asia/sub-saharan-africa"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "BN",
+      "country_name": "Brunei",
+      "currency": "BND",
+      "locales": [
+        "ms-BN",
+        "en-BN"
+      ],
+      "location_count": 27,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/asia-pacific"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "BR",
+      "country_name": "Brazil",
+      "currency": "BRL",
+      "locales": [
+        "pt-BR",
+        "es",
+        "en",
+        "fr"
+      ],
+      "location_count": 4421,
+      "prior_research_start_urls": [
+        "https://www.vicat.com/en/about-us/group/our-organization"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.leroymerlin.com.br/cimentos",
+        "https://www.leroymerlin.com.br/lojas",
+        "https://www.telhanorte.com.br/materiais-basicos/cimentos-areias-e-pedras/cimento"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "BZ",
+      "country_name": "Belize",
+      "currency": "BZD",
+      "locales": [
+        "en-BZ",
+        "es"
+      ],
+      "location_count": 13,
+      "prior_research_start_urls": [
+        "https://progreso.com/en/about-us/who-we-are/"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "CA",
+      "country_name": "Canada",
+      "currency": "CAD",
+      "locales": [
+        "en-CA",
+        "fr-CA",
+        "iu"
+      ],
+      "location_count": 1327,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/north-america",
+        "https://assets.boitebeet.com/dufferin/concrete/prod/public/uploads/2026/02/2026DufferinConcrete_PriceListWEB2.pdf"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.homedepot.ca/s/en/home/categories/building-materials/concrete-cement-and-masonry/mixes-and-repairs/pre-mix-concrete-ix2",
+        "https://stores.homedepot.ca/on/toronto/home-improvement-toronto-on-7073.html",
+        "https://www.rona.ca/en/building-supplies-and-materials/cement-concrete-and-masonry/cement-concrete-and-mortar-mixes",
+        "https://www.rona.ca/en/store/82633",
+        "https://assets.boitebeet.com/dufferin/concrete/prod/public/uploads/2026/02/2026DufferinConcrete_PriceListWEB2.pdf",
+        "https://www.homehardware.ca/en/masonry/c/1525535413882",
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/north-america/canada",
+        "https://www.heidelbergmaterials.us/home/locations"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "CG",
+      "country_name": "Republic of the Congo",
+      "currency": "XAF",
+      "locales": [
+        "fr-CG",
+        "kg",
+        "ln-CG"
+      ],
+      "location_count": 47,
+      "prior_research_start_urls": [
+        "https://cement.dangote.com/pan-africa-operations/"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "CH",
+      "country_name": "Switzerland",
+      "currency": "CHF",
+      "locales": [
+        "de-CH",
+        "fr-CH",
+        "it-CH",
+        "rm"
+      ],
+      "location_count": 354,
+      "prior_research_start_urls": [
+        "https://www.vicat.com/en/about-us/group/our-organization",
+        "https://www.makies.ch/produkte?file=files%2Fcontent%2Fpreisliste%2FPreisliste+2026+Makies.pdf"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.hornbach.ch/de/c/baustoffe/rohbau/beton-moertel-zement/S13866/",
+        "https://www.hornbach.ch/mein-markt/marktsuche/",
+        "https://www.bauhaus.ch/de/beton-estrich/sika-beton-sikacrete-06-scc-at/p/31136969"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "CI",
+      "country_name": "Ivory Coast",
+      "currency": "XOF",
+      "locales": [
+        "fr-CI"
+      ],
+      "location_count": 851,
+      "prior_research_start_urls": [
+        "https://www.cimentsafrique.com/en"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.entreprisesiama.com/",
+        "https://www.abidjansolution.biz/vente-de-ciment-bois-fer-en-gros-et-detail",
+        "https://hive.bernabeafrique.com/hive-en-cote-divoire/",
+        "https://www.legrand.ci/fr/distributeurs/bernabe"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "CL",
+      "country_name": "Chile",
+      "currency": "CLP",
+      "locales": [
+        "es-CL"
+      ],
+      "location_count": 247,
+      "prior_research_start_urls": [
+        "https://www.sodimac.cl/sodimac-cl/content/proyectos-construccion/"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.sodimac.cl/sodimac-cl/lista/CATG10923/Cemento?brn=comunidadHUM&sid=comhum_34049",
+        "https://www.sodimac.cl/sodimac-cl/content/entrega-en-tiendas",
+        "https://www.easy.cl/search/saco%20cemento%2025%20kg",
+        "https://www.construmart.cl/cemento-especial-saco-25-kg-194617",
+        "https://www.construmart.cl/cemento-ari-saco-25-kg-san-juan-245006"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "CM",
+      "country_name": "Cameroon",
+      "currency": "XAF",
+      "locales": [
+        "en-CM",
+        "fr-CM"
+      ],
+      "location_count": 125,
+      "prior_research_start_urls": [
+        "https://www.holcim.com/find-holcim"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.cimencam.com/fr/nos-points-de-vente",
+        "https://www.merlincameroun.com/agences",
+        "https://bativel.com/"
+      ],
+      "market_depth_dataset": "cameroon_market_supplement.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "CN",
+      "country_name": "China",
+      "currency": "CNY",
+      "locales": [
+        "zh-CN",
+        "yue",
+        "wuu",
+        "dta",
+        "ug",
+        "za"
+      ],
+      "location_count": 2895,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/asia-pacific"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.huaxinconcrete.com/",
+        "https://bmt.scg.com.cn/scg_jc_cybj/List/"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "CO",
+      "country_name": "Colombia",
+      "currency": "COP",
+      "locales": [
+        "es-CO"
+      ],
+      "location_count": 607,
+      "prior_research_start_urls": [
+        "https://www.holcim.com/find-holcim"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.homecenter.com.co/homecenter-co/category/cat5510024/cementos-concreto-y-morteros/?Ntt=CEMENTO+GRIS&currentpage=1&f.product.brandName=alion%3A%3Aargos%3A%3Abronco%3A%3Acemex%3A%3Amapei%3A%3Asika%3A%3Atopex%3A%3Aultracem",
+        "https://www.homecenter.com.co/homecenter-co/content/tiendas/",
+        "https://www.almacencanaima.com/producto/1359/cemento-gris-cemex",
+        "https://www.metropoliscenter.com.co/p/cemento-gris-x-50-kg-argos/"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "CR",
+      "country_name": "Costa Rica",
+      "currency": "CRC",
+      "locales": [
+        "es-CR",
+        "en"
+      ],
+      "location_count": 76,
+      "prior_research_start_urls": [
+        "https://www.holcim.com/find-holcim"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "CY",
+      "country_name": "Cyprus",
+      "currency": "EUR",
+      "locales": [
+        "el-CY",
+        "tr-CY",
+        "en"
+      ],
+      "location_count": 35,
+      "prior_research_start_urls": [
+        "https://www.holcim.com/find-holcim"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "CZ",
+      "country_name": "Czechia",
+      "currency": "CZK",
+      "locales": [
+        "cs",
+        "sk"
+      ],
+      "location_count": 352,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/europe",
+        "https://www.betonarkaprestice.cz/cenik"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.dek.cz/produkty/vypis/6300-betony/556501549-cemix?do=filters-toggle",
+        "https://dek.cz/kontakty/praha-hostivar",
+        "https://www.hornbach.cz/c/stavebniny/hruba-stavba/suche-smesi-a-stavebni-chemie/cement/S25636/"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "DE",
+      "country_name": "Germany",
+      "currency": "EUR",
+      "locales": [
+        "de"
+      ],
+      "location_count": 3081,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/europe",
+        "https://hinterlang.de/uploads/_hinterlang/2026/02/Transportbeton-2026.pdf"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.hornbach.de/s/Zement%2025kg",
+        "https://www.hornbach.de/mein-markt/baumarkt-hornbach-berlin-marzahn/",
+        "https://www.bauhaus.info/zement-moertel/zement/p/13887110",
+        "https://www.bauhaus.info/zement-moertel/zementmoertel/p/34186866"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "DK",
+      "country_name": "Denmark",
+      "currency": "DKK",
+      "locales": [
+        "da-DK",
+        "en",
+        "fo",
+        "de-DK"
+      ],
+      "location_count": 176,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/europe"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "DO",
+      "country_name": "Dominican Republic",
+      "currency": "DOP",
+      "locales": [
+        "es-DO"
+      ],
+      "location_count": 118,
+      "prior_research_start_urls": [
+        "https://progreso.com/en/about-us/who-we-are/"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "DZ",
+      "country_name": "Algeria",
+      "currency": "DZD",
+      "locales": [
+        "ar-DZ"
+      ],
+      "location_count": 323,
+      "prior_research_start_urls": [
+        "https://www.holcim.com/find-holcim"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "EC",
+      "country_name": "Ecuador",
+      "currency": "USD",
+      "locales": [
+        "es-EC"
+      ],
+      "location_count": 117,
+      "prior_research_start_urls": [
+        "https://www.holcim.com/find-holcim"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "EE",
+      "country_name": "Estonia",
+      "currency": "EUR",
+      "locales": [
+        "et",
+        "ru"
+      ],
+      "location_count": 39,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/europe/baltic-states",
+        "https://ehitusgrupp.ee/betoon/hinnakiri/"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "EG",
+      "country_name": "Egypt",
+      "currency": "EGP",
+      "locales": [
+        "ar-EG",
+        "en",
+        "fr"
+      ],
+      "location_count": 250,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/africa-mediterranean-west-asia"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.bnaia.com/en/details/src-suez-cement-cem-iva-n-grade-ton?vendor=bnaia",
+        "https://bnaia.com/en/details/helwan-ordinary-portland-cement-n-grade-ton",
+        "https://www.egyptian-cement.com/products/products-prices/",
+        "https://www.egyptian-cement.com/contact-us/",
+        "https://misrcementgroup.com/subsidiaries-and-locations/locations/"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "ES",
+      "country_name": "Spain",
+      "currency": "EUR",
+      "locales": [
+        "es-ES",
+        "ca",
+        "gl",
+        "eu",
+        "oc"
+      ],
+      "location_count": 1483,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/europe",
+        "https://www.obramat.es/productos/cemento-32-5n-25-kg-gris-25068460.html"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.obramat.es/productos/cemento-32-5n-25-kg-gris-10678003.html",
+        "https://www.obramat.es/almacenes/obramat-alcorcon.html",
+        "https://www.leroymerlin.es/productos/saco-cemento-gris-25-kg-85808656.html"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "ET",
+      "country_name": "Ethiopia",
+      "currency": "ETB",
+      "locales": [
+        "am",
+        "en-ET",
+        "om-ET",
+        "ti-ET",
+        "so-ET",
+        "sid"
+      ],
+      "location_count": 245,
+      "prior_research_start_urls": [
+        "https://cement.dangote.com/pan-africa-operations/"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "FI",
+      "country_name": "Finland",
+      "currency": "EUR",
+      "locales": [
+        "fi-FI",
+        "sv-FI",
+        "smn"
+      ],
+      "location_count": 342,
+      "prior_research_start_urls": [
+        "https://finnsementti.fi/"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "FR",
+      "country_name": "France",
+      "currency": "EUR",
+      "locales": [
+        "fr-FR",
+        "frp",
+        "br",
+        "co",
+        "ca",
+        "eu",
+        "oc"
+      ],
+      "location_count": 2076,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/europe",
+        "https://www.leroymerlin.fr/produits/ciment-gris-cem-ii-32-5-25-kg-62358772.html"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.leroymerlin.fr/produits/materiaux/beton-ciment-mortier-et-poudre/ciment/",
+        "https://www.pointp.fr/p/materiaux-gros-oeuvre/ciment-performat-cem-i-52-5-n-cp2-ce-nf-sac-de-25kg-A4535718",
+        "https://www.pointp.fr/infos-agence/paris-bercy-point-p-3245",
+        "https://www.bricodepot.fr/produits/materiau-et-gros-oeuvre/gros-oeuvre-et-evacuation-des-eaux/ciment-mortier-et-beton/ciment",
+        "https://www.bricodepot.fr/p/3549440000012/media.bricodepot.fr"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "GA",
+      "country_name": "Gabon",
+      "currency": "XAF",
+      "locales": [
+        "fr-GA"
+      ],
+      "location_count": 32,
+      "prior_research_start_urls": [
+        "https://www.cimentsafrique.com/en"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "GB",
+      "country_name": "United Kingdom",
+      "currency": "GBP",
+      "locales": [
+        "en-GB",
+        "cy-GB",
+        "gd"
+      ],
+      "location_count": 1915,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/europe",
+        "https://www.misterconcrete.co.uk/ready-mix-concrete-prices"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www2.wickes.co.uk/Blue-Circle-General-Purpose-Cement---25kg/p/224661",
+        "https://www2.wickes.co.uk/Blue-Circle-Multi-Purpose-Ready-To-Use-Concrete---20kg/p/133770",
+        "https://www.wickes.co.uk/store/8208",
+        "https://www.travisperkins.co.uk/shop/grey-cement"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "GE",
+      "country_name": "Georgia",
+      "currency": "GEL",
+      "locales": [
+        "ka",
+        "ru",
+        "hy",
+        "az"
+      ],
+      "location_count": 59,
+      "prior_research_start_urls": [
+        "https://hunnewellcement.com/en/"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://citadeli.com/ka/products/5-gidroizoliaciia/135-zidkaia-gidroizoliaciia/31065-planitop-rasa-e-ripara-fibrocement-dlia-vyravnivaniia-betonnyx-poverxnostei-i-remontnyx-rabot",
+        "https://www.citadeli.com/ka/products/102-repair-materials/34365-web-cement-k7-25kg-premium-frost-resistant-for-large-format-tiles",
+        "https://www.citadeli.com/ka/products/39-inertuli-masalebi/12868-mc-225-x-haidelberg-tsementi-300-25-kg",
+        "https://www.ecomix.ge/en"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "GH",
+      "country_name": "Ghana",
+      "currency": "GHS",
+      "locales": [
+        "en-GH",
+        "ak",
+        "ee",
+        "tw"
+      ],
+      "location_count": 114,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/africa-mediterranean-west-asia/sub-saharan-africa"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.ghbuildersco.com/company-pricing/",
+        "https://www.ghbuildersco.com/the-company/",
+        "https://www.ghacem.com/en/products",
+        "https://www.elvisonbuild.com/"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "GN",
+      "country_name": "Guinea",
+      "currency": "GNF",
+      "locales": [
+        "fr-GN"
+      ],
+      "location_count": 63,
+      "prior_research_start_urls": [
+        "https://www.holcim.com/find-holcim"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "GR",
+      "country_name": "Greece",
+      "currency": "EUR",
+      "locales": [
+        "el-GR",
+        "en",
+        "fr"
+      ],
+      "location_count": 284,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/europe"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "GT",
+      "country_name": "Guatemala",
+      "currency": "GTQ",
+      "locales": [
+        "es-GT"
+      ],
+      "location_count": 205,
+      "prior_research_start_urls": [
+        "https://progreso.com/en/about-us/who-we-are/"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "GW",
+      "country_name": "Guinea-Bissau",
+      "currency": "XOF",
+      "locales": [
+        "pt-GW",
+        "pov"
+      ],
+      "location_count": 39,
+      "prior_research_start_urls": [
+        "https://www.cimentsafrique.com/en"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "HN",
+      "country_name": "Honduras",
+      "currency": "HNL",
+      "locales": [
+        "es-HN",
+        "cab",
+        "miq"
+      ],
+      "location_count": 158,
+      "prior_research_start_urls": [
+        "https://cenosa.hn/"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "HR",
+      "country_name": "Croatia",
+      "currency": "EUR",
+      "locales": [
+        "hr-HR",
+        "sr"
+      ],
+      "location_count": 77,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/europe",
+        "https://ngh.hr/transportni-beton/"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "HU",
+      "country_name": "Hungary",
+      "currency": "HUF",
+      "locales": [
+        "hu-HU"
+      ],
+      "location_count": 382,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/europe"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "ID",
+      "country_name": "Indonesia",
+      "currency": "IDR",
+      "locales": [
+        "id",
+        "en",
+        "nl",
+        "jv"
+      ],
+      "location_count": 484,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/asia-pacific"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.mitra10.com/bahan-bangunan/semen",
+        "https://www.mitra10.com/blog/faq-cara-menemukan-dan-menghubungi-toko-mitra10",
+        "https://www.depobangunan.co.id/sika-chap-dur-natural-25-kg.html"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "IE",
+      "country_name": "Ireland",
+      "currency": "EUR",
+      "locales": [
+        "en-IE",
+        "ga-IE"
+      ],
+      "location_count": 152,
+      "prior_research_start_urls": [
+        "https://www.irishcement.ie/products-2/"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.woodies.ie/irish-cement-25kg-377043",
+        "https://www.woodies.ie/25kg-concrete-100247",
+        "https://www.woodies.ie/storelocator",
+        "https://www.chadwicks.ie/irish-portland-cement-25kg-25203.html",
+        "https://www.chadwicks.ie/stores/sandyford"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "IL",
+      "country_name": "Israel",
+      "currency": "ILS",
+      "locales": [
+        "he",
+        "ar-IL",
+        "en-IL",
+        ""
+      ],
+      "location_count": 178,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/africa-mediterranean-west-asia"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "IN",
+      "country_name": "India",
+      "currency": "INR",
+      "locales": [
+        "en-IN",
+        "hi",
+        "bn",
+        "te",
+        "mr",
+        "ta",
+        "ur",
+        "gu",
+        "kn",
+        "ml",
+        "or",
+        "pa",
+        "as",
+        "bh",
+        "sat",
+        "ks",
+        "ne",
+        "sd",
+        "kok",
+        "doi",
+        "mni",
+        "sit",
+        "sa",
+        "fr",
+        "lus",
+        "inc"
+      ],
+      "location_count": 6540,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/asia-pacific"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.buildersmart.in/cement/filter/manufacturer/ultratech",
+        "https://www.buildersmart.in/contacts",
+        "https://lntsufin.com/product/jsw-opc-cement-50-kg/17274-10045",
+        "https://constructionkart.in/shop/birla-a1-opc-cement/",
+        "https://constructionkart.in/shop/jsw-concreel-cement/"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "IS",
+      "country_name": "Iceland",
+      "currency": "ISK",
+      "locales": [
+        "is",
+        "en",
+        "de",
+        "da",
+        "sv",
+        "no"
+      ],
+      "location_count": 14,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/europe/iceland"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "IT",
+      "country_name": "Italy",
+      "currency": "EUR",
+      "locales": [
+        "it-IT",
+        "de-IT",
+        "fr-IT",
+        "sc",
+        "ca",
+        "co",
+        "sl"
+      ],
+      "location_count": 2033,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/europe"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.leroymerlin.it/prodotti/cemento-25-kg-82655833.html",
+        "https://www.tecnomat.it/it/cemento-grigio-tipo-cem-ii-b-m-42-5-r-10031909/",
+        "https://negozi.tecnomat.it/"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "JM",
+      "country_name": "Jamaica",
+      "currency": "JMD",
+      "locales": [
+        "en-JM"
+      ],
+      "location_count": 44,
+      "prior_research_start_urls": [
+        "https://www.sec.gov/Archives/edgar/data/1076378/000119312526177605/d120395d20f.htm"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "JP",
+      "country_name": "Japan",
+      "currency": "JPY",
+      "locales": [
+        "ja"
+      ],
+      "location_count": 1800,
+      "prior_research_start_urls": [
+        "https://www.taiheiyo-cement.co.jp/english/company/cement/"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.cainz.com/search/?category=421418&sz=20",
+        "https://www.komeri.com/shop/c/c230407/",
+        "https://www.komeri.com/shop/storeSearch/ResultList.aspx?area_name=%E6%9D%B1%E4%BA%AC%E9%83%BD%E4%B8%96%E7%94%B0%E8%B0%B7%E5%8C%BA&lat=35.64595524&lon=139.65279958"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "KE",
+      "country_name": "Kenya",
+      "currency": "KES",
+      "locales": [
+        "en-KE",
+        "sw-KE"
+      ],
+      "location_count": 234,
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.pandyatc.com/",
+        "https://ladecco.co.ke/shop/materials-depo",
+        "https://constructionhub.co.ke/products/bamburi-nguvu-cement"
+      ],
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "KR",
+      "country_name": "South Korea",
+      "currency": "KRW",
+      "locales": [
+        "ko-KR",
+        "en"
+      ],
+      "location_count": 155,
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.hanilcement.com/en/html/about/ct_06.html",
+        "https://hanilcement.com/html/business/bt_03.html",
+        "https://sampyo.co.kr/en/business/ready-mix/",
+        "https://www.onesmart.co.kr/shop/shopbrand.html?mcode=005&type=Y&xcode=014",
+        "https://dh-mall.co.kr/"
+      ],
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "KZ",
+      "country_name": "Kazakhstan",
+      "currency": "KZT",
+      "locales": [
+        "kk",
+        "ru"
+      ],
+      "location_count": 205,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/africa-mediterranean-west-asia"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "LR",
+      "country_name": "Liberia",
+      "currency": "LRD",
+      "locales": [
+        "en-LR"
+      ],
+      "location_count": 26,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/africa-mediterranean-west-asia/sub-saharan-africa"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "LT",
+      "country_name": "Lithuania",
+      "currency": "EUR",
+      "locales": [
+        "lt",
+        "ru",
+        "pl"
+      ],
+      "location_count": 71,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/europe/baltic-states"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "LV",
+      "country_name": "Latvia",
+      "currency": "EUR",
+      "locales": [
+        "lv",
+        "ru",
+        "lt"
+      ],
+      "location_count": 52,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/europe/baltic-states"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "MA",
+      "country_name": "Morocco",
+      "currency": "MAD",
+      "locales": [
+        "ar-MA",
+        "ber",
+        "fr"
+      ],
+      "location_count": 309,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/africa-mediterranean-west-asia"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.bricoma.ma/kit-sikatop-122.html",
+        "https://www.bricoma.ma/reseau/index",
+        "https://www.cimentsdumaroc.com/fr/centrales-a-beton",
+        "https://www.cimentsdumaroc.com/fr/nos-implantations"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "ML",
+      "country_name": "Mali",
+      "currency": "XOF",
+      "locales": [
+        "fr-ML",
+        "bm"
+      ],
+      "location_count": 72,
+      "prior_research_start_urls": [
+        "https://www.cimentsafrique.com/en"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "MR",
+      "country_name": "Mauritania",
+      "currency": "MRU",
+      "locales": [
+        "ar-MR",
+        "fuc",
+        "snk",
+        "fr",
+        "mey",
+        "wo"
+      ],
+      "location_count": 59,
+      "prior_research_start_urls": [
+        "https://www.cimentsafrique.com/en"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "MX",
+      "country_name": "Mexico",
+      "currency": "MXN",
+      "locales": [
+        "es-MX"
+      ],
+      "location_count": 1827,
+      "prior_research_start_urls": [
+        "https://www.sec.gov/Archives/edgar/data/1076378/000119312526177605/d120395d20f.htm"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.homedepot.com.mx/es-es/b/materiales-de-construccion/basicos-de-construccion/cemento",
+        "https://www.construramagrupovelco.com/",
+        "https://plomerama.mx/tienda/cemento-gris-monterrey-bulto-50kg-cemex/",
+        "https://www.cemexmexico.com/productos/cemento"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "MY",
+      "country_name": "Malaysia",
+      "currency": "MYR",
+      "locales": [
+        "ms-MY",
+        "en",
+        "zh",
+        "ta",
+        "te",
+        "ml",
+        "pa",
+        "th"
+      ],
+      "location_count": 530,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/asia-pacific"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.abhardware.com.my/malaysia/cement",
+        "https://www.abhardware.com.my/malaysia/index.php?rt=content%2Fcontact",
+        "https://www.ewarehouse.my/Obaproof-Waterproof-Concrete-Mortar-Waterproofing-Admixture-4L",
+        "https://www.ewarehouse.my/contact_us"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "MZ",
+      "country_name": "Mozambique",
+      "currency": "MZN",
+      "locales": [
+        "pt-MZ",
+        "vmw"
+      ],
+      "location_count": 88,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/africa-mediterranean-west-asia/sub-saharan-africa"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "NG",
+      "country_name": "Nigeria",
+      "currency": "NGN",
+      "locales": [
+        "en-NG",
+        "ha",
+        "yo",
+        "ig",
+        "ff"
+      ],
+      "location_count": 481,
+      "prior_research_start_urls": [
+        "https://cement.dangote.com/pan-africa-operations/"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://cement.dangote.com/approved-distributors-retailers/",
+        "https://buyers.royalgategroup.com.ng/"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "NI",
+      "country_name": "Nicaragua",
+      "currency": "NIO",
+      "locales": [
+        "es-NI",
+        "en"
+      ],
+      "location_count": 76,
+      "prior_research_start_urls": [
+        "https://www.sec.gov/Archives/edgar/data/1076378/000119312526177605/d120395d20f.htm"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "NL",
+      "country_name": "The Netherlands",
+      "currency": "EUR",
+      "locales": [
+        "nl-NL",
+        "fy-NL"
+      ],
+      "location_count": 569,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/europe/benelux",
+        "https://www.boltec.nl/kennisbank/beton-prijs-per-m3/"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.hornbach.nl/c/bouwstoffen-hout-ramen-deuren/bouwmateriaal/ruwbouw/betonmortel-metselmortel-cement/S4512/",
+        "https://www.bouwmaat.nl/collections/betonmortels",
+        "https://cdn.bouwmaat.nl/pages/vestigingen"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "NO",
+      "country_name": "Norway",
+      "currency": "NOK",
+      "locales": [
+        "no",
+        "nb",
+        "nn",
+        "se",
+        "fi"
+      ],
+      "location_count": 120,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/europe"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "NZ",
+      "country_name": "New Zealand",
+      "currency": "NZD",
+      "locales": [
+        "en-NZ",
+        "mi"
+      ],
+      "location_count": 238,
+      "prior_research_start_urls": [
+        "https://www.mitre10.co.nz/shop/building-hardware/building-supplies/concrete-cement/c/RS2016"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.bunnings.co.nz/products/building-hardware/cement-concreting/concrete",
+        "https://www.mitre10.co.nz/shop/building-hardware/building-supplies/concrete-cement/concrete/cement/c/RC43100",
+        "https://www.mitre10.co.nz/shop/drymix-hi-strength-concrete-20-kg-grey/p/329340",
+        "https://www.mitre10.co.nz/Mega-NewLynn",
+        "https://www.placemakers.co.nz/online/building-products/concrete-mortars/cement/c/RBU15I1",
+        "https://www.placemakers.co.nz/online/building-products/concrete-mortars/c/RWBU1"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "PA",
+      "country_name": "Panama",
+      "currency": "PAB",
+      "locales": [
+        "es-PA",
+        "en"
+      ],
+      "location_count": 69,
+      "prior_research_start_urls": [
+        "https://progreso.com/en/about-us/who-we-are/"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "PE",
+      "country_name": "Peru",
+      "currency": "PEN",
+      "locales": [
+        "es-PE",
+        "qu",
+        "ay"
+      ],
+      "location_count": 305,
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.sodimac.com.pe/sodimac-pe/articulo/113535211/cemento-apu-tipo-gu-42-5kg",
+        "https://www.promart.pe/construccion/cemento/Cemento?PS=1&map=c%2Cc%2CspecificationFilter_6949",
+        "https://www.promart.pe/tiendas"
+      ],
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "PH",
+      "country_name": "Philippines",
+      "currency": "PHP",
+      "locales": [
+        "tl",
+        "en-PH",
+        "fil",
+        "ceb",
+        "ilo",
+        "hil",
+        "war",
+        "pam",
+        "bik",
+        "bcl",
+        "pag",
+        "mrw",
+        "tsg",
+        "mdh",
+        "cbk",
+        "krj",
+        "sgd",
+        "msb",
+        "akl",
+        "ibg",
+        "yka",
+        "mta",
+        "abx"
+      ],
+      "location_count": 1380,
+      "prior_research_start_urls": [
+        "https://www.republiccement.com/"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://corporate.allhome.com.ph/product_category/cement-aggregates/",
+        "https://shop.wilcon.com.ph/",
+        "https://www.wilcon.com.ph/",
+        "https://www.cwhomedepot.com/index.php/c_home/call_to_order"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "PK",
+      "country_name": "Pakistan",
+      "currency": "PKR",
+      "locales": [
+        "ur-PK",
+        "en-PK",
+        "pa",
+        "sd",
+        "ps",
+        "brh"
+      ],
+      "location_count": 493,
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://zarea.com/?ver=1755417488",
+        "https://marketdeals.pk/all-categotry/home/"
+      ],
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "PL",
+      "country_name": "Poland",
+      "currency": "PLN",
+      "locales": [
+        "pl"
+      ],
+      "location_count": 768,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/europe",
+        "https://www.beton-prd.pl/"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.castorama.pl/materialy-budowlane/zaprawy-budowlane.cat",
+        "https://www.castorama.pl/sklepy/warszawa-wola.html",
+        "https://www.leroymerlin.pl/produkty/budowa/beton-cement-zaprawa-tynk/cementy-i-wapna/cement-25kg-p.html"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "PT",
+      "country_name": "Portugal",
+      "currency": "EUR",
+      "locales": [
+        "pt-PT",
+        "mwl"
+      ],
+      "location_count": 544,
+      "prior_research_start_urls": [
+        "https://www.leroymerlin.pt/produtos/cimento-25kg-secil-13142325.html"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.maxmat.pt/pt/produtos/construcao/cimentos_1054-1591.html",
+        "https://www.maxmat.pt/pt/contactos-de-lojas_421.html?idst=29",
+        "https://www.leroymerlin.pt/produtos/cimento-25kg-secil-13142325.html"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "RO",
+      "country_name": "Romania",
+      "currency": "RON",
+      "locales": [
+        "ro",
+        "hu",
+        "rom"
+      ],
+      "location_count": 788,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/europe",
+        "https://betonpetrosani.ro/preturi/"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.dedeman.ro/ro/ciment-romcim-ultra-42-5-40-kg/p/6011034",
+        "https://www.leroymerlin.ro/produse/ciment-rezistent-romcim-durabil-rezistenta-42-5r-40-kg-12178516.html",
+        "https://www.leroymerlin.ro/magazine/bucuresti-colosseum.html"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "RU",
+      "country_name": "Russia",
+      "currency": "RUB",
+      "locales": [
+        "ru",
+        "tt",
+        "xal",
+        "cau",
+        "ady",
+        "kv",
+        "ce",
+        "tyv",
+        "cv",
+        "udm",
+        "tut",
+        "mns",
+        "bua",
+        "myv",
+        "mdf",
+        "chm",
+        "ba",
+        "inh",
+        "kbd",
+        "krc",
+        "av",
+        "sah",
+        "nog"
+      ],
+      "location_count": 2759,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/africa-mediterranean-west-asia"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "SA",
+      "country_name": "Saudi Arabia",
+      "currency": "SAR",
+      "locales": [
+        "ar-SA"
+      ],
+      "location_count": 144,
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.masdaronline.com/en/SAR/BG/Open-Catalogue/CEMENT/CEMENT-BAGS/PORTLAND-CEMENT/ORDINARY-PORTLAND-CEMENT-50kg--SAUDI/p/1000036513",
+        "https://masdar.co/contact/",
+        "https://saudicement.com.sa/ar/sales-enquiry/"
+      ],
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "SE",
+      "country_name": "Sweden",
+      "currency": "SEK",
+      "locales": [
+        "sv-SE",
+        "se",
+        "sma",
+        "fi-SE"
+      ],
+      "location_count": 281,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/europe"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.byggmax.se/hus-och-bygg/cement-och-betong",
+        "https://www.byggmax.se/standardcement-p0101",
+        "https://www.byggmax.se/butiker/sthlm-bromma",
+        "https://www.bauhaus.se/cement-fa-25kg"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "SG",
+      "country_name": "Singapore",
+      "currency": "SGD",
+      "locales": [
+        "cmn",
+        "en-SG",
+        "ms-SG",
+        "ta-SG",
+        "zh-SG"
+      ],
+      "location_count": 95,
+      "prior_research_start_urls": [
+        "https://www.panunited.com.sg/wp-content/uploads/2021/02/PR_Pan-United-Achieves-Singapores-Largest-Two-Continuous-Concrete-Pours-Within-a-Month.pdf"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "SI",
+      "country_name": "Slovenia",
+      "currency": "EUR",
+      "locales": [
+        "sl",
+        "sh"
+      ],
+      "location_count": 213,
+      "prior_research_start_urls": [
+        "https://kg-eko.si/kg-eko-cenik/"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "SK",
+      "country_name": "Slovakia",
+      "currency": "EUR",
+      "locales": [
+        "sk",
+        "hu"
+      ],
+      "location_count": 150,
+      "prior_research_start_urls": [
+        "https://riline.sk/cennik/"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "SL",
+      "country_name": "Sierra Leone",
+      "currency": "SLE",
+      "locales": [
+        "en-SL",
+        "men",
+        "tem"
+      ],
+      "location_count": 49,
+      "prior_research_start_urls": [
+        "https://cement.dangote.com/pan-africa-operations/"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "SN",
+      "country_name": "Senegal",
+      "currency": "XOF",
+      "locales": [
+        "fr-SN",
+        "wo",
+        "fuc",
+        "mnk"
+      ],
+      "location_count": 119,
+      "prior_research_start_urls": [
+        "https://www.cimentsafrique.com/en"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://isd-groups.sn/product/ciment-les-ciments-du-sahel-cimaf-325-et-425/",
+        "https://isd-groups.sn/contactez-nous/",
+        "https://www.ecephas.com/produit/ciiment-sac/"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "SV",
+      "country_name": "El Salvador",
+      "currency": "USD",
+      "locales": [
+        "es-SV"
+      ],
+      "location_count": 74,
+      "prior_research_start_urls": [
+        "https://www.holcim.com/find-holcim"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "TD",
+      "country_name": "Chad",
+      "currency": "XAF",
+      "locales": [
+        "fr-TD",
+        "ar-TD",
+        "sre"
+      ],
+      "location_count": 68,
+      "prior_research_start_urls": [
+        "https://www.cimentsafrique.com/en"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "TG",
+      "country_name": "Togo",
+      "currency": "XOF",
+      "locales": [
+        "fr-TG",
+        "ee",
+        "hna",
+        "kbp",
+        "dag",
+        "ha"
+      ],
+      "location_count": 32,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/africa-mediterranean-west-asia/sub-saharan-africa"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "TH",
+      "country_name": "Thailand",
+      "currency": "THB",
+      "locales": [
+        "th",
+        "en"
+      ],
+      "location_count": 450,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/asia-pacific"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "TR",
+      "country_name": "Türkiye",
+      "currency": "TRY",
+      "locales": [
+        "tr-TR",
+        "ku",
+        "diq",
+        "az",
+        "av"
+      ],
+      "location_count": 886,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/africa-mediterranean-west-asia"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.koctas.com.tr/kalekim-1055-granitech-yap-c2te-gri-25-kg/p/1000032310",
+        "https://www.koctas.com.tr/store-finder/koctas-istanbul-kartal/1001",
+        "https://www.bauhaus.com.tr/kalekim-4002-tamirart-30-kalin-tamir-harci-25kg-13860634",
+        "https://www.bauhaus.com.tr/25-kg-groutart-grout-harci-61223363",
+        "https://cimsa.com.tr/iletisim/"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "TT",
+      "country_name": "Trinidad and Tobago",
+      "currency": "TTD",
+      "locales": [
+        "en-TT",
+        "hns",
+        "fr",
+        "es",
+        "zh"
+      ],
+      "location_count": 22,
+      "prior_research_start_urls": [
+        "https://www.sec.gov/Archives/edgar/data/1076378/000119312526177605/d120395d20f.htm"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "TZ",
+      "country_name": "Tanzania",
+      "currency": "TZS",
+      "locales": [
+        "sw-TZ",
+        "en",
+        "ar"
+      ],
+      "location_count": 313,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/africa-mediterranean-west-asia/sub-saharan-africa"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.amish.co.tz/divisions/hardware/?category=cement",
+        "https://fmjhardware.co.tz/",
+        "https://nabaki.co.tz/branches/"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "UA",
+      "country_name": "Ukraine",
+      "currency": "UAH",
+      "locales": [
+        "uk",
+        "ru-UA",
+        "rom",
+        "pl",
+        "hu"
+      ],
+      "location_count": 1047,
+      "prior_research_start_urls": [
+        "https://www.crhukraine.com/"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    },
+    {
+      "country_code": "US",
+      "country_name": "United States",
+      "currency": "USD",
+      "locales": [
+        "en-US",
+        "es-US",
+        "haw",
+        "fr"
+      ],
+      "location_count": 7557,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/north-america",
+        "https://www.gehringconcrete.com/Products/Ready-Mix-Products-Pricing"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.homedepot.com/b/Building-Materials-Concrete-Cement-Masonry-Concrete/N-5yc1vZcdpt",
+        "https://www.homedepot.com/l/store-locator/",
+        "https://www.lowes.com/pd/92-6-lb-I-Cement/1000939022",
+        "https://www.lowes.com/pl/concrete-cement-masonry/concrete-cement-stucco-mixes/concrete-mix/4294515400-1210245777287",
+        "https://gehringconcrete.com/Products/Ready-Mix-Products-Pricing",
+        "https://www.gehringconcrete.com/",
+        "https://www.acehardware.com/departments/building-supplies/concrete-cement-and-masonry/ready-mix-concrete",
+        "https://www.acehardware.com/departments/building-supplies/concrete-cement-and-masonry",
+        "https://www.menards.com/main/c-5648.htm?Spec_ProductType_facet=Concrete+Mix&rid=SxA3YD7CR0",
+        "https://www3.menards.com/main/building-materials/concrete-cement-masonry/bagged-concrete-cement-mortar/portland-cement-type-il-92-6-94-lbs/1891149/p-1642874260925542-c-5648.htm"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "VN",
+      "country_name": "Vietnam",
+      "currency": "VND",
+      "locales": [
+        "vi",
+        "en",
+        "fr",
+        "zh",
+        "km"
+      ],
+      "location_count": 456,
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://vlxdmiennam.com/",
+        "https://haanhltd.com/",
+        "https://vnetmic.vn/"
+      ],
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "ZA",
+      "country_name": "South Africa",
+      "currency": "ZAR",
+      "locales": [
+        "zu",
+        "xh",
+        "af",
+        "nso",
+        "en-ZA",
+        "tn",
+        "st",
+        "ts",
+        "ss",
+        "ve",
+        "nr"
+      ],
+      "location_count": 592,
+      "prior_research_start_urls": [
+        "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/africa-mediterranean-west-asia/sub-saharan-africa",
+        "https://www.cashbuild.co.za/539-cement?store=S286"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "researched_50_market_refresh",
+      "discovery_source_urls": [
+        "https://www.cashbuild.co.za/539-cement?store=S286",
+        "https://locations.cashbuild.co.za/",
+        "https://www.buildit.co.za/SpecialPages/Search.aspx?searchmode=anyword&searchtext=50kg+of+cement+price"
+      ],
+      "market_depth_dataset": "global_market_50.json",
+      "market_depth_checked_at": "2026-10-18"
+    },
+    {
+      "country_code": "ZM",
+      "country_name": "Zambia",
+      "currency": "ZMW",
+      "locales": [
+        "en-ZM",
+        "bem",
+        "loz",
+        "lun",
+        "lue",
+        "ny",
+        "toi"
+      ],
+      "location_count": 95,
+      "prior_research_start_urls": [
+        "https://cement.dangote.com/pan-africa-operations/"
+      ],
+      "prior_research_observed_at": "2026-10-17",
+      "notes": "Country-scoped city/town fallback. Supplier delivery and branch stock require independent confirmation.",
+      "market_refresh_status": "prior_leads_only_not_refreshed_this_pass",
+      "discovery_source_urls": []
+    }
+  ]
+}

@@ -1,0 +1,708 @@
+{
+  "schema_version": "2.1",
+  "checked_at": "2026-10-18",
+  "actions": [
+    {
+      "id": "erkat-m500-old-price",
+      "country_code": "AM",
+      "legacy_record_id": "p001",
+      "action": "quarantine_price_until_reconfirmed",
+      "match": {
+        "supplier_name": "Erkat Proff",
+        "product": "Iranian M500 cement 50 kg"
+      },
+      "source_url": "https://erkatproff.am/en/product/cement-m500-parskakan-50-kg",
+      "reason": "Current JSON-LD shows 4100 RUB with an unrelated perfume seller. No reliable visible AMD price was recovered. Do not reuse the historical 2700 AMD as current; retain supplier as quote-only."
+    },
+    {
+      "id": "gamma-retired-product",
+      "country_code": "NL",
+      "action": "exclude_from_active_offers",
+      "source_url": "https://www.gamma.be/nl/assortiment/gamma-cement-25-kg/p/B397138",
+      "product_code": "B397138",
+      "reason": "Merchant says this cement product is withdrawn from its range; 7.49 EUR must not become an active cheapest offer."
+    },
+    {
+      "id": "kenya-placeholder-marketplace",
+      "country_code": "KE",
+      "supplier_id": "ke-constructionhub",
+      "action": "manual_review_lead_only",
+      "source_url": "https://constructionhub.co.ke/products/bamburi-nguvu-cement",
+      "reason": "Template and null specification fields with conflicting applications. No price or stock imported."
+    },
+    {
+      "id": "buildersmart-exchange",
+      "country_code": "IN",
+      "supplier_id": "in-buildersmart",
+      "action": "retain_quote_channel_exclude_demo_prices",
+      "reason": "Repeated exchange prices and inconsistent MRP/offer fields are not dependable product quotes; Hyderabad contact remains useful."
+    },
+    {
+      "id": "stock-scope",
+      "action": "do_not_propagate_default_stock_to_country",
+      "affected_examples": [
+        "ca-home-hardware",
+        "jp-komeri",
+        "nl-bouwmaat",
+        "cl-construmart"
+      ],
+      "reason": "Unidentified selected-store widgets and unselected catalog stock are not nationwide product availability."
+    },
+    {
+      "id": "bricoma-channel-scope",
+      "country_code": "MA",
+      "action": "preserve_distinct_sales_channels",
+      "reason": "Online metadata reports out of stock; physical branch table differs. Preserve separate scopes and unconfirmed timestamps."
+    },
+    {
+      "id": "specialty-materials",
+      "action": "keep_product_categories_and_standards_separate",
+      "reason": "Masonry cement, tile adhesive, floor hardener, repair mortar, dry concrete and ready mix must not be ranked as interchangeable raw cement."
+    },
+    {
+      "id": "source-amount-and-currency",
+      "action": "require_product_unit_currency_match",
+      "reason": "Armenian 1800 AMD chalk is not cement. Senegal EUR catalog must not be relabeled XOF. MM Leader grade amounts have no confirmed concrete-volume unit."
+    },
+    {
+      "id": "dufferin-standard-scope-correction",
+      "action": "update_existing_price_metadata",
+      "observation_ids": [
+        "ca-price-019",
+        "ca-price-020",
+        "ca-price-021"
+      ],
+      "source_url": "https://assets.boitebeet.com/dufferin/concrete/prod/public/uploads/2026/02/2026DufferinConcrete_PriceListWEB2.pdf",
+      "reason": "Earlier pack incorrectly assigned non-air-entrained/interior-only labels to the standard table. The original table does not state those restrictions.",
+      "set_fields": {
+        "air_entrainment": null,
+        "intended_use_claim": null,
+        "price_table": "standard_strength"
+      },
+      "import_instruction": "Upsert these same observation IDs and overwrite the unsupported labels/notes; do not leave the former metadata active."
+    },
+    {
+      "id": "huaxin-coordinate-crs-unconfirmed",
+      "action": "exclude_source_coordinates_from_WGS84_map_and_nearest",
+      "reason": "Public plant data is used by AMap. CRS is not confirmed; retain raw tuples separately, never treat them as precise WGS84 shop pins."
+    },
+    {
+      "id": "ghacem-locality-map-precision",
+      "action": "exclude_uncertain_precision_source_coordinates_from_store_pins",
+      "reason": "Some source points and addresses are locality-level. Keep business/contact listings; do not claim exact store locations."
+    },
+    {
+      "id": "cainz-future-openings-and-specialist-formats",
+      "action": "exclude_from_active_ingredient_discovery",
+      "records": [
+        {
+          "country_code": "JP",
+          "name": "カインズ 上田国分店",
+          "source_branch_id": "989",
+          "reason": "future opening date despite OPEN feed status",
+          "opening_date_as_published": "2026-10-29",
+          "source_url": "https://map.cainz.com/map/"
+        },
+        {
+          "country_code": "JP",
+          "name": "カインズ まえばし赤城モール店",
+          "source_branch_id": "977",
+          "reason": "future opening date despite OPEN feed status",
+          "opening_date_as_published": "2026-10-28",
+          "source_url": "https://map.cainz.com/map/"
+        },
+        {
+          "country_code": "JP",
+          "name": "カインズリフォーム 赤羽ビビオ店",
+          "source_branch_id": "426",
+          "reason": "future opening date despite OPEN feed status",
+          "opening_date_as_published": "2026-10-22",
+          "source_url": "https://map.cainz.com/map/"
+        },
+        {
+          "country_code": "JP",
+          "name": "カインズリフォーム 伊勢崎店",
+          "source_branch_id": "czreform760",
+          "reason": "specialist format; concrete ingredients not established",
+          "opening_date_as_published": null,
+          "source_url": "https://map.cainz.com/map/"
+        },
+        {
+          "country_code": "JP",
+          "name": "カインズリフォーム 浦和美園店",
+          "source_branch_id": "czreform816",
+          "reason": "specialist format; concrete ingredients not established",
+          "opening_date_as_published": null,
+          "source_url": "https://map.cainz.com/map/"
+        },
+        {
+          "country_code": "JP",
+          "name": "カインズリフォーム 青梅インター店",
+          "source_branch_id": "czreform296",
+          "reason": "specialist format; concrete ingredients not established",
+          "opening_date_as_published": null,
+          "source_url": "https://map.cainz.com/map/"
+        },
+        {
+          "country_code": "JP",
+          "name": "カインズリフォーム 荻窪タウンセブン店",
+          "source_branch_id": "153",
+          "reason": "specialist format; concrete ingredients not established",
+          "opening_date_as_published": "2026-02-27",
+          "source_url": "https://map.cainz.com/map/"
+        },
+        {
+          "country_code": "JP",
+          "name": "カインズリフォーム シャポー小岩店",
+          "source_branch_id": "142",
+          "reason": "specialist format; concrete ingredients not established",
+          "opening_date_as_published": "2025-09-25",
+          "source_url": "https://map.cainz.com/map/"
+        },
+        {
+          "country_code": "JP",
+          "name": "カインズリフォーム そごう千葉店",
+          "source_branch_id": "144",
+          "reason": "specialist format; concrete ingredients not established",
+          "opening_date_as_published": "2025-10-10",
+          "source_url": "https://map.cainz.com/map/"
+        },
+        {
+          "country_code": "JP",
+          "name": "カインズリフォーム 鶴ヶ島店",
+          "source_branch_id": "czreform284",
+          "reason": "specialist format; concrete ingredients not established",
+          "opening_date_as_published": null,
+          "source_url": "https://map.cainz.com/map/"
+        },
+        {
+          "country_code": "JP",
+          "name": "カインズリフォーム 戸塚モディ店",
+          "source_branch_id": "149",
+          "reason": "specialist format; concrete ingredients not established",
+          "opening_date_as_published": "2026-02-13",
+          "source_url": "https://map.cainz.com/map/"
+        },
+        {
+          "country_code": "JP",
+          "name": "カインズリフォーム 名古屋大高インター店",
+          "source_branch_id": "czreform744",
+          "reason": "specialist format; concrete ingredients not established",
+          "opening_date_as_published": null,
+          "source_url": "https://map.cainz.com/map/"
+        },
+        {
+          "country_code": "JP",
+          "name": "カインズリフォーム ハンズ新宿店",
+          "source_branch_id": "czreform906",
+          "reason": "specialist format; concrete ingredients not established",
+          "opening_date_as_published": "2023-06-29",
+          "source_url": "https://map.cainz.com/map/"
+        },
+        {
+          "country_code": "JP",
+          "name": "カインズリフォーム 福岡新宮店",
+          "source_branch_id": "czreform828",
+          "reason": "specialist format; concrete ingredients not established",
+          "opening_date_as_published": "2016-03-03",
+          "source_url": "https://map.cainz.com/map/"
+        },
+        {
+          "country_code": "JP",
+          "name": "カインズリフォーム プラーレ松戸店",
+          "source_branch_id": "146",
+          "reason": "specialist format; concrete ingredients not established",
+          "opening_date_as_published": "2025-10-23",
+          "source_url": "https://map.cainz.com/map/"
+        },
+        {
+          "country_code": "JP",
+          "name": "カインズリフォーム ミーツ国分寺店",
+          "source_branch_id": "141",
+          "reason": "specialist format; concrete ingredients not established",
+          "opening_date_as_published": "2025-09-20",
+          "source_url": "https://map.cainz.com/map/"
+        },
+        {
+          "country_code": "JP",
+          "name": "カインズリフォーム 茂原店",
+          "source_branch_id": "czreform165",
+          "reason": "specialist format; concrete ingredients not established",
+          "opening_date_as_published": null,
+          "source_url": "https://map.cainz.com/map/"
+        },
+        {
+          "country_code": "JP",
+          "name": "カインズリフォーム ユアエルム青戸店",
+          "source_branch_id": "408",
+          "reason": "specialist format; concrete ingredients not established",
+          "opening_date_as_published": "2026-10-15",
+          "source_url": "https://map.cainz.com/map/"
+        },
+        {
+          "country_code": "JP",
+          "name": "カインズリフォーム ルミエール新小岩店",
+          "source_branch_id": "405",
+          "reason": "specialist format; concrete ingredients not established",
+          "opening_date_as_published": "2026-07-25",
+          "source_url": "https://map.cainz.com/map/"
+        },
+        {
+          "country_code": "JP",
+          "name": "カインズリフォーム 小田急町田店",
+          "source_branch_id": "407",
+          "reason": "specialist format; concrete ingredients not established",
+          "opening_date_as_published": "2026-09-16",
+          "source_url": "https://map.cainz.com/map/"
+        },
+        {
+          "country_code": "JP",
+          "name": "カインズリフォーム ダイエー市川店",
+          "source_branch_id": "406",
+          "reason": "specialist format; concrete ingredients not established",
+          "opening_date_as_published": "2026-09-04",
+          "source_url": "https://map.cainz.com/map/"
+        },
+        {
+          "country_code": "JP",
+          "name": "Style Factory ららぽーと湘南平塚店",
+          "source_branch_id": "872",
+          "reason": "specialist format; concrete ingredients not established",
+          "opening_date_as_published": "2022-06-24",
+          "source_url": "https://map.cainz.com/map/"
+        },
+        {
+          "country_code": "JP",
+          "name": "Style Factory ららぽーと立川立飛店",
+          "source_branch_id": "870",
+          "reason": "specialist format; concrete ingredients not established",
+          "opening_date_as_published": "2021-07-22",
+          "source_url": "https://map.cainz.com/map/"
+        }
+      ],
+      "reason": "Feed OPEN status alone is insufficient: reject future opening dates and specialist-only formats without ingredient evidence."
+    },
+    {
+      "id": "co-armenia-country-disambiguation",
+      "action": "preserve_country_CO",
+      "reason": "Canaima branches in Armenia, Quindio belong to Colombia; do not assign them to country Armenia (AM)."
+    },
+    {
+      "id": "official-directory-suppressions",
+      "action": "exclude_closed_or_unrelated_locations",
+      "records": [
+        {
+          "country_code": "SE",
+          "source_branch_id": "202",
+          "name": "Linköping - Studio Tornby",
+          "reason": "specialist studio; cement assortment unconfirmed"
+        },
+        {
+          "country_code": "SE",
+          "source_branch_id": "212",
+          "name": "Umeå - Studio Ersboda",
+          "reason": "specialist studio; cement assortment unconfirmed"
+        },
+        {
+          "country_code": "CZ",
+          "source_branch_id": "P715",
+          "name": "Brno 2 (voda-topení-sanita)",
+          "reason": "specialist plumbing/heating/sanitary outlet; cement assortment unconfirmed"
+        },
+        {
+          "country_code": "CZ",
+          "source_branch_id": "P605",
+          "name": "ČB Litvínovice (voda-topení-sanita)",
+          "reason": "specialist plumbing/heating/sanitary outlet; cement assortment unconfirmed"
+        },
+        {
+          "country_code": "CZ",
+          "source_branch_id": "P456",
+          "name": "Teplice Tyršova (voda-topení-sanita)",
+          "reason": "specialist plumbing/heating/sanitary outlet; cement assortment unconfirmed"
+        },
+        {
+          "country_code": "CZ",
+          "source_branch_id": "P771",
+          "name": "Uherské Hradiště (voda-topení-sanita)",
+          "reason": "specialist plumbing/heating/sanitary outlet; cement assortment unconfirmed"
+        },
+        {
+          "country_code": "IE",
+          "source_branch_id": "15",
+          "name": "Dublin 12, Walkinstown (Plumb Centre)",
+          "reason": "specialist plumbing/steel/panelling/tool outlet; cement assortment unconfirmed"
+        },
+        {
+          "country_code": "IE",
+          "source_branch_id": "12",
+          "name": "Dublin Co. - Stillorgan (Plumb Centre)",
+          "reason": "specialist plumbing/steel/panelling/tool outlet; cement assortment unconfirmed"
+        },
+        {
+          "country_code": "IE",
+          "source_branch_id": "52",
+          "name": "Heiton Steel, Cork, Bishopstown",
+          "reason": "specialist plumbing/steel/panelling/tool outlet; cement assortment unconfirmed"
+        },
+        {
+          "country_code": "IE",
+          "source_branch_id": "50",
+          "name": "Heiton Steel, Dublin 22, Cut & Bent",
+          "reason": "specialist plumbing/steel/panelling/tool outlet; cement assortment unconfirmed"
+        },
+        {
+          "country_code": "IE",
+          "source_branch_id": "51",
+          "name": "Heiton Steel, Dublin 22, Structural Steel",
+          "reason": "specialist plumbing/steel/panelling/tool outlet; cement assortment unconfirmed"
+        },
+        {
+          "country_code": "IE",
+          "source_branch_id": "41",
+          "name": "Panelling Centre, Dublin 9, Santry",
+          "reason": "specialist plumbing/steel/panelling/tool outlet; cement assortment unconfirmed"
+        },
+        {
+          "country_code": "MA",
+          "name": "SITE E-COMMERCE BRICOMA",
+          "reason": "online channel, not a separate retail branch"
+        },
+        {
+          "country_code": "DE",
+          "name": "BAUHAUS Mannheim-Vogelstang (geschlossen)",
+          "source_url": "https://www.bauhaus.info/fachcentren/fachcentrum-mannheim-vogelstang/fc/575",
+          "reason": "merchant labels branch closed"
+        },
+        {
+          "country_code": "DE",
+          "name": "BAUHAUS Kretzschau OT Grana (geschlossen)",
+          "source_url": "https://www.bauhaus.info/fachcentren/fachcentrum-kretzschau-ot-grana/fc/401",
+          "reason": "merchant labels branch closed"
+        },
+        {
+          "country_code": "DE",
+          "name": "BAUHAUS Dessau (geschlossen)",
+          "source_url": "https://www.bauhaus.info/fachcentren/fachcentrum-dessau/fc/404",
+          "reason": "merchant labels branch closed"
+        },
+        {
+          "country_code": "DE",
+          "name": "BAUHAUS Essen-Rüttenscheid (geschlossen)",
+          "source_url": "https://www.bauhaus.info/fachcentren/fachcentrum-essen-ruettenscheid/fc/341",
+          "reason": "merchant labels branch closed"
+        },
+        {
+          "country_code": "DE",
+          "name": "BAUHAUS Reutlingen (geschlossen)",
+          "source_url": "https://www.bauhaus.info/fachcentren/fachcentrum-reutlingen/fc/368",
+          "reason": "merchant labels branch closed"
+        },
+        {
+          "country_code": "DE",
+          "name": "BAUHAUS Mannheim (geschlossen)",
+          "source_url": "https://www.bauhaus.info/fachcentren/fachcentrum-mannheim/fc/311",
+          "reason": "merchant labels branch closed"
+        },
+        {
+          "country_code": "AT",
+          "name": "BAUHAUS Dornbirn (geschlossen)",
+          "source_url": "https://www.bauhaus.at/fachcentren/fachcentrum-dornbirn/fc/750",
+          "reason": "merchant labels branch closed"
+        },
+        {
+          "country_code": "AM",
+          "name": "Caravan-11 Construction Company",
+          "reason": "directory category alone does not establish concrete-ingredient supply"
+        },
+        {
+          "country_code": "AM",
+          "name": "Shinplus Road Construction Company",
+          "reason": "directory category alone does not establish concrete-ingredient supply"
+        },
+        {
+          "country_code": "AM",
+          "name": "Spandaryan Asphalt",
+          "reason": "directory category alone does not establish concrete-ingredient supply"
+        },
+        {
+          "country_code": "AM",
+          "name": "Tavush RCM",
+          "reason": "directory category alone does not establish concrete-ingredient supply"
+        },
+        {
+          "country_code": "AM",
+          "name": "ZangezourTransShin",
+          "reason": "directory category alone does not establish concrete-ingredient supply"
+        }
+      ]
+    },
+    {
+      "id": "duplicate-or-partial-address-review",
+      "action": "review_without_inventing_addresses_or_merging_distinct_entities",
+      "records": [
+        {
+          "kind": "shared_published_address_review",
+          "country_code": "NG",
+          "branch_ids": [
+            "ng-approved-benchukz-awka",
+            "ng-directory-1d1da9e7ddab-a55f34e4177f9c"
+          ],
+          "action": "retain separate entities unless identity and physical branch are confirmed; do not merge on phone/address alone"
+        },
+        {
+          "kind": "shared_published_address_review",
+          "country_code": "NG",
+          "branch_ids": [
+            "ng-approved-onwa-aba",
+            "ng-directory-80ef598e7621-6d3fe582e83096"
+          ],
+          "action": "retain separate entities unless identity and physical branch are confirmed; do not merge on phone/address alone"
+        },
+        {
+          "kind": "shared_published_address_review",
+          "country_code": "NG",
+          "branch_ids": [
+            "ng-directory-f03a4cce5334-399035eae1cca7",
+            "ng-directory-c404f60ce3aa-e2a60a8d547b4a"
+          ],
+          "action": "retain separate entities unless identity and physical branch are confirmed; do not merge on phone/address alone"
+        },
+        {
+          "kind": "shared_published_address_review",
+          "country_code": "NG",
+          "branch_ids": [
+            "ng-directory-d1ee9285c386-1bbe6456d81521",
+            "ng-directory-09e3804f190c-14fa8d4220fdae"
+          ],
+          "action": "retain separate entities unless identity and physical branch are confirmed; do not merge on phone/address alone"
+        },
+        {
+          "kind": "shared_published_address_review",
+          "country_code": "NG",
+          "branch_ids": [
+            "ng-directory-34e8d6fe544e-8db67b925e74fd",
+            "ng-directory-03772e79f948-a898296ed0ceab",
+            "ng-directory-9ceab657b712-bf878fdb88bb14"
+          ],
+          "action": "retain separate entities unless identity and physical branch are confirmed; do not merge on phone/address alone"
+        },
+        {
+          "kind": "shared_published_address_review",
+          "country_code": "NG",
+          "branch_ids": [
+            "ng-directory-1238b1ced2ae-7c436befc3555a",
+            "ng-directory-d727813780b9-c7f3ae44b9f291"
+          ],
+          "action": "retain separate entities unless identity and physical branch are confirmed; do not merge on phone/address alone"
+        },
+        {
+          "kind": "shared_published_address_review",
+          "country_code": "NG",
+          "branch_ids": [
+            "ng-directory-2c58815d66c0-5687e15e6edd01",
+            "ng-directory-bf973185e9ce-680b1af2c7c1c5",
+            "ng-directory-5554dfcaaf95-efe44081c8eaf4"
+          ],
+          "action": "retain separate entities unless identity and physical branch are confirmed; do not merge on phone/address alone"
+        },
+        {
+          "kind": "shared_published_address_review",
+          "country_code": "NG",
+          "branch_ids": [
+            "ng-directory-2450ae399ea4-18266570b13083",
+            "ng-directory-7ad9b3404c3c-2bc2e156267285"
+          ],
+          "action": "retain separate entities unless identity and physical branch are confirmed; do not merge on phone/address alone"
+        },
+        {
+          "kind": "shared_published_address_review",
+          "country_code": "NG",
+          "branch_ids": [
+            "ng-directory-026626922483-a24d899bdb0a0b",
+            "ng-directory-b4c0b9a0b092-86a797dfeb9a49"
+          ],
+          "action": "retain separate entities unless identity and physical branch are confirmed; do not merge on phone/address alone"
+        },
+        {
+          "kind": "shared_published_address_review",
+          "country_code": "NG",
+          "branch_ids": [
+            "ng-directory-8e2514e2f509-cec6ab2fc09bb7",
+            "ng-directory-ebe40d1bc334-aa7f51494fd5ba"
+          ],
+          "action": "retain separate entities unless identity and physical branch are confirmed; do not merge on phone/address alone"
+        },
+        {
+          "kind": "shared_published_address_review",
+          "country_code": "NG",
+          "branch_ids": [
+            "ng-directory-c15bd39c6ef0-504c585fca0e9e",
+            "ng-directory-86b79bd28091-781e2a50319efc"
+          ],
+          "action": "retain separate entities unless identity and physical branch are confirmed; do not merge on phone/address alone"
+        },
+        {
+          "kind": "shared_published_address_review",
+          "country_code": "NG",
+          "branch_ids": [
+            "ng-directory-1f6ffb840993-ec0cdb413e9619",
+            "ng-directory-a97170b02004-5dc1428c64d88a"
+          ],
+          "action": "retain separate entities unless identity and physical branch are confirmed; do not merge on phone/address alone"
+        },
+        {
+          "kind": "shared_published_address_review",
+          "country_code": "NG",
+          "branch_ids": [
+            "ng-directory-0eb2cfdf8f8c-76fc2473dc1c8c",
+            "ng-directory-23be479c60a2-3d9d189767e95f"
+          ],
+          "action": "retain separate entities unless identity and physical branch are confirmed; do not merge on phone/address alone"
+        },
+        {
+          "kind": "shared_published_address_review",
+          "country_code": "BR",
+          "branch_ids": [
+            "br-telhanorte-telhanorte-marginal-tiete",
+            "br-telhanorte-centro-de-distribuicao-marginal"
+          ],
+          "action": "retain separate entities unless identity and physical branch are confirmed; do not merge on phone/address alone"
+        },
+        {
+          "kind": "shared_published_address_review",
+          "country_code": "EG",
+          "branch_ids": [
+            "eg-misr-group-misrcementqenaplant",
+            "eg-misr-cement-misrcementbetonassiutstation"
+          ],
+          "action": "retain separate entities unless identity and physical branch are confirmed; do not merge on phone/address alone"
+        },
+        {
+          "kind": "shared_published_address_review",
+          "country_code": "AM",
+          "branch_ids": [
+            "am-directory-170d06713efd-ario",
+            "am-directory-90700e651fc2-emta"
+          ],
+          "action": "retain separate entities unless identity and physical branch are confirmed; do not merge on phone/address alone"
+        },
+        {
+          "kind": "shared_published_address_review",
+          "country_code": "AM",
+          "branch_ids": [
+            "am-directory-e3a595ee4442-delta-fragment",
+            "am-directory-7c7c86a87abb-khachaturov-group"
+          ],
+          "action": "retain separate entities unless identity and physical branch are confirmed; do not merge on phone/address alone"
+        },
+        {
+          "kind": "shared_published_address_review",
+          "country_code": "KR",
+          "branch_ids": [
+            "kr-hanil-2",
+            "kr-hanil-5"
+          ],
+          "action": "retain separate entities unless identity and physical branch are confirmed; do not merge on phone/address alone"
+        },
+        {
+          "kind": "shared_published_address_review",
+          "country_code": "KR",
+          "branch_ids": [
+            "kr-hanil-7",
+            "kr-hanil-28"
+          ],
+          "action": "retain separate entities unless identity and physical branch are confirmed; do not merge on phone/address alone"
+        },
+        {
+          "kind": "shared_published_address_review",
+          "country_code": "KR",
+          "branch_ids": [
+            "kr-hanil-8",
+            "kr-hanil-17"
+          ],
+          "action": "retain separate entities unless identity and physical branch are confirmed; do not merge on phone/address alone"
+        },
+        {
+          "kind": "shared_published_address_review",
+          "country_code": "KR",
+          "branch_ids": [
+            "kr-hanil-9",
+            "kr-hanil-18"
+          ],
+          "action": "retain separate entities unless identity and physical branch are confirmed; do not merge on phone/address alone"
+        },
+        {
+          "kind": "shared_published_address_review",
+          "country_code": "KR",
+          "branch_ids": [
+            "kr-hanil-23",
+            "kr-hanil-25"
+          ],
+          "action": "retain separate entities unless identity and physical branch are confirmed; do not merge on phone/address alone"
+        },
+        {
+          "kind": "shared_published_address_review",
+          "country_code": "MY",
+          "branch_ids": [
+            "my-cima-corporate-office",
+            "my-unipati-corporate-office"
+          ],
+          "action": "retain separate entities unless identity and physical branch are confirmed; do not merge on phone/address alone"
+        },
+        {
+          "kind": "shared_published_address_review",
+          "country_code": "JP",
+          "branch_ids": [
+            "jp-cainz-851",
+            "jp-cainz-623"
+          ],
+          "action": "retain separate entities unless identity and physical branch are confirmed; do not merge on phone/address alone"
+        }
+      ]
+    }
+  ],
+  "excluded_sources_or_patterns": [
+    {
+      "pattern": "stag.construrama.com",
+      "reason": "staging site"
+    },
+    {
+      "pattern": "uat.masdaronline.com",
+      "reason": "test site"
+    },
+    {
+      "pattern": "uat2.cashbuild.co.za",
+      "reason": "test site"
+    },
+    {
+      "pattern": "mandray-codex.tech",
+      "reason": "mock Twiga site"
+    },
+    {
+      "pattern": "infradirect-in.lovable.app",
+      "reason": "prototype source"
+    },
+    {
+      "pattern": "norma.am",
+      "reason": "under construction"
+    },
+    {
+      "pattern": "materialz1.com",
+      "reason": "unrelated betting content"
+    },
+    {
+      "pattern": "flashciment.com test-payment entries",
+      "reason": "test payment products, not cement offers"
+    },
+    {
+      "pattern": "Sorepco Dade County / Miami template entry",
+      "reason": "address inconsistent with Cameroon"
+    },
+    {
+      "pattern": "ai.gorgia.ge spam results",
+      "reason": "uncorroborated unrelated content"
+    }
+  ],
+  "stock_and_reviews": "Zero confirmed live inventory connections; zero verified review sets. No invented stock, ratings or service claims."
+}

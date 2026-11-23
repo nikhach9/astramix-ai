@@ -1,0 +1,506 @@
+[
+  {
+    "source_id": "HM_EU",
+    "title": "Heidelberg Materials Europe",
+    "url": "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/europe",
+    "source_type": "manufacturer_country_directory",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Country presence or product information; local commercial availability requires confirmation."
+  },
+  {
+    "source_id": "HM_AP",
+    "title": "Heidelberg Materials Asia-Pacific",
+    "url": "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/asia-pacific",
+    "source_type": "manufacturer_country_directory",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Country presence or product information; local commercial availability requires confirmation."
+  },
+  {
+    "source_id": "HM_AFW",
+    "title": "Heidelberg Materials Africa-Mediterranean-Western Asia",
+    "url": "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/africa-mediterranean-west-asia",
+    "source_type": "manufacturer_country_directory",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Country presence or product information; local commercial availability requires confirmation."
+  },
+  {
+    "source_id": "HM_NA",
+    "title": "Heidelberg Materials North America",
+    "url": "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/north-america",
+    "source_type": "manufacturer_country_directory",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Country presence or product information; local commercial availability requires confirmation."
+  },
+  {
+    "source_id": "HM_BALTIC",
+    "title": "Heidelberg Materials Baltic States",
+    "url": "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/europe/baltic-states",
+    "source_type": "manufacturer_country_directory",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Country presence or product information; local commercial availability requires confirmation."
+  },
+  {
+    "source_id": "HM_BENELUX",
+    "title": "Heidelberg Materials Benelux",
+    "url": "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/europe/benelux",
+    "source_type": "manufacturer_country_directory",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Country presence or product information; local commercial availability requires confirmation."
+  },
+  {
+    "source_id": "HM_SSA",
+    "title": "Heidelberg Materials Sub-Saharan Africa",
+    "url": "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/africa-mediterranean-west-asia/sub-saharan-africa",
+    "source_type": "manufacturer_country_directory",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Country presence or product information; local commercial availability requires confirmation."
+  },
+  {
+    "source_id": "HM_IS",
+    "title": "Heidelberg Materials Iceland",
+    "url": "https://www.heidelbergmaterials.com/en/company/group-areas-and-countries/europe/iceland",
+    "source_type": "manufacturer_country_directory",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Country presence or product information; local commercial availability requires confirmation."
+  },
+  {
+    "source_id": "HOLCIM",
+    "title": "Holcim global country contacts",
+    "url": "https://www.holcim.com/find-holcim",
+    "source_type": "manufacturer_country_directory",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Country contacts and business segments; some entries can lag corporate changes. Headquarters are not retail branches."
+  },
+  {
+    "source_id": "CIMAF",
+    "title": "CIMAF country locations",
+    "url": "https://www.cimentsafrique.com/en",
+    "source_type": "manufacturer_country_directory",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Country presence or product information; local commercial availability requires confirmation."
+  },
+  {
+    "source_id": "DANGOTE",
+    "title": "Dangote international operations",
+    "url": "https://cement.dangote.com/pan-africa-operations/",
+    "source_type": "manufacturer_country_directory",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Country presence or product information; local commercial availability requires confirmation."
+  },
+  {
+    "source_id": "PROGRESO",
+    "title": "Progreso country businesses",
+    "url": "https://progreso.com/en/about-us/who-we-are/",
+    "source_type": "manufacturer_country_directory",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Country presence or product information; local commercial availability requires confirmation."
+  },
+  {
+    "source_id": "CENOSA",
+    "title": "Cementos del Norte Honduras",
+    "url": "https://cenosa.hn/",
+    "source_type": "supplier_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Country presence or product information; local commercial availability requires confirmation."
+  },
+  {
+    "source_id": "CEMEX",
+    "title": "Cemex 2025 annual filing",
+    "url": "https://www.sec.gov/Archives/edgar/data/1076378/000119312526177605/d120395d20f.htm",
+    "source_type": "issuer_regulatory_filing",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Plant-country presence as of 2025-12-31; refresh local supplier identity before publishing an active listing."
+  },
+  {
+    "source_id": "IRISH",
+    "title": "Irish Cement products",
+    "url": "https://www.irishcement.ie/products-2/",
+    "source_type": "supplier_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Country presence or product information; local commercial availability requires confirmation."
+  },
+  {
+    "source_id": "FINN",
+    "title": "Finnsementti products and locations",
+    "url": "https://finnsementti.fi/",
+    "source_type": "supplier_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Country presence or product information; local commercial availability requires confirmation."
+  },
+  {
+    "source_id": "UA",
+    "title": "CEMARK Ukraine",
+    "url": "https://www.crhukraine.com/",
+    "source_type": "supplier_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Country presence or product information; local commercial availability requires confirmation."
+  },
+  {
+    "source_id": "PH",
+    "title": "Republic Cement Philippines",
+    "url": "https://www.republiccement.com/",
+    "source_type": "supplier_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Country presence or product information; local commercial availability requires confirmation."
+  },
+  {
+    "source_id": "VICAT",
+    "title": "Vicat global country organization",
+    "url": "https://www.vicat.com/en/about-us/group/our-organization",
+    "source_type": "manufacturer_country_directory",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Country presence or product information; local commercial availability requires confirmation."
+  },
+  {
+    "source_id": "GE",
+    "title": "Hunnewell Cement Georgia",
+    "url": "https://hunnewellcement.com/en/",
+    "source_type": "supplier_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Country presence or product information; local commercial availability requires confirmation."
+  },
+  {
+    "source_id": "JP",
+    "title": "Taiheiyo Cement Japan",
+    "url": "https://www.taiheiyo-cement.co.jp/english/company/cement/",
+    "source_type": "supplier_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Country presence or product information; local commercial availability requires confirmation."
+  },
+  {
+    "source_id": "SG",
+    "title": "Pan-United Singapore project evidence",
+    "url": "https://www.panunited.com.sg/wp-content/uploads/2021/02/PR_Pan-United-Achieves-Singapores-Largest-Two-Continuous-Concrete-Pours-Within-a-Month.pdf",
+    "source_type": "manufacturer_historical_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Dated project evidence from 2020. Historical supplier lead requiring current contact and product refresh; no live availability claim."
+  },
+  {
+    "source_id": "AM_CEMENT",
+    "title": "Erkat Proff cement M500, 50 kg",
+    "url": "https://erkatproff.am/en/product/cement-m500-parskakan-50-kg",
+    "source_type": "supplier_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Published retail cement price; supplier confirmation, delivery and tax basis remain unverified."
+  },
+  {
+    "source_id": "AM_RMC",
+    "title": "MM Lider Armenian concrete listing",
+    "url": "https://www.yell.am/-MM-LIDER-LLC-MM-LIDER-PRODUCTION-OF-CONCRETE-81005",
+    "source_type": "third_party_business_directory",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Lists grade prices and Yerevan-area delivery inclusion; price unit and effective date are not stated in the extracted listing. Confirm both before normalization."
+  },
+  {
+    "source_id": "AM_FACTORY",
+    "title": "Hrazdan Cement manufacturer",
+    "url": "https://khachaturovgroup.am/cement-factory/",
+    "source_type": "supplier_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Country presence or product information; local commercial availability requires confirmation."
+  },
+  {
+    "source_id": "US_PRICE",
+    "title": "Gehring ready-mix price list 2026",
+    "url": "https://www.gehringconcrete.com/Products/Ready-Mix-Products-Pricing",
+    "source_type": "supplier_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Effective 2026-01-01. Published per-yard mix IDs; tax excluded and location/load surcharges apply."
+  },
+  {
+    "source_id": "CA_PRICE",
+    "title": "Dufferin Ontario price list 2026",
+    "url": "https://assets.boitebeet.com/dufferin/concrete/prod/public/uploads/2026/02/2026DufferinConcrete_PriceListWEB2.pdf",
+    "source_type": "supplier_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Official PDF linked from current Dufferin products page. Strength mix table checked visually; effective 2026-01-01; fees and fuel surcharge apply."
+  },
+  {
+    "source_id": "CA_CURRENT",
+    "title": "Dufferin current-price-list links",
+    "url": "https://dufferinconcrete.ca/products/",
+    "source_type": "supplier_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Country presence or product information; local commercial availability requires confirmation."
+  },
+  {
+    "source_id": "GB_PRICE",
+    "title": "Mister Concrete published price guide",
+    "url": "https://www.misterconcrete.co.uk/ready-mix-concrete-prices",
+    "source_type": "supplier_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Supplier publishes average own prices; page title refers to 2025. Not a dated binding quotation. Delivery, admixtures, time and pump are extra; minimum charge applies."
+  },
+  {
+    "source_id": "CZ_PRICE",
+    "title": "B6 Betonarka Prestice price list",
+    "url": "https://www.betonarkaprestice.cz/cenik",
+    "source_type": "supplier_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "2026-03-01 concrete and aggregate list, with net and tax-inclusive columns."
+  },
+  {
+    "source_id": "EE_PRICE",
+    "title": "Otepaa Ehitusgrupp concrete prices",
+    "url": "https://ehitusgrupp.ee/betoon/hinnakiri/",
+    "source_type": "supplier_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Effective 2026-01-01. Concrete prices exclude 24% VAT; transport, washing, heating and time can be extra."
+  },
+  {
+    "source_id": "PL_PRICE",
+    "title": "Beton PRD 2026 price list",
+    "url": "https://www.beton-prd.pl/",
+    "source_type": "supplier_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Supplier publishes 2026 net concrete prices; delivery depends on the order."
+  },
+  {
+    "source_id": "DE_PRICE",
+    "title": "Hinterlang Transportbeton 2026",
+    "url": "https://hinterlang.de/uploads/_hinterlang/2026/02/Transportbeton-2026.pdf",
+    "source_type": "supplier_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Price table checked visually. Effective 2026-03-01; preserve exposure, consistency, aggregate size and mix ID."
+  },
+  {
+    "source_id": "AT_PRICE",
+    "title": "Wopfinger Transportbeton price list 2026",
+    "url": "https://wopfinger.com/files/cto_layout/media/preislisten/2026/Wopfinger_Transportbeton_Preisliste_Beton_2026.pdf",
+    "source_type": "supplier_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Multi-column supplier PDF; record only visually checked product/price columns. Quality-assurance surcharge is listed separately."
+  },
+  {
+    "source_id": "CH_PRICE",
+    "title": "Makies 2026 price list",
+    "url": "https://www.makies.ch/produkte?file=files%2Fcontent%2Fpreisliste%2FPreisliste+2026+Makies.pdf",
+    "source_type": "supplier_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Checked visually: separate ex-works prices for Gettnau, Dagmersellen and Wolhusen; VAT excluded."
+  },
+  {
+    "source_id": "AU_PRICE",
+    "title": "Bunnings Bastion general-purpose cement 20 kg",
+    "url": "https://www.bunnings.com.au/bastion-20kg-general-purpose-cement_p0760330?store=7118",
+    "source_type": "supplier_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Store-specific indexed retail snapshot for Erina North; recheck selected store, availability and delivery."
+  },
+  {
+    "source_id": "NZ_PRICE",
+    "title": "Mitre 10 Golden Bay cement 20 kg",
+    "url": "https://www.mitre10.co.nz/shop/golden-bay-cement-portland-cement-20-kg/p/343460",
+    "source_type": "supplier_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Price observed in retailer category index; product page requires store context. Confirm at selected branch."
+  },
+  {
+    "source_id": "NZ_CATEGORY",
+    "title": "Mitre 10 concrete and cement catalogue",
+    "url": "https://www.mitre10.co.nz/shop/building-hardware/building-supplies/concrete-cement/c/RS2016",
+    "source_type": "retailer_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Country presence or product information; local commercial availability requires confirmation."
+  },
+  {
+    "source_id": "FR_PRICE",
+    "title": "Leroy Merlin CEM II 32.5 cement 25 kg",
+    "url": "https://www.leroymerlin.fr/produits/ciment-gris-cem-ii-32-5-25-kg-62358772.html",
+    "source_type": "supplier_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Indexed retail price; local store, tax and delivery need confirmation."
+  },
+  {
+    "source_id": "PT_PRICE",
+    "title": "Leroy Merlin Secil cement 25 kg",
+    "url": "https://www.leroymerlin.pt/produtos/cimento-25kg-secil-13142325.html",
+    "source_type": "supplier_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Price observed in retailer indexed category listing; selected-store checkout not verified."
+  },
+  {
+    "source_id": "PT_CATEGORY",
+    "title": "Leroy Merlin Portugal indexed cement catalogue",
+    "url": "https://www.leroymerlin.pt/produtos/construcao/cimentos-areias-e-britas/cimento-e-cal-hidraulica/cimento-de-25-kg-p.html",
+    "source_type": "retailer_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Country presence or product information; local commercial availability requires confirmation."
+  },
+  {
+    "source_id": "ES_PRICE",
+    "title": "Obramat grey cement 32.5N 25 kg",
+    "url": "https://www.obramat.es/productos/cemento-32-5n-25-kg-gris-25068460.html",
+    "source_type": "supplier_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Retail snapshot reports gross and net unit prices; stock and branch delivery are unverified."
+  },
+  {
+    "source_id": "ZA_PRICE",
+    "title": "Cashbuild cement, store S286",
+    "url": "https://www.cashbuild.co.za/539-cement?store=S286",
+    "source_type": "supplier_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Store-coded retail catalogue; exact branch identity and selected-store availability require confirmation."
+  },
+  {
+    "source_id": "SI_PRICE",
+    "title": "KG-EKO Ljubljana concrete prices 2026",
+    "url": "https://kg-eko.si/kg-eko-cenik/",
+    "source_type": "supplier_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Effective 2026-01-01. Net and gross columns; preserve mix code, consistency and aggregate size."
+  },
+  {
+    "source_id": "SK_PRICE",
+    "title": "Riline concrete and delivery prices",
+    "url": "https://riline.sk/cennik/",
+    "source_type": "supplier_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Concrete table is dated 2026-02-03 and quotes net prices. Transport table is separately dated 2025-07-03; do not merge the dates."
+  },
+  {
+    "source_id": "HR_PRICE",
+    "title": "NGH Grupa concrete prices",
+    "url": "https://ngh.hr/transportni-beton/",
+    "source_type": "supplier_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Effective 2026-02-09; product-specific prices, with additional services listed separately. Tax inclusion requires confirmation."
+  },
+  {
+    "source_id": "NL_PRICE",
+    "title": "BolTec supplier concrete price guide",
+    "url": "https://www.boltec.nl/kennisbank/beton-prijs-per-m3/",
+    "source_type": "supplier_price_guide",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Supplier educational guide, not an order-specific quotation; net/gross values are illustrative."
+  },
+  {
+    "source_id": "RO_PRICE",
+    "title": "Petrosani supplier prices 2026",
+    "url": "https://betonpetrosani.ro/preturi/",
+    "source_type": "supplier_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Indexed supplier table; 2026 title, but tax, delivery and exact effective date require confirmation."
+  },
+  {
+    "source_id": "IT_BENCH",
+    "title": "Friuli Venezia Giulia public-works schedule 2026",
+    "url": "https://www.regione.fvg.it/rafvg/cms/RAFVG/infrastrutture-lavori-pubblici/lavori-pubblici/prezzario-2026/?cod=Y8.1.165.02",
+    "source_type": "government_cost_schedule",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Regional costing schedule. It is a benchmark, not a merchant or purchasable supplier offer."
+  },
+  {
+    "source_id": "BG_PRICE",
+    "title": "BG Beton supplier list effective 2025-11-01",
+    "url": "https://bg-beton.bg/wp-content/uploads/2025/10/%D0%9D%D0%BE%D0%B2%D0%B0-%D0%A6%D0%B5%D0%BD%D0%BE%D0%B2%D0%B0-%D0%BB%D0%B8%D1%81%D1%82%D0%B0-01.11.2025.pdf",
+    "source_type": "supplier_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Historical dual-currency list. Euro values are explicitly printed, not a fresh FX conversion. Reconfirmation required."
+  },
+  {
+    "source_id": "BG_CURRENCY",
+    "title": "ECB Bulgarian euro changeover",
+    "url": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.pr260101~c830245e42.en.html",
+    "source_type": "central_bank",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Bulgaria adopted EUR on 2026-01-01; retain the original currency on historical prices."
+  },
+  {
+    "source_id": "CL_PRICE",
+    "title": "Sodimac Chile construction catalogue",
+    "url": "https://www.sodimac.cl/sodimac-cl/content/proyectos-construccion/",
+    "source_type": "retailer_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Indexed retailer price for Polpaico cement; store selection and delivery unverified. No reviews imported."
+  },
+  {
+    "source_id": "UCI",
+    "title": "Yeh UCI Concrete Compressive Strength dataset",
+    "url": "https://archive.ics.uci.edu/dataset/165/concrete%2Bcompressive%2Bstrength",
+    "source_type": "research_dataset",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Original archive downloaded. Input minima/maxima calculated from all 1,030 reference rows; actual deployed training split must be checked."
+  },
+  {
+    "source_id": "NRMCA",
+    "title": "NRMCA EPD and benchmark methodology",
+    "url": "https://www.nrmca.org/association-resources/sustainability/environmental-product-declarations/",
+    "source_type": "industry_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Provides region- and strength-related environmental benchmarks. No universal global emission threshold is inferred."
+  },
+  {
+    "source_id": "MAPS",
+    "title": "Google Places API policies",
+    "url": "https://developers.google.com/maps/documentation/places/web-service/policies",
+    "source_type": "official_api_documentation",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "External maps/reviews require the provider rules for display, attribution, caching and storage; keep external ratings separate."
+  },
+  {
+    "source_id": "SITE_REPORT",
+    "title": "AstraMix current technical report",
+    "url": "https://astramix-ai.com/report.php",
+    "source_type": "project_primary",
+    "observed_at": "2026-10-17",
+    "observation_method": "public_web_research",
+    "evidence_summary": "Live project report identifies the UCI feature order, FastAPI backend, XGBoost and existing bounded optimization."
+  }
+]

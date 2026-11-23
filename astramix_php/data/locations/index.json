@@ -1,0 +1,615 @@
+{
+  "schema_version": "1.0",
+  "downloaded_at": "2026-10-18",
+  "source_url": "https://download.geonames.org/export/dump/cities5000.zip",
+  "source_readme_url": "https://download.geonames.org/export/dump/readme.txt",
+  "source_sha256": "22d0f8a954ce3ab5a327b2ccdfd39919d53eab9f0e4a7f2529d52dd955d0b5db",
+  "license": "CC BY 4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "attribution": "Contains GeoNames data (geonames.org), licensed under CC BY 4.0. Filtered and reformatted for AstraMix.",
+  "scope": "Cities/towns selected by GeoNames cities5000; not every locality, address, or merchant location.",
+  "total_locations": 62964,
+  "country_count": 100,
+  "countries": [
+    {
+      "country_code": "AE",
+      "country_name": "United Arab Emirates",
+      "location_count": 94,
+      "file": "AE.json"
+    },
+    {
+      "country_code": "AM",
+      "country_name": "Armenia",
+      "location_count": 80,
+      "file": "AM.json"
+    },
+    {
+      "country_code": "AR",
+      "country_name": "Argentina",
+      "location_count": 635,
+      "file": "AR.json"
+    },
+    {
+      "country_code": "AT",
+      "country_name": "Austria",
+      "location_count": 214,
+      "file": "AT.json"
+    },
+    {
+      "country_code": "AU",
+      "country_name": "Australia",
+      "location_count": 1495,
+      "file": "AU.json"
+    },
+    {
+      "country_code": "AZ",
+      "country_name": "Azerbaijan",
+      "location_count": 134,
+      "file": "AZ.json"
+    },
+    {
+      "country_code": "BA",
+      "country_name": "Bosnia and Herzegovina",
+      "location_count": 117,
+      "file": "BA.json"
+    },
+    {
+      "country_code": "BD",
+      "country_name": "Bangladesh",
+      "location_count": 151,
+      "file": "BD.json"
+    },
+    {
+      "country_code": "BE",
+      "country_name": "Belgium",
+      "location_count": 686,
+      "file": "BE.json"
+    },
+    {
+      "country_code": "BF",
+      "country_name": "Burkina Faso",
+      "location_count": 83,
+      "file": "BF.json"
+    },
+    {
+      "country_code": "BG",
+      "country_name": "Bulgaria",
+      "location_count": 138,
+      "file": "BG.json"
+    },
+    {
+      "country_code": "BJ",
+      "country_name": "Benin",
+      "location_count": 76,
+      "file": "BJ.json"
+    },
+    {
+      "country_code": "BN",
+      "country_name": "Brunei",
+      "location_count": 27,
+      "file": "BN.json"
+    },
+    {
+      "country_code": "BR",
+      "country_name": "Brazil",
+      "location_count": 4421,
+      "file": "BR.json"
+    },
+    {
+      "country_code": "BZ",
+      "country_name": "Belize",
+      "location_count": 13,
+      "file": "BZ.json"
+    },
+    {
+      "country_code": "CA",
+      "country_name": "Canada",
+      "location_count": 1327,
+      "file": "CA.json"
+    },
+    {
+      "country_code": "CG",
+      "country_name": "Republic of the Congo",
+      "location_count": 47,
+      "file": "CG.json"
+    },
+    {
+      "country_code": "CH",
+      "country_name": "Switzerland",
+      "location_count": 354,
+      "file": "CH.json"
+    },
+    {
+      "country_code": "CI",
+      "country_name": "Ivory Coast",
+      "location_count": 851,
+      "file": "CI.json"
+    },
+    {
+      "country_code": "CL",
+      "country_name": "Chile",
+      "location_count": 247,
+      "file": "CL.json"
+    },
+    {
+      "country_code": "CM",
+      "country_name": "Cameroon",
+      "location_count": 125,
+      "file": "CM.json"
+    },
+    {
+      "country_code": "CN",
+      "country_name": "China",
+      "location_count": 2895,
+      "file": "CN.json"
+    },
+    {
+      "country_code": "CO",
+      "country_name": "Colombia",
+      "location_count": 607,
+      "file": "CO.json"
+    },
+    {
+      "country_code": "CR",
+      "country_name": "Costa Rica",
+      "location_count": 76,
+      "file": "CR.json"
+    },
+    {
+      "country_code": "CY",
+      "country_name": "Cyprus",
+      "location_count": 35,
+      "file": "CY.json"
+    },
+    {
+      "country_code": "CZ",
+      "country_name": "Czechia",
+      "location_count": 352,
+      "file": "CZ.json"
+    },
+    {
+      "country_code": "DE",
+      "country_name": "Germany",
+      "location_count": 3081,
+      "file": "DE.json"
+    },
+    {
+      "country_code": "DK",
+      "country_name": "Denmark",
+      "location_count": 176,
+      "file": "DK.json"
+    },
+    {
+      "country_code": "DO",
+      "country_name": "Dominican Republic",
+      "location_count": 118,
+      "file": "DO.json"
+    },
+    {
+      "country_code": "DZ",
+      "country_name": "Algeria",
+      "location_count": 323,
+      "file": "DZ.json"
+    },
+    {
+      "country_code": "EC",
+      "country_name": "Ecuador",
+      "location_count": 117,
+      "file": "EC.json"
+    },
+    {
+      "country_code": "EE",
+      "country_name": "Estonia",
+      "location_count": 39,
+      "file": "EE.json"
+    },
+    {
+      "country_code": "EG",
+      "country_name": "Egypt",
+      "location_count": 250,
+      "file": "EG.json"
+    },
+    {
+      "country_code": "ES",
+      "country_name": "Spain",
+      "location_count": 1483,
+      "file": "ES.json"
+    },
+    {
+      "country_code": "ET",
+      "country_name": "Ethiopia",
+      "location_count": 245,
+      "file": "ET.json"
+    },
+    {
+      "country_code": "FI",
+      "country_name": "Finland",
+      "location_count": 342,
+      "file": "FI.json"
+    },
+    {
+      "country_code": "FR",
+      "country_name": "France",
+      "location_count": 2076,
+      "file": "FR.json"
+    },
+    {
+      "country_code": "GA",
+      "country_name": "Gabon",
+      "location_count": 32,
+      "file": "GA.json"
+    },
+    {
+      "country_code": "GB",
+      "country_name": "United Kingdom",
+      "location_count": 1915,
+      "file": "GB.json"
+    },
+    {
+      "country_code": "GE",
+      "country_name": "Georgia",
+      "location_count": 59,
+      "file": "GE.json"
+    },
+    {
+      "country_code": "GH",
+      "country_name": "Ghana",
+      "location_count": 114,
+      "file": "GH.json"
+    },
+    {
+      "country_code": "GN",
+      "country_name": "Guinea",
+      "location_count": 63,
+      "file": "GN.json"
+    },
+    {
+      "country_code": "GR",
+      "country_name": "Greece",
+      "location_count": 284,
+      "file": "GR.json"
+    },
+    {
+      "country_code": "GT",
+      "country_name": "Guatemala",
+      "location_count": 205,
+      "file": "GT.json"
+    },
+    {
+      "country_code": "GW",
+      "country_name": "Guinea-Bissau",
+      "location_count": 39,
+      "file": "GW.json"
+    },
+    {
+      "country_code": "HN",
+      "country_name": "Honduras",
+      "location_count": 158,
+      "file": "HN.json"
+    },
+    {
+      "country_code": "HR",
+      "country_name": "Croatia",
+      "location_count": 77,
+      "file": "HR.json"
+    },
+    {
+      "country_code": "HU",
+      "country_name": "Hungary",
+      "location_count": 382,
+      "file": "HU.json"
+    },
+    {
+      "country_code": "ID",
+      "country_name": "Indonesia",
+      "location_count": 484,
+      "file": "ID.json"
+    },
+    {
+      "country_code": "IE",
+      "country_name": "Ireland",
+      "location_count": 152,
+      "file": "IE.json"
+    },
+    {
+      "country_code": "IL",
+      "country_name": "Israel",
+      "location_count": 178,
+      "file": "IL.json"
+    },
+    {
+      "country_code": "IN",
+      "country_name": "India",
+      "location_count": 6540,
+      "file": "IN.json"
+    },
+    {
+      "country_code": "IS",
+      "country_name": "Iceland",
+      "location_count": 14,
+      "file": "IS.json"
+    },
+    {
+      "country_code": "IT",
+      "country_name": "Italy",
+      "location_count": 2033,
+      "file": "IT.json"
+    },
+    {
+      "country_code": "JM",
+      "country_name": "Jamaica",
+      "location_count": 44,
+      "file": "JM.json"
+    },
+    {
+      "country_code": "JP",
+      "country_name": "Japan",
+      "location_count": 1800,
+      "file": "JP.json"
+    },
+    {
+      "country_code": "KE",
+      "country_name": "Kenya",
+      "location_count": 234,
+      "file": "KE.json"
+    },
+    {
+      "country_code": "KR",
+      "country_name": "South Korea",
+      "location_count": 155,
+      "file": "KR.json"
+    },
+    {
+      "country_code": "KZ",
+      "country_name": "Kazakhstan",
+      "location_count": 205,
+      "file": "KZ.json"
+    },
+    {
+      "country_code": "LR",
+      "country_name": "Liberia",
+      "location_count": 26,
+      "file": "LR.json"
+    },
+    {
+      "country_code": "LT",
+      "country_name": "Lithuania",
+      "location_count": 71,
+      "file": "LT.json"
+    },
+    {
+      "country_code": "LV",
+      "country_name": "Latvia",
+      "location_count": 52,
+      "file": "LV.json"
+    },
+    {
+      "country_code": "MA",
+      "country_name": "Morocco",
+      "location_count": 309,
+      "file": "MA.json"
+    },
+    {
+      "country_code": "ML",
+      "country_name": "Mali",
+      "location_count": 72,
+      "file": "ML.json"
+    },
+    {
+      "country_code": "MR",
+      "country_name": "Mauritania",
+      "location_count": 59,
+      "file": "MR.json"
+    },
+    {
+      "country_code": "MX",
+      "country_name": "Mexico",
+      "location_count": 1827,
+      "file": "MX.json"
+    },
+    {
+      "country_code": "MY",
+      "country_name": "Malaysia",
+      "location_count": 530,
+      "file": "MY.json"
+    },
+    {
+      "country_code": "MZ",
+      "country_name": "Mozambique",
+      "location_count": 88,
+      "file": "MZ.json"
+    },
+    {
+      "country_code": "NG",
+      "country_name": "Nigeria",
+      "location_count": 481,
+      "file": "NG.json"
+    },
+    {
+      "country_code": "NI",
+      "country_name": "Nicaragua",
+      "location_count": 76,
+      "file": "NI.json"
+    },
+    {
+      "country_code": "NL",
+      "country_name": "The Netherlands",
+      "location_count": 569,
+      "file": "NL.json"
+    },
+    {
+      "country_code": "NO",
+      "country_name": "Norway",
+      "location_count": 120,
+      "file": "NO.json"
+    },
+    {
+      "country_code": "NZ",
+      "country_name": "New Zealand",
+      "location_count": 238,
+      "file": "NZ.json"
+    },
+    {
+      "country_code": "PA",
+      "country_name": "Panama",
+      "location_count": 69,
+      "file": "PA.json"
+    },
+    {
+      "country_code": "PE",
+      "country_name": "Peru",
+      "location_count": 305,
+      "file": "PE.json"
+    },
+    {
+      "country_code": "PH",
+      "country_name": "Philippines",
+      "location_count": 1380,
+      "file": "PH.json"
+    },
+    {
+      "country_code": "PK",
+      "country_name": "Pakistan",
+      "location_count": 493,
+      "file": "PK.json"
+    },
+    {
+      "country_code": "PL",
+      "country_name": "Poland",
+      "location_count": 768,
+      "file": "PL.json"
+    },
+    {
+      "country_code": "PT",
+      "country_name": "Portugal",
+      "location_count": 544,
+      "file": "PT.json"
+    },
+    {
+      "country_code": "RO",
+      "country_name": "Romania",
+      "location_count": 788,
+      "file": "RO.json"
+    },
+    {
+      "country_code": "RU",
+      "country_name": "Russia",
+      "location_count": 2759,
+      "file": "RU.json"
+    },
+    {
+      "country_code": "SA",
+      "country_name": "Saudi Arabia",
+      "location_count": 144,
+      "file": "SA.json"
+    },
+    {
+      "country_code": "SE",
+      "country_name": "Sweden",
+      "location_count": 281,
+      "file": "SE.json"
+    },
+    {
+      "country_code": "SG",
+      "country_name": "Singapore",
+      "location_count": 95,
+      "file": "SG.json"
+    },
+    {
+      "country_code": "SI",
+      "country_name": "Slovenia",
+      "location_count": 213,
+      "file": "SI.json"
+    },
+    {
+      "country_code": "SK",
+      "country_name": "Slovakia",
+      "location_count": 150,
+      "file": "SK.json"
+    },
+    {
+      "country_code": "SL",
+      "country_name": "Sierra Leone",
+      "location_count": 49,
+      "file": "SL.json"
+    },
+    {
+      "country_code": "SN",
+      "country_name": "Senegal",
+      "location_count": 119,
+      "file": "SN.json"
+    },
+    {
+      "country_code": "SV",
+      "country_name": "El Salvador",
+      "location_count": 74,
+      "file": "SV.json"
+    },
+    {
+      "country_code": "TD",
+      "country_name": "Chad",
+      "location_count": 68,
+      "file": "TD.json"
+    },
+    {
+      "country_code": "TG",
+      "country_name": "Togo",
+      "location_count": 32,
+      "file": "TG.json"
+    },
+    {
+      "country_code": "TH",
+      "country_name": "Thailand",
+      "location_count": 450,
+      "file": "TH.json"
+    },
+    {
+      "country_code": "TR",
+      "country_name": "Türkiye",
+      "location_count": 886,
+      "file": "TR.json"
+    },
+    {
+      "country_code": "TT",
+      "country_name": "Trinidad and Tobago",
+      "location_count": 22,
+      "file": "TT.json"
+    },
+    {
+      "country_code": "TZ",
+      "country_name": "Tanzania",
+      "location_count": 313,
+      "file": "TZ.json"
+    },
+    {
+      "country_code": "UA",
+      "country_name": "Ukraine",
+      "location_count": 1047,
+      "file": "UA.json"
+    },
+    {
+      "country_code": "US",
+      "country_name": "United States",
+      "location_count": 7557,
+      "file": "US.json"
+    },
+    {
+      "country_code": "VN",
+      "country_name": "Vietnam",
+      "location_count": 456,
+      "file": "VN.json"
+    },
+    {
+      "country_code": "ZA",
+      "country_name": "South Africa",
+      "location_count": 592,
+      "file": "ZA.json"
+    },
+    {
+      "country_code": "ZM",
+      "country_name": "Zambia",
+      "location_count": 95,
+      "file": "ZM.json"
+    }
+  ]
+}

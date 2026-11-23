@@ -32,6 +32,9 @@ def test_error_envelope_format_on_missing_model(monkeypatch):
                 "water": 171,
                 "fine_aggregate": 700,
                 "coarse_aggregate": 1050,
+                "fly_ash": 0,
+                "blast_furnace_slag": 0,
+                "superplasticizer": 0,
                 "age": 28,
             }
         },

@@ -5,40 +5,36 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // "Drafting paper" neutral background — cool, not warm cream
         paper: {
-          DEFAULT: "#F4F5F3",
+          DEFAULT: "#F7F5EF",
           raised: "#FFFFFF",
+          subtle: "#EFECE4",
         },
-        // Ink — near-black with a blue undertone, used for text
         ink: {
-          DEFAULT: "#10161D",
-          muted: "#4B5563",
-          faint: "#8A9099",
+          DEFAULT: "#172D44",
+          muted: "#536574",
+          faint: "#6E7F8D",
         },
-        // Hairline borders / dividers
         line: {
-          DEFAULT: "#DADCD8",
-          strong: "#B7BAB4",
+          DEFAULT: "#D8DFDF",
+          strong: "#B8C4C4",
         },
-        // Primary accent — "blueprint" navy, used sparingly for actions/links
         blueprint: {
-          50: "#EEF2F6",
-          100: "#D6E0EA",
-          400: "#3E6690",
-          600: "#1D3557",
-          700: "#152740",
+          50: "#E8F3F1",
+          100: "#CFE6E3",
+          400: "#2B8A83",
+          600: "#176B65",
+          700: "#10564F",
         },
-        // Secondary accent — muted rust, reserved for warnings / CO2 emphasis
         rust: {
-          50: "#FBF1EC",
-          400: "#B45536",
-          600: "#8C3D22",
+          50: "#F5E7DB",
+          400: "#B8663B",
+          600: "#A65429",
         },
         signal: {
-          success: "#2F6F4E",
-          warning: "#9A6B12",
-          danger: "#A3312A",
+          success: "#146C43",
+          warning: "#805700",
+          danger: "#B42318",
         },
       },
       fontFamily: {
@@ -52,6 +48,7 @@ const config: Config = {
           "sans-serif",
         ],
         mono: [
+          "JetBrains Mono",
           "ui-monospace",
           "SFMono-Regular",
           "Menlo",
@@ -64,7 +61,7 @@ const config: Config = {
         wide2: "0.08em",
       },
       boxShadow: {
-        panel: "0 1px 2px rgba(16, 22, 29, 0.04), 0 1px 0 rgba(16, 22, 29, 0.03)",
+        panel: "0 1px 2px rgba(23, 45, 68, 0.06)",
       },
     },
   },

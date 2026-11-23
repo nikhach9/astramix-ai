@@ -1,7 +1,8 @@
 "use client";
 
-import { AstraMixOptimizer } from "@/components/AstraMixOptimizer";
+import React from "react";
+import { MixLabWorkspace } from "@/components/MixLabWorkspace";
 
 export default function OptimizeMixPage() {
-  return <AstraMixOptimizer />;
+  return <MixLabWorkspace initialMode="optimize" />;
 }

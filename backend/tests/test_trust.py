@@ -66,17 +66,17 @@ def test_predict_strength_preserves_legacy_and_adds_trust():
     assert isinstance(body["warnings"], list)
     assert body["estimated_error_rmse_mpa"] == 4.62
 
-def test_predict_strength_out_of_envelope_returns_warning():
+def test_predict_strength_out_of_envelope_rejected_by_strict_contract():
     mix_bad_cement = {**VALID_MIX_DICT, "cement": 600.0}
     response = client.post(
         "/api/v1/predict-strength",
         json={"mix": mix_bad_cement}
     )
-    assert response.status_code == 200
+    assert response.status_code == 422
     body = response.json()
-    assert "warnings" in body
-    assert len(body["warnings"]) > 0
-    assert any("cement" in w for w in body["warnings"])
+    assert body["success"] is False
+    assert body["error"] == "ValidationError"
+    assert "cement" in str(body["details"]).lower()
 
 def test_optimize_mix_returns_warnings():
     response = client.post(

@@ -1,0 +1,130 @@
+[
+  {
+    "source_id": "CM_CIMENCAM_DEALERS",
+    "title": "Cimencam dealer directory",
+    "url": "https://www.cimencam.com/fr/nos-points-de-vente",
+    "source_type": "manufacturer_directory",
+    "retrieved_at": "2026-10-18",
+    "limits": "Published retail dealer contacts, not a stock feed."
+  },
+  {
+    "source_id": "CM_CIMENCAM_BUY",
+    "title": "Cimencam buying channels",
+    "url": "https://www.cimencam.com/fr/acheter-du-ciment",
+    "source_type": "manufacturer_website",
+    "retrieved_at": "2026-10-18",
+    "limits": "Direct factory sales have customer eligibility conditions."
+  },
+  {
+    "source_id": "CM_MERLIN_BRANCHES",
+    "title": "Merlin official branches",
+    "url": "https://www.merlincameroun.com/agences",
+    "source_type": "retailer_website",
+    "retrieved_at": "2026-10-18",
+    "limits": "Four Kribi service locations and published hours."
+  },
+  {
+    "source_id": "CM_MERLIN_CATALOG",
+    "title": "Merlin official catalog overview",
+    "url": "https://www.merlincameroun.com/",
+    "source_type": "retailer_website",
+    "retrieved_at": "2026-10-18",
+    "limits": "Cement appears in company catalog; no per-branch inventory."
+  },
+  {
+    "source_id": "CM_SOREPCO_BRANCHES",
+    "title": "Sorepco official store directory",
+    "url": "https://groupesorepco.com/en/stores",
+    "source_type": "retailer_website",
+    "retrieved_at": "2026-10-18",
+    "limits": "Selected locality-consistent entries only. A Miami/Dade County template entry was excluded; apparent Mokolo duplication not imported twice."
+  },
+  {
+    "source_id": "CM_SOREPCO_CATALOG",
+    "title": "Sorepco official catalog",
+    "url": "https://groupesorepco.com/en/",
+    "source_type": "retailer_website",
+    "retrieved_at": "2026-10-18",
+    "limits": "Ciments category is advertised; the category page itself had no products. No stock inference."
+  },
+  {
+    "source_id": "CM_DANGOTE",
+    "title": "Dangote Cameroon operation",
+    "url": "https://cement.dangote.com/cameroon/",
+    "source_type": "manufacturer_website",
+    "retrieved_at": "2026-10-18",
+    "limits": "PAD Douala office/plant; not a confirmed walk-in retailer."
+  },
+  {
+    "source_id": "CM_CIMAF",
+    "title": "CIMAF official country sites",
+    "url": "https://cimentsafrique.com/en/nos-implantations",
+    "source_type": "manufacturer_website",
+    "retrieved_at": "2026-10-18",
+    "limits": "Country-level Cameroon presence only."
+  },
+  {
+    "source_id": "CM_MIRA",
+    "title": "Mira Cement contact and product information",
+    "url": "https://mira-cement.com/contact/",
+    "source_type": "manufacturer_website",
+    "retrieved_at": "2026-10-18",
+    "limits": "Douala office and cement/ready-mix catalog; not live stock."
+  },
+  {
+    "source_id": "CM_CIMPOR",
+    "title": "Cimpor Cameroon official site",
+    "url": "https://cimporcameroun.com/",
+    "source_type": "manufacturer_website",
+    "retrieved_at": "2026-10-18",
+    "limits": "Kribi contact and cement products; not live stock."
+  },
+  {
+    "source_id": "CM_BAT_MIRA32",
+    "title": "Bativel Mira 32.5 product",
+    "url": "https://bativel.com/produit/ciment-mira-co-cem-ii-b-p-32-5r-50kg/",
+    "source_type": "merchant_marketplace",
+    "retrieved_at": "2026-10-18",
+    "limits": "Header says login to see prices but public quantity table shows two price tiers. Effective date unknown; reconfirm."
+  },
+  {
+    "source_id": "CM_BAT_MIRA42",
+    "title": "Bativel Mira 42.5 product",
+    "url": "https://bativel.com/produit/ciment-mira-co-cem-ii-b-p-42-5-50kg/",
+    "source_type": "merchant_marketplace",
+    "retrieved_at": "2026-10-18",
+    "limits": "Public quantity table supplies two price tiers despite login price header. Effective date unknown; reconfirm."
+  },
+  {
+    "source_id": "CM_BAT_DANGOTE",
+    "title": "Bativel Dangote product and alternate seller",
+    "url": "https://bativel.com/produit/ciment-gris-dangote-42-5-50kg/",
+    "source_type": "merchant_marketplace",
+    "retrieved_at": "2026-10-18",
+    "limits": "Main listing PICAVUE; alternate MAISON DG offer differs. Do not merge vendors."
+  },
+  {
+    "source_id": "CM_BAT_HYDRO",
+    "title": "Bativel Hydro product",
+    "url": "https://bativel.com/produit/ciment-hydro-cimencam-42-5-50kg/",
+    "source_type": "merchant_marketplace",
+    "retrieved_at": "2026-10-18",
+    "limits": "Hydrophobic cement catalog price; not an interchangeable grade-only comparison."
+  },
+  {
+    "source_id": "CM_BAT_KOSTO",
+    "title": "Bativel Kosto product",
+    "url": "https://bativel.com/produit/ciment-kosto-cimencam-42-5-50kg/",
+    "source_type": "merchant_marketplace",
+    "retrieved_at": "2026-10-18",
+    "limits": "Current retrieved page gates price and says available on order; older indexed price deliberately not imported."
+  },
+  {
+    "source_id": "CM_BAT_AGGREGATES",
+    "title": "Bativel sand and gravel catalog",
+    "url": "https://bativel.com/categorie-produit/materiaux-de-construction/sables-et-graviers/",
+    "source_type": "merchant_marketplace",
+    "retrieved_at": "2026-10-18",
+    "limits": "Six listed products, all marked backorder; prices require login. No physical merchant address inferred from platform contact."
+  }
+]

@@ -9,3 +9,14 @@ tsconfig.tsbuildinfo
 .env.local
 frontend/.env.local
 backend/.env
+.venv/
+venv/
+out/
+*.db
+*.db-*
+*.sqlite*
+*.zip
+/scratch/
+/scratch_*
+/cpanel_deployment/public_html/
+/cpanel_deployment/_temp_api/

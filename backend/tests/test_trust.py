@@ -31,12 +31,12 @@ def test_in_range_mix_produces_no_warning():
 
 def test_out_of_range_produces_warnings():
     envelope = load_training_envelope()
-    
+
     # Out of range cement
     mix_bad_cement = {**VALID_MIX_DICT, "cement": 1000.0}
     warnings = check_training_envelope(mix_bad_cement, envelope)
     assert any("cement" in w for w in warnings)
-    
+
     # Out of range age
     mix_bad_age = {**VALID_MIX_DICT, "age": 500}
     warnings = check_training_envelope(mix_bad_age, envelope)
@@ -49,7 +49,7 @@ def test_predict_strength_preserves_legacy_and_adds_trust():
     )
     assert response.status_code == 200
     body = response.json()
-    
+
     # Legacy fields
     assert "success" in body
     assert "predicted_strength_mpa" in body
@@ -57,14 +57,15 @@ def test_predict_strength_preserves_legacy_and_adds_trust():
     assert "water_cement_ratio" in body
     assert "water_binder_ratio" in body
     assert "model_version" in body
-    
+
     # New trust fields
     assert "warnings" in body
     assert "estimated_error_rmse_mpa" in body
     assert "estimated_error_mae_mpa" in body
     assert "confidence_note" in body
     assert isinstance(body["warnings"], list)
-    assert body["estimated_error_rmse_mpa"] == 4.62
+    from astramix.models.strength.predict import load_model_metadata
+    assert body["estimated_error_rmse_mpa"] == load_model_metadata()["validation_metrics"]["rmse"]
 
 def test_predict_strength_out_of_envelope_rejected_by_strict_contract():
     mix_bad_cement = {**VALID_MIX_DICT, "cement": 600.0}

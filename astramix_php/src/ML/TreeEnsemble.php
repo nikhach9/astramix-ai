@@ -9,7 +9,10 @@ class TreeEnsemble
 {
     private float $baseScore;
     private array $trees = [];
-    private static ?self $instance = null;
+    private static array $instances = [];
+    private array $coefficients = [];
+    private bool $lessOrEqual = false;
+    private bool $float32 = true;
 
     public function __construct(string $modelJsonPath)
     {
@@ -27,8 +30,16 @@ class TreeEnsemble
             throw new RuntimeException("Invalid JSON format in XGBoost model file: " . json_last_error_msg());
         }
 
+        if (($data['format'] ?? null) === 'astramix-regression-v1') {
+            $this->baseScore = (float)$data['base_score'];
+            $this->trees = $data['trees'];
+            $this->coefficients = $data['coefficients'] ?? [];
+            $this->lessOrEqual = true;
+            $this->float32 = ($data['input_dtype'] ?? 'float32') === 'float32';
+            return;
+        }
         $learner = $data['learner'] ?? [];
-        $baseScoreRaw = $learner['learner_model_param']['base_score'] ?? '35.857864';
+        $baseScoreRaw = $learner['learner_model_param']['base_score'] ?? throw new RuntimeException('Model base score is missing.');
         $this->baseScore = (float)$baseScoreRaw;
 
         $rawTrees = $learner['gradient_booster']['model']['trees'] ?? [];
@@ -37,7 +48,7 @@ class TreeEnsemble
                 'left_children' => $t['left_children'],
                 'right_children' => $t['right_children'],
                 'split_indices' => $t['split_indices'],
-                'split_conditions' => $t['split_conditions'],
+                'split_conditions' => array_map(static fn($v) => unpack('f', pack('f', (float)$v))[1], $t['split_conditions']),
                 'base_weights' => $t['base_weights'],
                 'default_left' => $t['default_left'] ?? [],
             ];
@@ -46,11 +57,22 @@ class TreeEnsemble
 
     public static function getInstance(?string $modelJsonPath = null): self
     {
-        if (self::$instance === null) {
-            $path = $modelJsonPath ?? (dirname(__DIR__, 2) . '/data/models/xgboost_model.json');
-            self::$instance = new self($path);
+        $expectedHash = null;
+        if ($modelJsonPath === null) {
+            $root = dirname(__DIR__, 2) . '/data/models/';
+            $manifest = json_decode(file_get_contents($root . 'active_model.json'), true, 512, JSON_THROW_ON_ERROR);
+            $modelJsonPath = $root . $manifest['model_file'];
+            $metadata = \AstraMix\Domain\Trust::modelMetadata();
+            $expectedHash = $metadata['portable_model_sha256'];
         }
-        return self::$instance;
+        $key = $modelJsonPath . ':' . filemtime($modelJsonPath) . ':' . filesize($modelJsonPath) . ':' . $expectedHash;
+        if (!isset(self::$instances[$key])) {
+            if ($expectedHash !== null && hash_file('sha256', $modelJsonPath) !== $expectedHash) {
+                throw new RuntimeException('Model file does not match its validation metadata.');
+            }
+            self::$instances[$key] = new self($modelJsonPath);
+        }
+        return self::$instances[$key];
     }
 
     /**
@@ -59,8 +81,16 @@ class TreeEnsemble
      */
     public function predict(array $featureVector): float
     {
+        if (count($featureVector) !== 8) {
+            throw new RuntimeException('The model expects eight ordered features.');
+        }
+        if ($this->float32) {
+            $featureVector = array_map(static fn($v) => unpack('f', pack('f', (float)$v))[1], $featureVector);
+        }
         $sum = $this->baseScore;
-
+        foreach ($this->coefficients as $i => $coefficient) {
+            $sum += $coefficient * $featureVector[$i];
+        }
         foreach ($this->trees as $tree) {
             $nodeId = 0;
             $leftChildren = $tree['left_children'];
@@ -76,7 +106,7 @@ class TreeEnsemble
                 $featVal = $featureVector[$featIdx];
 
                 // XGBoost split condition: if featVal < threshold, go left; else go right
-                if ($featVal < $threshold) {
+                if ($this->lessOrEqual ? $featVal <= $threshold : $featVal < $threshold) {
                     $nodeId = $leftChildren[$nodeId];
                 } else {
                     $nodeId = $rightChildren[$nodeId];

@@ -1,6 +1,7 @@
 {
-  "description": "AstraMix AI Reference Predictions & Evaluations from trusted Python backend",
-  "generated_at": "2026-10-18T18:15:00Z",
+  "description": "Reference model predictions for cross-language translation checks; arithmetic oracles live in separate tests.",
+  "generated_at": "2026-11-23T05:40:14.252794+00:00",
+  "model_version": "grouped-v1",
   "mixes": [
     {
       "id": "standard_c25_30",
@@ -15,56 +16,9 @@
         "age": 28
       },
       "prediction": {
-        "predicted_strength_mpa": 55.98517608642578,
-        "water_cement_ratio": 0.5,
-        "water_binder_ratio": 0.5,
-        "estimated_error_rmse_mpa": 4.62,
-        "estimated_error_mae_mpa": 3.03,
-        "trust_warnings": [],
-        "trust_errors": []
-      },
-      "cost": {
-        "total": 79.4,
-        "breakdown": {
-          "cement": 42.0,
-          "blast_furnace_slag": 0.0,
-          "fly_ash": 0.0,
-          "water": 0.35000000000000003,
-          "superplasticizer": 6.25,
-          "coarse_aggregate": 15.6,
-          "fine_aggregate": 15.200000000000001
-        }
-      },
-      "co2": {
-        "total": 325.8025,
-        "breakdown": {
-          "cement": 315.0,
-          "blast_furnace_slag": 0.0,
-          "fly_ash": 0.0,
-          "water": 0.0525,
-          "superplasticizer": 1.75,
-          "coarse_aggregate": 5.2,
-          "fine_aggregate": 3.8000000000000003
-        }
-      },
-      "mix_lab_cards": {
-        "strength": {
-          "status": "meets_target_with_margin",
-          "color": "green",
-          "badge": "Meets target (above RMSE margin)"
-        },
-        "cost": {
-          "status": "similar_to_reference",
-          "color": "yellow",
-          "badge": "Compared with selected reference: Similar",
-          "total_per_m3": 79.4
-        },
-        "emissions": {
-          "status": "lower_than_reference",
-          "color": "green",
-          "badge": "Compared with selected reference: Lower",
-          "total_kg_co2e_per_m3": 325.8
-        }
+        "predicted_strength_mpa": 53.26374053955078,
+        "model_version": "grouped-v1",
+        "model_sha256": "923a6ce3efdf12770cfe875df774e4d9662262a963560211262de02afcf00934"
       }
     },
     {
@@ -80,56 +34,9 @@
         "age": 28
       },
       "prediction": {
-        "predicted_strength_mpa": 49.514434814453125,
-        "water_cement_ratio": 0.66,
-        "water_binder_ratio": 0.4125,
-        "estimated_error_rmse_mpa": 4.62,
-        "estimated_error_mae_mpa": 3.03,
-        "trust_warnings": [],
-        "trust_errors": []
-      },
-      "cost": {
-        "total": 78.33,
-        "breakdown": {
-          "cement": 30.0,
-          "blast_furnace_slag": 6.0,
-          "fly_ash": 2.0,
-          "water": 0.33,
-          "superplasticizer": 10.0,
-          "coarse_aggregate": 15.0,
-          "fine_aggregate": 15.0
-        }
-      },
-      "co2": {
-        "total": 244.0995,
-        "breakdown": {
-          "cement": 225.0,
-          "blast_furnace_slag": 7.000000000000001,
-          "fly_ash": 0.5,
-          "water": 0.049499999999999995,
-          "superplasticizer": 2.8,
-          "coarse_aggregate": 5.0,
-          "fine_aggregate": 3.75
-        }
-      },
-      "mix_lab_cards": {
-        "strength": {
-          "status": "meets_target_with_margin",
-          "color": "green",
-          "badge": "Meets target (above RMSE margin)"
-        },
-        "cost": {
-          "status": "lower_than_reference",
-          "color": "green",
-          "badge": "Compared with selected reference: Lower",
-          "total_per_m3": 78.33
-        },
-        "emissions": {
-          "status": "lower_than_reference",
-          "color": "green",
-          "badge": "Compared with selected reference: Lower",
-          "total_kg_co2e_per_m3": 244.1
-        }
+        "predicted_strength_mpa": 46.008914947509766,
+        "model_version": "grouped-v1",
+        "model_sha256": "923a6ce3efdf12770cfe875df774e4d9662262a963560211262de02afcf00934"
       }
     },
     {
@@ -145,56 +52,9 @@
         "age": 3
       },
       "prediction": {
-        "predicted_strength_mpa": 38.4247932434082,
-        "water_cement_ratio": 0.28,
-        "water_binder_ratio": 0.28,
-        "estimated_error_rmse_mpa": 4.62,
-        "estimated_error_mae_mpa": 3.03,
-        "trust_warnings": [],
-        "trust_errors": []
-      },
-      "cost": {
-        "total": 119.28,
-        "breakdown": {
-          "cement": 60.0,
-          "blast_furnace_slag": 0.0,
-          "fly_ash": 0.0,
-          "water": 0.28,
-          "superplasticizer": 30.0,
-          "coarse_aggregate": 15.0,
-          "fine_aggregate": 14.0
-        }
-      },
-      "co2": {
-        "total": 466.94199999999995,
-        "breakdown": {
-          "cement": 450.0,
-          "blast_furnace_slag": 0.0,
-          "fly_ash": 0.0,
-          "water": 0.041999999999999996,
-          "superplasticizer": 8.399999999999999,
-          "coarse_aggregate": 5.0,
-          "fine_aggregate": 3.5
-        }
-      },
-      "mix_lab_cards": {
-        "strength": {
-          "status": "meets_target_with_margin",
-          "color": "green",
-          "badge": "Meets target (above RMSE margin)"
-        },
-        "cost": {
-          "status": "higher_than_reference",
-          "color": "red",
-          "badge": "Compared with selected reference: Higher",
-          "total_per_m3": 119.28
-        },
-        "emissions": {
-          "status": "higher_than_reference",
-          "color": "red",
-          "badge": "Compared with selected reference: Higher",
-          "total_kg_co2e_per_m3": 466.94
-        }
+        "predicted_strength_mpa": 35.96749496459961,
+        "model_version": "grouped-v1",
+        "model_sha256": "923a6ce3efdf12770cfe875df774e4d9662262a963560211262de02afcf00934"
       }
     },
     {
@@ -210,56 +70,9 @@
         "age": 28
       },
       "prediction": {
-        "predicted_strength_mpa": 79.562255859375,
-        "water_cement_ratio": 0.3,
-        "water_binder_ratio": 0.3,
-        "estimated_error_rmse_mpa": 4.62,
-        "estimated_error_mae_mpa": 3.03,
-        "trust_warnings": [],
-        "trust_errors": []
-      },
-      "cost": {
-        "total": 100.49399999999999,
-        "breakdown": {
-          "cement": 64.8,
-          "blast_furnace_slag": 0.0,
-          "fly_ash": 0.0,
-          "water": 0.324,
-          "superplasticizer": 6.25,
-          "coarse_aggregate": 15.6,
-          "fine_aggregate": 13.52
-        }
-      },
-      "co2": {
-        "total": 496.3786,
-        "breakdown": {
-          "cement": 486.0,
-          "blast_furnace_slag": 0.0,
-          "fly_ash": 0.0,
-          "water": 0.0486,
-          "superplasticizer": 1.75,
-          "coarse_aggregate": 5.2,
-          "fine_aggregate": 3.38
-        }
-      },
-      "mix_lab_cards": {
-        "strength": {
-          "status": "meets_target_with_margin",
-          "color": "green",
-          "badge": "Meets target (above RMSE margin)"
-        },
-        "cost": {
-          "status": "higher_than_reference",
-          "color": "red",
-          "badge": "Compared with selected reference: Higher",
-          "total_per_m3": 100.49
-        },
-        "emissions": {
-          "status": "higher_than_reference",
-          "color": "red",
-          "badge": "Compared with selected reference: Higher",
-          "total_kg_co2e_per_m3": 496.38
-        }
+        "predicted_strength_mpa": 63.00497055053711,
+        "model_version": "grouped-v1",
+        "model_sha256": "923a6ce3efdf12770cfe875df774e4d9662262a963560211262de02afcf00934"
       }
     },
     {
@@ -275,56 +88,9 @@
         "age": 7
       },
       "prediction": {
-        "predicted_strength_mpa": 10.844395637512207,
-        "water_cement_ratio": 1.3333333333333333,
-        "water_binder_ratio": 0.5,
-        "estimated_error_rmse_mpa": 4.62,
-        "estimated_error_mae_mpa": 3.03,
-        "trust_warnings": [],
-        "trust_errors": []
-      },
-      "cost": {
-        "total": 60.9,
-        "breakdown": {
-          "cement": 18.0,
-          "blast_furnace_slag": 9.0,
-          "fly_ash": 4.0,
-          "water": 0.4,
-          "superplasticizer": 0.0,
-          "coarse_aggregate": 13.5,
-          "fine_aggregate": 16.0
-        }
-      },
-      "co2": {
-        "total": 155.06,
-        "breakdown": {
-          "cement": 135.0,
-          "blast_furnace_slag": 10.500000000000002,
-          "fly_ash": 1.0,
-          "water": 0.06,
-          "superplasticizer": 0.0,
-          "coarse_aggregate": 4.5,
-          "fine_aggregate": 4.0
-        }
-      },
-      "mix_lab_cards": {
-        "strength": {
-          "status": "below_target",
-          "color": "red",
-          "badge": "Below target strength"
-        },
-        "cost": {
-          "status": "lower_than_reference",
-          "color": "green",
-          "badge": "Compared with selected reference: Lower",
-          "total_per_m3": 60.9
-        },
-        "emissions": {
-          "status": "lower_than_reference",
-          "color": "green",
-          "badge": "Compared with selected reference: Lower",
-          "total_kg_co2e_per_m3": 155.06
-        }
+        "predicted_strength_mpa": 14.228388786315918,
+        "model_version": "grouped-v1",
+        "model_sha256": "923a6ce3efdf12770cfe875df774e4d9662262a963560211262de02afcf00934"
       }
     },
     {
@@ -340,56 +106,9 @@
         "age": 28
       },
       "prediction": {
-        "predicted_strength_mpa": 64.41429901123047,
-        "water_cement_ratio": 0.304375,
-        "water_binder_ratio": 0.2563157894736842,
-        "estimated_error_rmse_mpa": 4.62,
-        "estimated_error_mae_mpa": 3.03,
-        "trust_warnings": [],
-        "trust_errors": []
-      },
-      "cost": {
-        "total": 102.3935,
-        "breakdown": {
-          "cement": 48.0,
-          "blast_furnace_slag": 3.0,
-          "fly_ash": 1.0,
-          "water": 0.2435,
-          "superplasticizer": 20.0,
-          "coarse_aggregate": 15.75,
-          "fine_aggregate": 14.4
-        }
-      },
-      "co2": {
-        "total": 378.23652500000003,
-        "breakdown": {
-          "cement": 360.0,
-          "blast_furnace_slag": 3.5000000000000004,
-          "fly_ash": 0.25,
-          "water": 0.036524999999999995,
-          "superplasticizer": 5.6,
-          "coarse_aggregate": 5.25,
-          "fine_aggregate": 3.6
-        }
-      },
-      "mix_lab_cards": {
-        "strength": {
-          "status": "meets_target_with_margin",
-          "color": "green",
-          "badge": "Meets target (above RMSE margin)"
-        },
-        "cost": {
-          "status": "higher_than_reference",
-          "color": "red",
-          "badge": "Compared with selected reference: Higher",
-          "total_per_m3": 102.39
-        },
-        "emissions": {
-          "status": "higher_than_reference",
-          "color": "red",
-          "badge": "Compared with selected reference: Higher",
-          "total_kg_co2e_per_m3": 378.24
-        }
+        "predicted_strength_mpa": 56.72697448730469,
+        "model_version": "grouped-v1",
+        "model_sha256": "923a6ce3efdf12770cfe875df774e4d9662262a963560211262de02afcf00934"
       }
     },
     {
@@ -405,56 +124,9 @@
         "age": 28
       },
       "prediction": {
-        "predicted_strength_mpa": 21.32355308532715,
-        "water_cement_ratio": 0.988,
-        "water_binder_ratio": 0.988,
-        "estimated_error_rmse_mpa": 4.62,
-        "estimated_error_mae_mpa": 3.03,
-        "trust_warnings": [],
-        "trust_errors": []
-      },
-      "cost": {
-        "total": 61.744,
-        "breakdown": {
-          "cement": 30.0,
-          "blast_furnace_slag": 0.0,
-          "fly_ash": 0.0,
-          "water": 0.494,
-          "superplasticizer": 0.0,
-          "coarse_aggregate": 14.25,
-          "fine_aggregate": 17.0
-        }
-      },
-      "co2": {
-        "total": 234.0741,
-        "breakdown": {
-          "cement": 225.0,
-          "blast_furnace_slag": 0.0,
-          "fly_ash": 0.0,
-          "water": 0.0741,
-          "superplasticizer": 0.0,
-          "coarse_aggregate": 4.75,
-          "fine_aggregate": 4.25
-        }
-      },
-      "mix_lab_cards": {
-        "strength": {
-          "status": "below_target",
-          "color": "red",
-          "badge": "Below target strength"
-        },
-        "cost": {
-          "status": "lower_than_reference",
-          "color": "green",
-          "badge": "Compared with selected reference: Lower",
-          "total_per_m3": 61.74
-        },
-        "emissions": {
-          "status": "lower_than_reference",
-          "color": "green",
-          "badge": "Compared with selected reference: Lower",
-          "total_kg_co2e_per_m3": 234.07
-        }
+        "predicted_strength_mpa": 21.94991683959961,
+        "model_version": "grouped-v1",
+        "model_sha256": "923a6ce3efdf12770cfe875df774e4d9662262a963560211262de02afcf00934"
       }
     },
     {
@@ -470,56 +142,9 @@
         "age": 1
       },
       "prediction": {
-        "predicted_strength_mpa": 13.078673362731934,
-        "water_cement_ratio": 0.4605263157894737,
-        "water_binder_ratio": 0.4605263157894737,
-        "estimated_error_rmse_mpa": 4.62,
-        "estimated_error_mae_mpa": 3.03,
-        "trust_warnings": [],
-        "trust_errors": []
-      },
-      "cost": {
-        "total": 83.0,
-        "breakdown": {
-          "cement": 45.6,
-          "blast_furnace_slag": 0.0,
-          "fly_ash": 0.0,
-          "water": 0.35000000000000003,
-          "superplasticizer": 6.25,
-          "coarse_aggregate": 15.6,
-          "fine_aggregate": 15.200000000000001
-        }
-      },
-      "co2": {
-        "total": 352.8025,
-        "breakdown": {
-          "cement": 342.0,
-          "blast_furnace_slag": 0.0,
-          "fly_ash": 0.0,
-          "water": 0.0525,
-          "superplasticizer": 1.75,
-          "coarse_aggregate": 5.2,
-          "fine_aggregate": 3.8000000000000003
-        }
-      },
-      "mix_lab_cards": {
-        "strength": {
-          "status": "below_target",
-          "color": "red",
-          "badge": "Below target strength"
-        },
-        "cost": {
-          "status": "similar_to_reference",
-          "color": "yellow",
-          "badge": "Compared with selected reference: Similar",
-          "total_per_m3": 83.0
-        },
-        "emissions": {
-          "status": "similar_to_reference",
-          "color": "yellow",
-          "badge": "Compared with selected reference: Similar",
-          "total_kg_co2e_per_m3": 352.8
-        }
+        "predicted_strength_mpa": 25.06917381286621,
+        "model_version": "grouped-v1",
+        "model_sha256": "923a6ce3efdf12770cfe875df774e4d9662262a963560211262de02afcf00934"
       }
     },
     {
@@ -535,56 +160,9 @@
         "age": 90
       },
       "prediction": {
-        "predicted_strength_mpa": 52.628143310546875,
-        "water_cement_ratio": 0.5333333333333333,
-        "water_binder_ratio": 0.38095238095238093,
-        "estimated_error_rmse_mpa": 4.62,
-        "estimated_error_mae_mpa": 3.03,
-        "trust_warnings": [],
-        "trust_errors": []
-      },
-      "cost": {
-        "total": 80.22,
-        "breakdown": {
-          "cement": 36.0,
-          "blast_furnace_slag": 4.8,
-          "fly_ash": 1.6,
-          "water": 0.32,
-          "superplasticizer": 7.5,
-          "coarse_aggregate": 15.0,
-          "fine_aggregate": 15.0
-        }
-      },
-      "co2": {
-        "total": 286.898,
-        "breakdown": {
-          "cement": 270.0,
-          "blast_furnace_slag": 5.6000000000000005,
-          "fly_ash": 0.4,
-          "water": 0.047999999999999994,
-          "superplasticizer": 2.0999999999999996,
-          "coarse_aggregate": 5.0,
-          "fine_aggregate": 3.75
-        }
-      },
-      "mix_lab_cards": {
-        "strength": {
-          "status": "meets_target_with_margin",
-          "color": "green",
-          "badge": "Meets target (above RMSE margin)"
-        },
-        "cost": {
-          "status": "similar_to_reference",
-          "color": "yellow",
-          "badge": "Compared with selected reference: Similar",
-          "total_per_m3": 80.22
-        },
-        "emissions": {
-          "status": "lower_than_reference",
-          "color": "green",
-          "badge": "Compared with selected reference: Lower",
-          "total_kg_co2e_per_m3": 286.9
-        }
+        "predicted_strength_mpa": 63.106422424316406,
+        "model_version": "grouped-v1",
+        "model_sha256": "923a6ce3efdf12770cfe875df774e4d9662262a963560211262de02afcf00934"
       }
     },
     {
@@ -600,56 +178,9 @@
         "age": 365
       },
       "prediction": {
-        "predicted_strength_mpa": 58.34060287475586,
-        "water_cement_ratio": 0.5333333333333333,
-        "water_binder_ratio": 0.38095238095238093,
-        "estimated_error_rmse_mpa": 4.62,
-        "estimated_error_mae_mpa": 3.03,
-        "trust_warnings": [],
-        "trust_errors": []
-      },
-      "cost": {
-        "total": 80.22,
-        "breakdown": {
-          "cement": 36.0,
-          "blast_furnace_slag": 4.8,
-          "fly_ash": 1.6,
-          "water": 0.32,
-          "superplasticizer": 7.5,
-          "coarse_aggregate": 15.0,
-          "fine_aggregate": 15.0
-        }
-      },
-      "co2": {
-        "total": 286.898,
-        "breakdown": {
-          "cement": 270.0,
-          "blast_furnace_slag": 5.6000000000000005,
-          "fly_ash": 0.4,
-          "water": 0.047999999999999994,
-          "superplasticizer": 2.0999999999999996,
-          "coarse_aggregate": 5.0,
-          "fine_aggregate": 3.75
-        }
-      },
-      "mix_lab_cards": {
-        "strength": {
-          "status": "meets_target_with_margin",
-          "color": "green",
-          "badge": "Meets target (above RMSE margin)"
-        },
-        "cost": {
-          "status": "similar_to_reference",
-          "color": "yellow",
-          "badge": "Compared with selected reference: Similar",
-          "total_per_m3": 80.22
-        },
-        "emissions": {
-          "status": "lower_than_reference",
-          "color": "green",
-          "badge": "Compared with selected reference: Lower",
-          "total_kg_co2e_per_m3": 286.9
-        }
+        "predicted_strength_mpa": 66.02283477783203,
+        "model_version": "grouped-v1",
+        "model_sha256": "923a6ce3efdf12770cfe875df774e4d9662262a963560211262de02afcf00934"
       }
     },
     {
@@ -665,56 +196,9 @@
         "age": 28
       },
       "prediction": {
-        "predicted_strength_mpa": 32.83359909057617,
-        "water_cement_ratio": 0.59375,
-        "water_binder_ratio": 0.59375,
-        "estimated_error_rmse_mpa": 4.62,
-        "estimated_error_mae_mpa": 3.03,
-        "trust_warnings": [],
-        "trust_errors": []
-      },
-      "cost": {
-        "total": 70.13,
-        "breakdown": {
-          "cement": 38.4,
-          "blast_furnace_slag": 0.0,
-          "fly_ash": 0.0,
-          "water": 0.38,
-          "superplasticizer": 0.0,
-          "coarse_aggregate": 15.75,
-          "fine_aggregate": 15.6
-        }
-      },
-      "co2": {
-        "total": 297.207,
-        "breakdown": {
-          "cement": 288.0,
-          "blast_furnace_slag": 0.0,
-          "fly_ash": 0.0,
-          "water": 0.056999999999999995,
-          "superplasticizer": 0.0,
-          "coarse_aggregate": 5.25,
-          "fine_aggregate": 3.9
-        }
-      },
-      "mix_lab_cards": {
-        "strength": {
-          "status": "meets_target_within_uncertainty",
-          "color": "yellow",
-          "badge": "Caution: within model RMSE"
-        },
-        "cost": {
-          "status": "lower_than_reference",
-          "color": "green",
-          "badge": "Compared with selected reference: Lower",
-          "total_per_m3": 70.13
-        },
-        "emissions": {
-          "status": "lower_than_reference",
-          "color": "green",
-          "badge": "Compared with selected reference: Lower",
-          "total_kg_co2e_per_m3": 297.21
-        }
+        "predicted_strength_mpa": 32.36750030517578,
+        "model_version": "grouped-v1",
+        "model_sha256": "923a6ce3efdf12770cfe875df774e4d9662262a963560211262de02afcf00934"
       }
     },
     {
@@ -730,56 +214,9 @@
         "age": 56
       },
       "prediction": {
-        "predicted_strength_mpa": 58.3195686340332,
-        "water_cement_ratio": 0.8888888888888888,
-        "water_binder_ratio": 0.3018867924528302,
-        "estimated_error_rmse_mpa": 4.62,
-        "estimated_error_mae_mpa": 3.03,
-        "trust_warnings": [],
-        "trust_errors": []
-      },
-      "cost": {
-        "total": 84.52,
-        "breakdown": {
-          "cement": 21.599999999999998,
-          "blast_furnace_slag": 21.0,
-          "fly_ash": 0.0,
-          "water": 0.32,
-          "superplasticizer": 12.5,
-          "coarse_aggregate": 14.7,
-          "fine_aggregate": 14.4
-        }
-      },
-      "co2": {
-        "total": 198.548,
-        "breakdown": {
-          "cement": 162.0,
-          "blast_furnace_slag": 24.500000000000004,
-          "fly_ash": 0.0,
-          "water": 0.047999999999999994,
-          "superplasticizer": 3.5,
-          "coarse_aggregate": 4.9,
-          "fine_aggregate": 3.6
-        }
-      },
-      "mix_lab_cards": {
-        "strength": {
-          "status": "meets_target_with_margin",
-          "color": "green",
-          "badge": "Meets target (above RMSE margin)"
-        },
-        "cost": {
-          "status": "similar_to_reference",
-          "color": "yellow",
-          "badge": "Compared with selected reference: Similar",
-          "total_per_m3": 84.52
-        },
-        "emissions": {
-          "status": "lower_than_reference",
-          "color": "green",
-          "badge": "Compared with selected reference: Lower",
-          "total_kg_co2e_per_m3": 198.55
-        }
+        "predicted_strength_mpa": 57.41630172729492,
+        "model_version": "grouped-v1",
+        "model_sha256": "923a6ce3efdf12770cfe875df774e4d9662262a963560211262de02afcf00934"
       }
     },
     {
@@ -795,143 +232,10 @@
         "age": 28
       },
       "prediction": {
-        "predicted_strength_mpa": 39.406551361083984,
-        "water_cement_ratio": 0.7045454545454546,
-        "water_binder_ratio": 0.37349397590361444,
-        "estimated_error_rmse_mpa": 4.62,
-        "estimated_error_mae_mpa": 3.03,
-        "trust_warnings": [],
-        "trust_errors": []
-      },
-      "cost": {
-        "total": 79.41,
-        "breakdown": {
-          "cement": 26.4,
-          "blast_furnace_slag": 0.0,
-          "fly_ash": 7.8,
-          "water": 0.31,
-          "superplasticizer": 15.0,
-          "coarse_aggregate": 15.299999999999999,
-          "fine_aggregate": 14.6
-        }
-      },
-      "co2": {
-        "total": 212.9465,
-        "breakdown": {
-          "cement": 198.0,
-          "blast_furnace_slag": 0.0,
-          "fly_ash": 1.95,
-          "water": 0.04649999999999999,
-          "superplasticizer": 4.199999999999999,
-          "coarse_aggregate": 5.1000000000000005,
-          "fine_aggregate": 3.65
-        }
-      },
-      "mix_lab_cards": {
-        "strength": {
-          "status": "meets_target_with_margin",
-          "color": "green",
-          "badge": "Meets target (above RMSE margin)"
-        },
-        "cost": {
-          "status": "similar_to_reference",
-          "color": "yellow",
-          "badge": "Compared with selected reference: Similar",
-          "total_per_m3": 79.41
-        },
-        "emissions": {
-          "status": "lower_than_reference",
-          "color": "green",
-          "badge": "Compared with selected reference: Lower",
-          "total_kg_co2e_per_m3": 212.95
-        }
+        "predicted_strength_mpa": 37.73322296142578,
+        "model_version": "grouped-v1",
+        "model_sha256": "923a6ce3efdf12770cfe875df774e4d9662262a963560211262de02afcf00934"
       }
-    }
-  ],
-  "optimizations": [
-    {
-      "input": {
-        "target_strength_mpa": 30.0,
-        "age": 28,
-        "max_w_c_ratio": 0.6,
-        "alpha": 1.0,
-        "beta": 1.0
-      },
-      "success": true,
-      "is_optimum": true,
-      "solver_status": "optimal",
-      "mix": {
-        "cement": 248.98,
-        "water": 121.75,
-        "fine_aggregate": 759.98,
-        "coarse_aggregate": 1019.98,
-        "fly_ash": 119.95,
-        "blast_furnace_slag": 139.87,
-        "superplasticizer": 2.8,
-        "age": 28
-      },
-      "predicted_strength_mpa": 55.16,
-      "water_cement_ratio": 0.489,
-      "water_binder_ratio": 0.2393,
-      "co2_kg_per_m3": 245.969,
-      "cost_per_m3": 80.81,
-      "objective_value": 326.7792
-    },
-    {
-      "input": {
-        "target_strength_mpa": 45.0,
-        "age": 28,
-        "max_w_c_ratio": 0.5,
-        "alpha": 1.0,
-        "beta": 1.0
-      },
-      "success": true,
-      "is_optimum": true,
-      "solver_status": "optimal",
-      "mix": {
-        "cement": 289.98,
-        "water": 121.75,
-        "fine_aggregate": 759.98,
-        "coarse_aggregate": 1019.98,
-        "fly_ash": 119.95,
-        "blast_furnace_slag": 139.87,
-        "superplasticizer": 2.8,
-        "age": 28
-      },
-      "predicted_strength_mpa": 53.52,
-      "water_cement_ratio": 0.4199,
-      "water_binder_ratio": 0.2214,
-      "co2_kg_per_m3": 282.869,
-      "cost_per_m3": 85.73,
-      "objective_value": 368.5992
-    },
-    {
-      "input": {
-        "target_strength_mpa": 85.0,
-        "age": 28,
-        "max_w_c_ratio": 0.4,
-        "alpha": 1.0,
-        "beta": 1.0
-      },
-      "success": false,
-      "is_optimum": false,
-      "solver_status": "infeasible",
-      "mix": {
-        "cement": 458.25,
-        "water": 147.41,
-        "fine_aggregate": 742.77,
-        "coarse_aggregate": 1014.57,
-        "fly_ash": 40.0,
-        "blast_furnace_slag": 79.99,
-        "superplasticizer": 7.27,
-        "age": 28
-      },
-      "predicted_strength_mpa": 73.95,
-      "water_cement_ratio": 0.3217,
-      "water_binder_ratio": 0.2549,
-      "co2_kg_per_m3": 432.341,
-      "cost_per_m3": 109.92,
-      "objective_value": 542.266
     }
   ]
 }

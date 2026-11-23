@@ -1,0 +1,7 @@
+{
+  "model_version": "grouped-v1",
+  "model_name": "XGBoost",
+  "parity_rows": 1043,
+  "maximum_absolute_error_mpa": 5.569682441830537e-05,
+  "checked_at": "2026-11-23T05:40:14.253500+00:00"
+}

@@ -212,8 +212,8 @@ class InputSchema
 
         return [
             "schema_version" => self::SCHEMA_VERSION,
-            "model_version" => "v0.1",
-            "best_model_name" => "XGBoost",
+            "model_version" => "unversioned",
+            "best_model_name" => null,
             "canonical_feature_order" => self::CANONICAL_FEATURE_ORDER,
             "features" => self::ACTIVE_FEATURE_BOUNDS,
         ];

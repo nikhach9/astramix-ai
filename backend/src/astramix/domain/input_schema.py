@@ -181,7 +181,11 @@ LEGACY_FIELD_ALIASES = {
 
 def get_schema_artifact_path() -> Path:
     project_root = Path(__file__).resolve().parents[4]
-    return project_root / "artifacts" / "models" / "strength" / "baseline" / "input_schema_v1.json"
+    model_root = project_root / "artifacts/models/strength"
+    active = model_root / "active_model.json"
+    if active.exists():
+        return model_root / json.loads(active.read_text())["schema_path"]
+    return model_root / "baseline/input_schema_v1.json"
 
 
 def load_versioned_input_schema() -> Dict[str, Any]:
@@ -191,8 +195,8 @@ def load_versioned_input_schema() -> Dict[str, Any]:
             return json.load(f)
     return {
         "schema_version": SCHEMA_VERSION,
-        "model_version": "v0.1",
-        "best_model_name": "XGBoost",
+        "model_version": "unversioned",
+        "best_model_name": None,
         "canonical_feature_order": list(CANONICAL_FEATURE_ORDER),
         "features": ACTIVE_FEATURE_BOUNDS,
     }
@@ -382,13 +386,9 @@ def validate_mix_dict_strict(raw_mix: Dict[str, Any]) -> Tuple[Dict[str, Any], L
 
 
 def check_split_comparison_notes(mix: Dict[str, Any]) -> List[str]:
-    """
-    If an input is within the 1,030-row UCI reference envelope but sits outside
-    the 824-row 80/20 training split (e.g. fly_ash in (195.0, 200.1] or water in [121.75, 121.8)),
-    return an informational note explaining the split vs reference comparison.
-    """
+    """Compare the reference envelope with the active model development partition."""
     notes: List[str] = []
-    for field_name, spec in ACTIVE_FEATURE_BOUNDS.items():
+    for field_name, spec in load_versioned_input_schema()["features"].items():
         if field_name not in mix:
             continue
         val = float(mix[field_name])
@@ -398,6 +398,6 @@ def check_split_comparison_notes(mix: Dict[str, Any]) -> List[str]:
         if val < t_min or val > t_max:
             notes.append(
                 f"{spec['label']} ({field_name}={val} {spec['unit']}) is within the 1,030-row UCI reference "
-                f"range [{spec['min']}, {spec['max']}], and at the edge of the 824-row training split [{t_min}, {t_max}]."
+                f"range [{spec['min']}, {spec['max']}], and outside the active model development range [{t_min}, {t_max}]."
             )
     return notes
